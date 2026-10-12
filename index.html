@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divine-Ollama</title>
+<meta name="description" content="Private, self-hosted AI chat and API for text, coding and research.">
+<style>
+  :root{--bg:#eef2f7;--ink:#14213d;--muted:#51607a;--gold:#b88a1f;--card:#fff;--line:#d3dbe8;--ok:#1d8a5a;--bad:#b3392f}
+  @media (prefers-color-scheme:dark){:root{--bg:#0e1626;--ink:#e8ecf4;--muted:#9aa8c2;--gold:#e0b44c;--card:#152037;--line:#26344f;--ok:#4cc38a;--bad:#ef7a70}}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;display:grid;place-items:center;padding:24px}
+  main{width:100%;max-width:620px}
+  .halo{width:116px;height:116px;border-radius:50%;margin:0 0 28px;display:grid;place-items:center;border:2px solid var(--line);position:relative;transition:border-color .4s}
+  .halo::after{content:"";width:34px;height:34px;border-radius:50%;background:var(--line);transition:background .4s}
+  .halo[data-s=online]{border-color:var(--ok)}.halo[data-s=online]::after{background:var(--ok)}
+  .halo[data-s=offline]{border-color:var(--bad)}.halo[data-s=offline]::after{background:var(--bad)}
+  .halo[data-s=checking]::after{animation:p 1.2s ease-in-out infinite}
+  @keyframes p{50%{opacity:.35}}
+  @media (prefers-reduced-motion:reduce){.halo::after{animation:none!important}}
+  h1{font:600 clamp(2.2rem,7vw,3.4rem)/1.1 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 12px;letter-spacing:-.01em}
+  p.lead{color:var(--muted);margin:0 0 28px;max-width:52ch}
+  .status{font-weight:600;margin:0 0 6px}
+  .meta{color:var(--muted);font-size:.9rem;margin:0 0 28px}
+  .actions{display:flex;gap:12px;flex-wrap:wrap}
+  a.btn,button{font:inherit;font-weight:600;padding:12px 20px;border-radius:8px;border:1px solid var(--ink);cursor:pointer;text-decoration:none}
+  a.btn{background:var(--ink);color:var(--bg)}
+  button{background:transparent;color:var(--ink)}
+  a.btn:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  footer{margin-top:48px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<main>
+  <div class="halo" id="halo" data-s="checking" role="img" aria-label="Server status"></div>
+  <h1>Divine-Ollama</h1>
+  <p class="lead">A private AI server for chat, coding help and research. It runs around the clock, so it works even when my own computer is off.</p>
+  <p class="status" id="status" aria-live="polite">Checking server…</p>
+  <p class="meta" id="meta">&nbsp;</p>
+  <div class="actions">
+    <a class="btn" id="open" href="#" rel="noopener">Open Divine-Ollama</a>
+    <button id="recheck" type="button">Check again</button>
+  </div>
+  <footer>© <span id="yr"></span> Divine-Ollama. All rights reserved. Unlicensed use or duplication is prohibited.</footer>
+</main>
+<script>
+  // EDIT THIS: the address of your VPS (Caddy + Open WebUI). Never put API keys in this file.
+  const APP_URL = "https://divine-ollama.duckdns.org";
+
+  const $ = id => document.getElementById(id);
+  $("open").href = APP_URL;
+  $("yr").textContent = new Date().getFullYear();
+
+  async function check(){
+    $("halo").dataset.s = "checking";
+    $("status").textContent = "Checking server…";
+    $("meta").innerHTML = "&nbsp;";
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), 7000);
+    const started = performance.now();
+    try{
+      // no-cors: we can't read the reply, but a resolved request proves HTTPS + server are reachable.
+      await fetch(APP_URL + "/health", {mode:"no-cors", cache:"no-store", signal:ctl.signal});
+      const ms = Math.round(performance.now() - started);
+      $("halo").dataset.s = "online";
+      $("status").textContent = "Server is online";
+      $("meta").textContent = "Responded in " + ms + " ms · " + new Date().toLocaleTimeString();
+    }catch(e){
+      $("halo").dataset.s = "offline";
+      $("status").textContent = "Server is not reachable";
+      $("meta").textContent = "Check that the VPS is running and APP_URL in index.html matches your domain.";
+    }finally{ clearTimeout(t); }
+  }
+  $("recheck").addEventListener("click", check);
+  check();
+  setInterval(check, 30000);
+</script>
+</body>
+</html>
