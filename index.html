@@ -4,76 +4,340 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Divine-Ollama</title>
-<meta name="description" content="Private, self-hosted AI chat and API for text, coding and research.">
+<meta name="description" content="Private AI for chat, coding and research.">
 <style>
-  :root{--bg:#eef2f7;--ink:#14213d;--muted:#51607a;--gold:#b88a1f;--card:#fff;--line:#d3dbe8;--ok:#1d8a5a;--bad:#b3392f}
-  @media (prefers-color-scheme:dark){:root{--bg:#0e1626;--ink:#e8ecf4;--muted:#9aa8c2;--gold:#e0b44c;--card:#152037;--line:#26344f;--ok:#4cc38a;--bad:#ef7a70}}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;display:grid;place-items:center;padding:24px}
-  main{width:100%;max-width:620px}
-  .halo{width:116px;height:116px;border-radius:50%;margin:0 0 28px;display:grid;place-items:center;border:2px solid var(--line);position:relative;transition:border-color .4s}
-  .halo::after{content:"";width:34px;height:34px;border-radius:50%;background:var(--line);transition:background .4s}
-  .halo[data-s=online]{border-color:var(--ok)}.halo[data-s=online]::after{background:var(--ok)}
-  .halo[data-s=offline]{border-color:var(--bad)}.halo[data-s=offline]::after{background:var(--bad)}
-  .halo[data-s=checking]::after{animation:p 1.2s ease-in-out infinite}
-  @keyframes p{50%{opacity:.35}}
-  @media (prefers-reduced-motion:reduce){.halo::after{animation:none!important}}
-  h1{font:600 clamp(2.2rem,7vw,3.4rem)/1.1 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 12px;letter-spacing:-.01em}
-  p.lead{color:var(--muted);margin:0 0 28px;max-width:52ch}
-  .status{font-weight:600;margin:0 0 6px}
-  .meta{color:var(--muted);font-size:.9rem;margin:0 0 28px}
-  .actions{display:flex;gap:12px;flex-wrap:wrap}
-  a.btn,button{font:inherit;font-weight:600;padding:12px 20px;border-radius:8px;border:1px solid var(--ink);cursor:pointer;text-decoration:none}
-  a.btn{background:var(--ink);color:var(--bg)}
-  button{background:transparent;color:var(--ink)}
-  a.btn:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-  footer{margin-top:48px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:16px}
+:root{--bg:#eef2f7;--panel:#e3e9f2;--card:#fff;--ink:#14213d;--muted:#5a6882;--gold:#a97c14;--line:#cfd8e6;--user:#dbe4f3;--ok:#1d8a5a;--bad:#b3392f;--code:#101a30}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1626;--panel:#111c30;--card:#152037;--ink:#e8ecf4;--muted:#9aa8c2;--gold:#e0b44c;--line:#26344f;--user:#1c2b49;--ok:#4cc38a;--bad:#ef7a70;--code:#0a1222}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h1{font:600 2.2rem/1.1 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 6px}
+/* auth */
+.auth{min-height:100%;display:grid;place-items:center;padding:24px}
+.card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
+.sub{color:var(--muted);margin:0 0 20px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);margin-bottom:18px}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px;cursor:pointer;color:var(--muted);font-weight:600}
+.tabs button[aria-selected=true]{color:var(--ink);border-color:var(--gold)}
+label{display:block;font-size:.9rem;font-weight:600;margin:12px 0 4px}
+input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.chk{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.88rem;color:var(--muted)}
+.chk input{margin-top:5px}
+.btn{width:100%;margin-top:18px;padding:12px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer}
+.btn.alt{background:none;color:var(--ink);margin-top:10px}
+.btn:disabled{opacity:.55;cursor:wait}
+.link{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.9rem;margin-top:12px}
+#msg{min-height:1.4em;font-size:.9rem;margin:14px 0 0}#msg.err{color:var(--bad)}#msg.ok{color:var(--ok)}
+.hint{font-size:.8rem;color:var(--muted);margin:4px 0 0}
+/* app */
+.app{display:grid;grid-template-columns:270px 1fr;height:100dvh}
+.side{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.side header{padding:14px;display:flex;align-items:center;justify-content:space-between}
+.brand{font:600 1.15rem Georgia,serif}
+.new{margin:0 14px 10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer;font-weight:600;text-align:left}
+.list{flex:1;overflow:auto;padding:4px 8px}
+.item{display:flex;align-items:center;border-radius:8px}
+.item.on{background:var(--card)}
+.item button.t{flex:1;text-align:left;background:none;border:0;padding:9px 10px;cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.92rem}
+.item button.x{background:none;border:0;color:var(--muted);cursor:pointer;padding:6px 10px}
+.foot{border-top:1px solid var(--line);padding:12px 14px;font-size:.85rem;color:var(--muted)}
+.foot .who{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:6px}
+.main{display:flex;flex-direction:column;min-width:0;height:100dvh}
+.top{display:flex;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line)}
+.top select{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}.dot.on{background:var(--ok)}.dot.off{background:var(--bad)}
+.stxt{font-size:.85rem;color:var(--muted)}
+#menu{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.msgs{flex:1;overflow:auto;padding:24px 16px}
+.col{max-width:760px;margin:0 auto}
+.msg{margin:0 0 22px;white-space:normal;overflow-wrap:anywhere}
+.msg.user{background:var(--user);padding:10px 14px;border-radius:14px;margin-left:15%;white-space:pre-wrap}
+.msg code{background:var(--panel);padding:1px 5px;border-radius:4px;font-size:.9em}
+.code{position:relative;margin:10px 0}
+.code pre{margin:0;background:var(--code);color:#e8ecf4;padding:14px;border-radius:10px;overflow:auto;font-size:.88rem;line-height:1.5}
+.code pre code{background:none;padding:0}
+.copy{position:absolute;top:8px;right:8px;background:#26344f;color:#e8ecf4;border:0;border-radius:6px;padding:3px 9px;font-size:.78rem;cursor:pointer}
+.empty{text-align:center;margin-top:12vh}
+.empty p{color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.chips button{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.9rem}
+.comp{padding:12px 16px 18px}
+.box{max-width:760px;margin:0 auto;display:flex;gap:8px;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 8px 8px 14px}
+.box textarea{flex:1;border:0;background:none;resize:none;outline:none;max-height:200px;padding:6px 0;line-height:1.5}
+.box:focus-within{border-color:var(--gold)}
+.send{border:0;border-radius:10px;background:var(--ink);color:var(--bg);padding:9px 16px;font-weight:600;cursor:pointer}
+.fine{max-width:760px;margin:6px auto 0;text-align:center;font-size:.78rem;color:var(--muted)}
+@media (max-width:760px){
+ .app{grid-template-columns:1fr}
+ .side{position:fixed;inset:0 25% 0 0;z-index:5;transform:translateX(-102%);transition:transform .2s}
+ .side.open{transform:none;box-shadow:0 0 0 100vmax rgba(0,0,0,.45)}
+ #menu{display:block}.msg.user{margin-left:5%}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none}}
 </style>
 </head>
 <body>
-<main>
-  <div class="halo" id="halo" data-s="checking" role="img" aria-label="Server status"></div>
+<!-- ========== AUTH ========== -->
+<section id="auth" class="auth" hidden>
+ <div class="card">
   <h1>Divine-Ollama</h1>
-  <p class="lead">A private AI server for chat, coding help and research. It runs around the clock, so it works even when my own computer is off.</p>
-  <p class="status" id="status" aria-live="polite">Checking server…</p>
-  <p class="meta" id="meta">&nbsp;</p>
-  <div class="actions">
-    <a class="btn" id="open" href="#" rel="noopener">Open Divine-Ollama</a>
-    <button id="recheck" type="button">Check again</button>
+  <p class="sub">Private AI for chat, coding and research.</p>
+  <div class="tabs" role="tablist" id="tabs">
+   <button role="tab" id="tab-in" aria-selected="true">Sign in</button>
+   <button role="tab" id="tab-up" aria-selected="false">Create account</button>
   </div>
-  <footer>© <span id="yr"></span> Divine-Ollama. All rights reserved. Unlicensed use or duplication is prohibited.</footer>
-</main>
+  <form id="f-in" novalidate>
+   <label for="in-email">Email</label><input id="in-email" type="email" autocomplete="email" required>
+   <label for="in-pass">Password</label><input id="in-pass" type="password" autocomplete="current-password" required>
+   <button class="btn" type="submit">Sign in</button>
+   <button class="link" type="button" id="to-forgot">Forgot your password?</button>
+  </form>
+  <form id="f-up" hidden novalidate>
+   <label for="up-email">Email</label><input id="up-email" type="email" autocomplete="email" required>
+   <label for="up-pass">Password</label><input id="up-pass" type="password" autocomplete="new-password" minlength="10" required>
+   <p class="hint">At least 10 characters, with a letter and a number.</p>
+   <label for="up-pass2">Confirm password</label><input id="up-pass2" type="password" autocomplete="new-password" required>
+   <label class="chk"><input id="up-terms" type="checkbox" required><span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Use</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+   <button class="btn" type="submit">Create account</button>
+  </form>
+  <form id="f-forgot" hidden novalidate>
+   <label for="fg-email">Email</label><input id="fg-email" type="email" autocomplete="email" required>
+   <button class="btn" type="submit">Send reset link</button>
+   <button class="link" type="button" id="to-in">Back to sign in</button>
+  </form>
+  <form id="f-reset" hidden novalidate>
+   <p class="sub">Choose a new password.</p>
+   <label for="rs-pass">New password</label><input id="rs-pass" type="password" autocomplete="new-password" minlength="10" required>
+   <button class="btn" type="submit">Save new password</button>
+  </form>
+  <button class="btn alt" id="google" type="button" hidden>Continue with Google</button>
+  <p id="msg" role="status" aria-live="polite"></p>
+ </div>
+</section>
+
+<!-- ========== APP ========== -->
+<div id="app" class="app" hidden>
+ <aside class="side" id="side">
+  <header><span class="brand">Divine-Ollama</span></header>
+  <button class="new" id="new" type="button">+ New chat</button>
+  <nav class="list" id="list" aria-label="Chats"></nav>
+  <div class="foot"><div class="who" id="who"></div><button class="link" id="out" type="button" style="margin:0">Sign out</button></div>
+ </aside>
+ <main class="main">
+  <div class="top">
+   <button id="menu" type="button" aria-label="Open chats">☰</button>
+   <select id="model" aria-label="Model"></select>
+   <span class="dot" id="dot"></span><span class="stxt" id="stxt">Checking…</span>
+  </div>
+  <div class="msgs" id="msgs"><div class="col" id="col"></div></div>
+  <div class="comp">
+   <div class="box">
+    <textarea id="in" rows="1" placeholder="Message Divine-Ollama" aria-label="Message"></textarea>
+    <button class="send" id="send" type="button">Send</button>
+   </div>
+   <p class="fine">Answers can be wrong. Check anything important.</p>
+  </div>
+ </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-  // EDIT THIS: the address of your VPS (Caddy + Open WebUI). Never put API keys in this file.
-  const APP_URL = "https://divine-ollama.duckdns.org";
+// ===== EDIT THESE THREE VALUES (the anon key is public by design; NEVER use the service_role key here) =====
+const CFG = {
+  SUPABASE_URL: "https://YOUR-PROJECT.supabase.co",
+  SUPABASE_ANON_KEY: "YOUR-ANON-OR-PUBLISHABLE-KEY",
+  API_URL: "https://divine-ollama.duckdns.org",
+  GOOGLE: false            // set true after enabling Google in Supabase -> Authentication -> Providers
+};
+let recovering = /type=recovery/.test(location.hash + location.search);
+const sb = supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let user = null, chats = [], cur = null, busy = false, ctl = null;
 
-  const $ = id => document.getElementById(id);
-  $("open").href = APP_URL;
-  $("yr").textContent = new Date().getFullYear();
+/* ---------- auth UI ---------- */
+function say(t, kind){ const m=$('msg'); m.textContent=t||''; m.className=kind||''; }
+function showForm(n){
+  for (const f of ['in','up','forgot','reset']) $('f-'+f).hidden = f!==n;
+  $('tabs').hidden = (n==='forgot'||n==='reset');
+  $('tab-in').setAttribute('aria-selected', n==='in'); $('tab-up').setAttribute('aria-selected', n==='up');
+  $('google').hidden = !(CFG.GOOGLE && (n==='in'||n==='up')); say('');
+}
+$('tab-in').onclick=()=>showForm('in'); $('tab-up').onclick=()=>showForm('up');
+$('to-forgot').onclick=()=>showForm('forgot'); $('to-in').onclick=()=>showForm('in');
+const busyBtn = (f,on)=>f.querySelector('.btn').disabled=on;
+const redirect = location.origin + location.pathname;
+const friendly = e => /invalid login/i.test(e.message) ? 'Email or password is incorrect.'
+  : /not confirmed/i.test(e.message) ? 'Please verify your email first. Check your inbox.'
+  : /rate limit|too many/i.test(e.message) ? 'Too many attempts. Wait a few minutes and try again.' : e.message;
 
-  async function check(){
-    $("halo").dataset.s = "checking";
-    $("status").textContent = "Checking server…";
-    $("meta").innerHTML = "&nbsp;";
-    const ctl = new AbortController();
-    const t = setTimeout(() => ctl.abort(), 7000);
-    const started = performance.now();
-    try{
-      // no-cors: we can't read the reply, but a resolved request proves HTTPS + server are reachable.
-      await fetch(APP_URL + "/health", {mode:"no-cors", cache:"no-store", signal:ctl.signal});
-      const ms = Math.round(performance.now() - started);
-      $("halo").dataset.s = "online";
-      $("status").textContent = "Server is online";
-      $("meta").textContent = "Responded in " + ms + " ms · " + new Date().toLocaleTimeString();
-    }catch(e){
-      $("halo").dataset.s = "offline";
-      $("status").textContent = "Server is not reachable";
-      $("meta").textContent = "Check that the VPS is running and APP_URL in index.html matches your domain.";
-    }finally{ clearTimeout(t); }
+$('f-in').onsubmit = async e => { e.preventDefault(); busyBtn(e.target,true); say('');
+  const {error} = await sb.auth.signInWithPassword({email:$('in-email').value.trim(), password:$('in-pass').value});
+  busyBtn(e.target,false); if (error) say(friendly(error),'err'); };
+
+$('f-up').onsubmit = async e => { e.preventDefault(); say('');
+  const email=$('up-email').value.trim(), p=$('up-pass').value;
+  if (!email) return say('Enter your email.','err');
+  if (p.length<10 || !/[A-Za-z]/.test(p) || !/\d/.test(p)) return say('Password needs 10+ characters with a letter and a number.','err');
+  if (p!==$('up-pass2').value) return say('Passwords do not match.','err');
+  if (!$('up-terms').checked) return say('Please accept the Terms and Privacy Policy.','err');
+  busyBtn(e.target,true);
+  const {error} = await sb.auth.signUp({email, password:p, options:{emailRedirectTo:redirect}});
+  busyBtn(e.target,false);
+  if (error) return say(friendly(error),'err');
+  e.target.reset(); say('Check your email for a verification link. You can sign in after you confirm.','ok'); };
+
+$('f-forgot').onsubmit = async e => { e.preventDefault(); busyBtn(e.target,true);
+  await sb.auth.resetPasswordForEmail($('fg-email').value.trim(), {redirectTo:redirect});
+  busyBtn(e.target,false); say('If that email has an account, a reset link is on its way.','ok'); };
+
+$('f-reset').onsubmit = async e => { e.preventDefault(); const p=$('rs-pass').value;
+  if (p.length<10 || !/[A-Za-z]/.test(p) || !/\d/.test(p)) return say('Password needs 10+ characters with a letter and a number.','err');
+  busyBtn(e.target,true);
+  const {error} = await sb.auth.updateUser({password:p}); busyBtn(e.target,false);
+  if (error) return say(friendly(error),'err');
+  recovering=false; history.replaceState(null,'',location.pathname);
+  const {data:{session}} = await sb.auth.getSession(); if (session) enterApp(session); };
+
+$('google').onclick = () => sb.auth.signInWithOAuth({provider:'google', options:{redirectTo:redirect}});
+$('out').onclick = () => sb.auth.signOut();
+
+sb.auth.onAuthStateChange((ev, session) => {
+  setTimeout(() => {
+    if (ev==='PASSWORD_RECOVERY' || recovering) { $('auth').hidden=false; $('app').hidden=true; showForm('reset'); return; }
+    if (session) enterApp(session); else leaveApp();
+  }, 0);
+});
+
+/* ---------- app ---------- */
+function leaveApp(){ user=null; chats=[]; cur=null; $('app').hidden=true; $('auth').hidden=false; showForm('in'); }
+async function enterApp(session){
+  if (user && user.id===session.user.id) return;
+  user = session.user; $('auth').hidden=true; $('app').hidden=false; $('who').textContent=user.email;
+  await Promise.all([loadModels(), loadChats()]); newChat(); pollStatus();
+}
+async function token(){ const {data:{session}}=await sb.auth.getSession(); return session && session.access_token; }
+async function loadModels(){
+  const sel=$('model'); sel.innerHTML='';
+  try{
+    const r=await fetch(CFG.API_URL+'/v1/models',{headers:{Authorization:'Bearer '+await token()}});
+    const j=await r.json(); const ms=j.models||[];
+    if(!ms.length) sel.innerHTML='<option value="">No models yet</option>';
+    for(const m of ms) sel.add(new Option(m,m));
+    const last=localStorage.getItem('dv-model'); if(last && ms.includes(last)) sel.value=last;
+  }catch{ sel.innerHTML='<option value="">Server offline</option>'; }
+}
+$('model').onchange=()=>localStorage.setItem('dv-model',$('model').value);
+async function pollStatus(){
+  if(!user) return;
+  try{ await fetch(CFG.API_URL+'/health',{cache:'no-store'}); $('dot').className='dot on'; $('stxt').textContent='Server online'; }
+  catch{ $('dot').className='dot off'; $('stxt').textContent='Server offline'; }
+  setTimeout(pollStatus,30000);
+}
+async function loadChats(){
+  const {data}=await sb.from('chats').select('id,title,updated_at').order('updated_at',{ascending:false}); chats=data||[]; renderList();
+}
+function renderList(){
+  const l=$('list'); l.innerHTML='';
+  for(const c of chats){
+    const row=document.createElement('div'); row.className='item'+(cur&&cur.id===c.id?' on':'');
+    const t=document.createElement('button'); t.className='t'; t.textContent=c.title; t.onclick=()=>openChat(c.id);
+    const x=document.createElement('button'); x.className='x'; x.textContent='✕'; x.setAttribute('aria-label','Delete chat'); x.onclick=()=>delChat(c.id);
+    row.append(t,x); l.append(row);
   }
-  $("recheck").addEventListener("click", check);
-  check();
-  setInterval(check, 30000);
+}
+function newChat(){ cur={id:crypto.randomUUID(),title:'New chat',messages:[]}; render(); renderList(); $('side').classList.remove('open'); $('in').focus(); }
+async function openChat(id){
+  const {data}=await sb.from('chats').select('id,title,messages').eq('id',id).single();
+  if(data){ cur=data; render(); renderList(); $('side').classList.remove('open'); }
+}
+async function delChat(id){
+  if(!confirm('Delete this chat?')) return;
+  await sb.from('chats').delete().eq('id',id); chats=chats.filter(c=>c.id!==id);
+  if(cur&&cur.id===id) newChat(); else renderList();
+}
+async function save(){
+  if(!cur||!cur.messages.length) return;
+  const row={id:cur.id,user_id:user.id,title:cur.title,messages:cur.messages.map(({role,content})=>({role,content})),updated_at:new Date().toISOString()};
+  const {error}=await sb.from('chats').upsert(row);
+  if(!error){ chats=chats.filter(c=>c.id!==cur.id); chats.unshift({id:cur.id,title:cur.title,updated_at:row.updated_at}); }
+}
+
+/* ---------- rendering ---------- */
+function md(t){
+  return t.split('```').map((p,i)=>{
+    if(i%2){ const nl=p.indexOf('\n'); const code=nl>-1?p.slice(nl+1):''; return `<div class="code"><button class="copy" type="button">Copy</button><pre><code>${esc(code)}</code></pre></div>`; }
+    return esc(p).replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  }).join('');
+}
+function bubble(m){ const d=document.createElement('div'); d.className='msg '+m.role; if(m.role==='user') d.textContent=m.content; else d.innerHTML=md(m.content); return d; }
+function render(){
+  const col=$('col'); col.innerHTML='';
+  if(!cur.messages.length){
+    col.innerHTML='<div class="empty"><h1>What can I help with?</h1><p>Chat, coding help and research, on your own private server.</p><div class="chips"></div></div>';
+    for(const s of ['Explain Docker volumes simply','Write a Python function to merge two sorted lists','Summarize the pros and cons of SQL vs NoSQL']){
+      const b=document.createElement('button'); b.textContent=s; b.onclick=()=>{$('in').value=s;send();}; col.querySelector('.chips').append(b);
+    }
+    return;
+  }
+  for(const m of cur.messages) col.append(bubble(m));
+  $('msgs').scrollTop=$('msgs').scrollHeight;
+}
+function paintLast(){
+  const el=$('col').lastElementChild, m=cur.messages[cur.messages.length-1]; if(!el) return;
+  el.innerHTML=md(m.content);
+  const s=$('msgs'); if(s.scrollHeight-s.scrollTop-s.clientHeight<160) s.scrollTop=s.scrollHeight;
+}
+$('col').addEventListener('click',e=>{
+  if(e.target.classList.contains('copy')){ const code=e.target.parentElement.querySelector('code').textContent;
+    navigator.clipboard.writeText(code).then(()=>{e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy',1500);}); }
+});
+
+/* ---------- sending ---------- */
+function setBusy(b){ busy=b; $('send').textContent=b?'Stop':'Send'; }
+function autosize(){ const t=$('in'); t.style.height='auto'; t.style.height=Math.min(t.scrollHeight,200)+'px'; }
+$('in').addEventListener('input',autosize);
+$('in').addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();send();} });
+$('send').onclick=()=>{ if(busy&&ctl) ctl.abort(); else send(); };
+$('new').onclick=newChat; $('menu').onclick=()=>$('side').classList.toggle('open');
+
+async function send(){
+  const text=$('in').value.trim(); if(!text||busy) return;
+  if(!$('model').value){ alert('No model available yet. Pull a model in the admin console first.'); return; }
+  $('in').value=''; autosize();
+  cur.messages.push({role:'user',content:text});
+  if(cur.title==='New chat') cur.title=text.slice(0,48);
+  const a={role:'assistant',content:''}; cur.messages.push(a); render(); setBusy(true); ctl=new AbortController();
+  try{
+    const tok=await token(); if(!tok) throw new Error('Your session expired. Please sign in again.');
+    const history=cur.messages.slice(0,-1).filter(m=>!m.error).slice(-30).map(({role,content})=>({role,content}));
+    const res=await fetch(CFG.API_URL+'/v1/chat',{method:'POST',signal:ctl.signal,
+      headers:{Authorization:'Bearer '+tok,'Content-Type':'application/json'},
+      body:JSON.stringify({model:$('model').value,messages:history})});
+    if(!res.ok){ let d=''; try{d=(await res.json()).detail}catch{}
+      throw new Error(res.status===429?'You are sending messages too quickly. Wait a moment.':res.status===401?'Your session expired. Please sign in again.':(d||'Server error '+res.status)); }
+    const rd=res.body.getReader(), dec=new TextDecoder(); let buf='';
+    for(;;){ const {done,value}=await rd.read(); if(done) break; buf+=dec.decode(value,{stream:true}); let i;
+      while((i=buf.indexOf('\n'))>=0){ const line=buf.slice(0,i).trim(); buf=buf.slice(i+1); if(!line) continue;
+        const j=JSON.parse(line); if(j.error) throw new Error(j.error); if(j.message) a.content+=j.message.content; }
+      paintLast(); }
+  }catch(e){ if(e.name!=='AbortError'){ a.error=true; a.content+=(a.content?'\n\n':'')+'⚠ '+e.message; } }
+  finally{
+    setBusy(false); ctl=null;
+    if(!a.content) cur.messages.pop();
+    render(); await save(); renderList();
+  }
+}
+
+/* ---------- boot ---------- */
+(async()=>{
+  const {data:{session}}=await sb.auth.getSession();
+  if(recovering){ $('auth').hidden=false; showForm('reset'); }
+  else if(session) enterApp(session);
+  else { $('auth').hidden=false; showForm('in'); }
+})();
 </script>
 </body>
 </html>
