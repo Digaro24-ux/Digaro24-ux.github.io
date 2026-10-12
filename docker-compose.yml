@@ -1,0 +1,99 @@
+name: divine-ollama
+
+services:
+  caddy:
+    image: caddy:2
+    container_name: divine-caddy
+    restart: unless-stopped
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      - API_DOMAIN=${API_DOMAIN}
+      - ADMIN_DOMAIN=${ADMIN_DOMAIN}
+      - ACME_EMAIL=${ACME_EMAIL}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [proxy]
+    depends_on: [gateway, open-webui]
+
+  gateway:            # public API: verifies Supabase login, then talks to Ollama
+    build: ./gateway
+    container_name: divine-gateway
+    restart: unless-stopped
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - ALLOWED_MODELS=${ALLOWED_MODELS}
+      - RATE_PER_MIN=${RATE_PER_MIN}
+    networks: [proxy, ai]
+    depends_on: [ollama]
+
+  open-webui:         # admin console: model downloads, API keys
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: divine-webui
+    restart: unless-stopped
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+      - WEBUI_URL=https://${ADMIN_DOMAIN}
+      - WEBUI_NAME=Divine Ollama Admin
+      - ENABLE_SIGNUP=${ENABLE_SIGNUP}
+      - ENABLE_API_KEY=True
+      - DEFAULT_USER_ROLE=pending
+      - ENABLE_OPENAI_API=False
+      - ANONYMIZED_TELEMETRY=False
+      - SCARF_NO_ANALYTICS=true
+      - DO_NOT_TRACK=true
+    volumes: [openwebui_data:/app/backend/data]
+    depends_on:
+      postgres: {condition: service_healthy}
+      ollama: {condition: service_started}
+    networks: [proxy, ai, db]
+
+  ollama:             # no published ports: only reachable inside Docker
+    image: ollama/ollama:latest
+    container_name: divine-ollama
+    restart: unless-stopped
+    environment:
+      - OLLAMA_KEEP_ALIVE=30m
+      - OLLAMA_MAX_LOADED_MODELS=1
+      - OLLAMA_NUM_PARALLEL=1
+    volumes: [ollama_models:/root/.ollama]
+    networks: [ai]
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  postgres:           # backs the admin console only (users live in Supabase)
+    image: postgres:16-alpine
+    container_name: divine-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    networks: [db]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  proxy:
+  ai:
+  db:
+    internal: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+  openwebui_data:
+  ollama_models:
+  postgres_data:
