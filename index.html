@@ -15,14 +15,14 @@ button,input,textarea,select{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 h1{font:600 2.2rem/1.1 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 6px}
 /* auth */
-.auth{min-height:100%;display:grid;place-items:center;padding:24px}
+.auth{position:fixed;inset:0;z-index:20;background:rgba(8,14,26,.6);overflow:auto;display:grid;place-items:center;padding:24px}.card{position:relative}.close{position:absolute;top:10px;right:12px;background:none;border:0;font-size:1.2rem;color:var(--muted);cursor:pointer;padding:6px}.pw{position:relative}.pw input{padding-right:64px}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem;padding:6px}.meter{height:4px;border-radius:2px;background:var(--line);margin-top:8px;overflow:hidden}.meter i{display:block;height:100%;width:0;background:var(--bad);transition:width .2s,background .2s}.rules{list-style:none;margin:6px 0 0;padding:0;font-size:.8rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}.rules .y{color:var(--ok)}.gb{display:flex;gap:8px;margin-left:auto}.gb button,.sbt{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:600;font-size:.9rem}.gb .pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}.toast{position:fixed;top:16px;right:16px;z-index:30;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.9rem}.legal{text-align:center;font-size:.78rem;color:var(--muted);margin:2px 0 0}.legal a{color:inherit;margin:0 8px}
 .card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
 .sub{color:var(--muted);margin:0 0 20px}
 .tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);margin-bottom:18px}
 .tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px;cursor:pointer;color:var(--muted);font-weight:600}
 .tabs button[aria-selected=true]{color:var(--ink);border-color:var(--gold)}
 label{display:block;font-size:.9rem;font-weight:600;margin:12px 0 4px}
-input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+input[type=email],input[type=password],input[type=text]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
 .chk{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.88rem;color:var(--muted)}
 .chk input{margin-top:5px}
 .btn{width:100%;margin-top:18px;padding:12px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer}
@@ -76,12 +76,14 @@ input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px s
  #menu{display:block}.msg.user{margin-left:5%}
 }
 @media (prefers-reduced-motion:reduce){.side{transition:none}}
+@media (min-width:761px){.app.nosb{grid-template-columns:1fr}.app.nosb .side{display:none}}
+@media (max-width:760px){#sbtoggle{display:none}.gb button{padding:6px 10px}.stxt{display:none}}
 </style>
 </head>
 <body>
 <!-- ========== AUTH ========== -->
 <section id="auth" class="auth" hidden>
- <div class="card">
+ <div class="card"><button class="close" id="close" type="button" aria-label="Close">✕</button>
   <h1>Divine-Ollama</h1>
   <p class="sub">Private AI for chat, coding and research.</p>
   <div class="tabs" role="tablist" id="tabs">
@@ -95,11 +97,12 @@ input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px s
    <button class="link" type="button" id="to-forgot">Forgot your password?</button>
   </form>
   <form id="f-up" hidden novalidate>
+   <label for="up-name">Name <span class="hint">(optional)</span></label><input id="up-name" type="text" autocomplete="name" maxlength="60">
    <label for="up-email">Email</label><input id="up-email" type="email" autocomplete="email" required>
    <label for="up-pass">Password</label><input id="up-pass" type="password" autocomplete="new-password" minlength="10" required>
-   <p class="hint">At least 10 characters, with a letter and a number.</p>
+   <div class="meter"><i id="mbar"></i></div><ul class="rules" id="rules"><li data-r="len">10+ characters</li><li data-r="let">a letter</li><li data-r="num">a number</li></ul>
    <label for="up-pass2">Confirm password</label><input id="up-pass2" type="password" autocomplete="new-password" required>
-   <label class="chk"><input id="up-terms" type="checkbox" required><span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Use</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+   <label class="chk"><input id="up-terms" type="checkbox" required><span>I am 16 or older and agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Use</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
    <button class="btn" type="submit">Create account</button>
   </form>
   <form id="f-forgot" hidden novalidate>
@@ -123,13 +126,13 @@ input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px s
   <header><span class="brand">Divine-Ollama</span></header>
   <button class="new" id="new" type="button">+ New chat</button>
   <nav class="list" id="list" aria-label="Chats"></nav>
-  <div class="foot"><div class="who" id="who"></div><button class="link" id="out" type="button" style="margin:0">Sign out</button></div>
+  <div class="foot"><div id="guestfoot"><strong>Keep your chats</strong><p class="hint">Log in to save conversations and pick a model.</p><button class="sbt" id="g-in" type="button">Log in</button></div><div id="userfoot" hidden><div class="who" id="who"></div><button class="link" id="out" type="button" style="margin:0">Sign out</button></div></div>
  </aside>
  <main class="main">
   <div class="top">
-   <button id="menu" type="button" aria-label="Open chats">☰</button>
+   <button id="menu" type="button" aria-label="Open chats">☰</button><button class="sbt" id="sbtoggle" type="button" aria-label="Toggle sidebar" style="border-radius:8px;padding:5px 10px">☰</button>
    <select id="model" aria-label="Model"></select>
-   <span class="dot" id="dot"></span><span class="stxt" id="stxt">Checking…</span>
+   <span class="dot" id="dot"></span><span class="stxt" id="stxt"></span><div class="gb" id="gb"><button type="button" id="b-in">Log in</button><button type="button" class="pri" id="b-up">Sign up free</button></div>
   </div>
   <div class="msgs" id="msgs"><div class="col" id="col"></div></div>
   <div class="comp">
@@ -137,7 +140,7 @@ input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px s
     <textarea id="in" rows="1" placeholder="Message Divine-Ollama" aria-label="Message"></textarea>
     <button class="send" id="send" type="button">Send</button>
    </div>
-   <p class="fine">Answers can be wrong. Check anything important.</p>
+   <p class="fine">Answers can be wrong. Check anything important.</p><p class="legal"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></p>
   </div>
  </main>
 </div>
@@ -184,7 +187,7 @@ $('f-up').onsubmit = async e => { e.preventDefault(); say('');
   if (p!==$('up-pass2').value) return say('Passwords do not match.','err');
   if (!$('up-terms').checked) return say('Please accept the Terms and Privacy Policy.','err');
   busyBtn(e.target,true);
-  const {error} = await sb.auth.signUp({email, password:p, options:{emailRedirectTo:redirect}});
+  const {error} = await sb.auth.signUp({email, password:p, options:{emailRedirectTo:redirect, data:{full_name:$('up-name').value.trim().slice(0,60)}}});
   busyBtn(e.target,false);
   if (error) return say(friendly(error),'err');
   e.target.reset(); say('Check your email for a verification link. You can sign in after you confirm.','ok'); };
@@ -198,11 +201,35 @@ $('f-reset').onsubmit = async e => { e.preventDefault(); const p=$('rs-pass').va
   busyBtn(e.target,true);
   const {error} = await sb.auth.updateUser({password:p}); busyBtn(e.target,false);
   if (error) return say(friendly(error),'err');
-  recovering=false; history.replaceState(null,'',location.pathname);
+  recovering=false; history.replaceState(null,'',location.pathname); toast('Password updated');
   const {data:{session}} = await sb.auth.getSession(); if (session) enterApp(session); };
 
 $('google').onclick = () => sb.auth.signInWithOAuth({provider:'google', options:{redirectTo:redirect}});
 $('out').onclick = () => sb.auth.signOut();
+function toast(t){ const d=document.createElement('div'); d.className='toast'; d.setAttribute('role','status'); d.textContent=t; document.body.append(d); setTimeout(()=>d.remove(),3500); }
+function openAuth(mode){ $('auth').hidden=false; $('close').hidden=recovering; showForm(mode||'in'); setTimeout(()=>{ const f=$(mode==='up'?'up-email':'in-email'); if(f&&!f.closest('[hidden]')) f.focus(); },0); }
+function closeAuth(){ if(!recovering) $('auth').hidden=true; }
+$('close').onclick=closeAuth;
+$('auth').addEventListener('mousedown',e=>{ if(e.target===$('auth')) closeAuth(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('auth').hidden) closeAuth(); });
+for(const id of ['b-in','g-in']) $(id).onclick=()=>openAuth('in');
+$('b-up').onclick=()=>openAuth('up');
+$('sbtoggle').onclick=()=>$('app').classList.toggle('nosb');
+function guestUI(on){ $('app').hidden=false; $('guestfoot').hidden=!on; $('userfoot').hidden=on; $('gb').hidden=!on; $('model').disabled=on; }
+function greet(){ const n=user&&user.user_metadata&&user.user_metadata.full_name; return n?'Hello, '+esc(n.split(' ')[0])+'. What are we working on?':'Where should we begin?'; }
+// show/hide password buttons
+document.querySelectorAll('input[type=password]').forEach(inp=>{
+  const w=document.createElement('div'); w.className='pw'; inp.replaceWith(w);
+  const b=document.createElement('button'); b.type='button'; b.textContent='Show'; b.setAttribute('aria-label','Show password');
+  b.onclick=()=>{ const s=inp.type==='password'; inp.type=s?'text':'password'; b.textContent=s?'Hide':'Show'; b.setAttribute('aria-label',s?'Hide password':'Show password'); };
+  w.append(inp,b);
+});
+// password strength meter
+$('up-pass').addEventListener('input',e=>{
+  const p=e.target.value, r={len:p.length>=10,let:/[A-Za-z]/.test(p),num:/\d/.test(p)}, n=Object.values(r).filter(Boolean).length, b=$('mbar');
+  b.style.width=(n/3*100)+'%'; b.style.background=n===3?'var(--ok)':n===2?'var(--gold)':'var(--bad)';
+  document.querySelectorAll('#rules li').forEach(li=>li.className=r[li.dataset.r]?'y':'');
+});
 
 sb.auth.onAuthStateChange((ev, session) => {
   setTimeout(() => {
@@ -212,10 +239,10 @@ sb.auth.onAuthStateChange((ev, session) => {
 });
 
 /* ---------- app ---------- */
-function leaveApp(){ user=null; chats=[]; cur=null; $('app').hidden=true; $('auth').hidden=false; showForm('in'); }
+function leaveApp(){ user=null; chats=[]; cur=null; guestUI(true); $('auth').hidden=true; $('model').innerHTML='<option>Log in to choose a model</option>'; $('dot').className='dot'; $('stxt').textContent=''; newChat(); renderList(); }
 async function enterApp(session){
   if (user && user.id===session.user.id) return;
-  user = session.user; $('auth').hidden=true; $('app').hidden=false; $('who').textContent=user.email;
+  user = session.user; $('auth').hidden=true; guestUI(false); $('who').textContent=user.email;
   await Promise.all([loadModels(), loadChats()]); newChat(); pollStatus();
 }
 async function token(){ const {data:{session}}=await sb.auth.getSession(); return session && session.access_token; }
@@ -276,7 +303,7 @@ function bubble(m){ const d=document.createElement('div'); d.className='msg '+m.
 function render(){
   const col=$('col'); col.innerHTML='';
   if(!cur.messages.length){
-    col.innerHTML='<div class="empty"><h1>What can I help with?</h1><p>Chat, coding help and research, on your own private server.</p><div class="chips"></div></div>';
+    col.innerHTML='<div class="empty"><h1>'+greet()+'</h1><p>Chat, coding help and research, on your own private server.</p><div class="chips"></div></div>';
     for(const s of ['Explain Docker volumes simply','Write a Python function to merge two sorted lists','Summarize the pros and cons of SQL vs NoSQL']){
       const b=document.createElement('button'); b.textContent=s; b.onclick=()=>{$('in').value=s;send();}; col.querySelector('.chips').append(b);
     }
@@ -304,7 +331,7 @@ $('send').onclick=()=>{ if(busy&&ctl) ctl.abort(); else send(); };
 $('new').onclick=newChat; $('menu').onclick=()=>$('side').classList.toggle('open');
 
 async function send(){
-  const text=$('in').value.trim(); if(!text||busy) return;
+  const text=$('in').value.trim(); if(!user){ openAuth('in'); return; } if(!text||busy) return;
   if(!$('model').value){ alert('No model available yet. Pull a model in the admin console first.'); return; }
   $('in').value=''; autosize();
   cur.messages.push({role:'user',content:text});
@@ -334,9 +361,9 @@ async function send(){
 /* ---------- boot ---------- */
 (async()=>{
   const {data:{session}}=await sb.auth.getSession();
-  if(recovering){ $('auth').hidden=false; showForm('reset'); }
+  if(recovering){ $('app').hidden=false; openAuth('reset'); }
   else if(session) enterApp(session);
-  else { $('auth').hidden=false; showForm('in'); }
+  else leaveApp();
 })();
 </script>
 </body>
