@@ -9,8 +9,8 @@ API=$(ask "API domain" "divine-ollama.duckdns.org")
 ADM=$(ask "Admin domain" "divine-admin.duckdns.org")
 SBU=$(ask "Supabase URL" "https://pqtcwnyeowcycvkmmjow.supabase.co")
 ORIG=$(ask "Front page address" "https://digaro24-ux.github.io")
-read -rp "Email for HTTPS certificates: " EMAIL
-read -rp "Supabase anon/publishable key (public key ONLY): " KEY
+EMAIL=$(ask "Email for HTTPS certificates" "digaroinyang@gmail.com")
+KEY=$(ask "Supabase publishable key" "sb_publishable_-rhFaqBNexDaBaFQguMRrA_x8_1O-bi")
 [[ "$EMAIL" == *@*.* ]] || { echo "Enter a valid email."; exit 1; }
 [ -n "$KEY" ] || { echo "The anon key is required."; exit 1; }
 case "$KEY" in *service_role*|sb_secret_*) echo "That looks like a SECRET key. Use the anon/publishable key."; exit 1;; esac
