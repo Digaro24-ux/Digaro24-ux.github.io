@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Privacy Policy - Divine-Ollama</title><style>:root{--bg:#eef2f7;--ink:#14213d;--muted:#5a6882;--gold:#8a6410;--line:#cfd8e6}@media(prefers-color-scheme:dark){:root{--bg:#0e1626;--ink:#e8ecf4;--muted:#9aa8c2;--gold:#e0b44c;--line:#26344f}}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 Georgia,serif;padding:32px 20px}main{max-width:68ch;margin:0 auto}h1{font-size:2rem;margin:18px 0 4px}h2{font-size:1.1rem;margin:30px 0 6px}p,li{margin:0 0 10px}ul{padding-left:22px}.m{color:var(--muted);font-size:.9rem}a{color:var(--gold)}.box{border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:18px 0;font-size:.95rem}</style></head>
 <body><main><p><a href="./">&larr; Back to Divine-Ollama</a></p>
-<h1>Privacy Policy</h1><p class="m">Last updated: 13 October 2026</p>
+<h1>Privacy Policy</h1><p class="m">Last updated: 19 October 2026</p>
 <div class="box">This policy explains what Divine-Ollama collects, why, who handles it, and your choices. The service is run by Divinewill Gopeh Inyang, who is the controller of your data. Contact: digaroinyang@gmail.com</div>
 
 <h2>1. What we collect</h2>
 <ul>
-<li><strong>Account data:</strong> your email address, an optional name, and your password (stored only as a secure hash by our login provider, never in readable form).</li>
+<li><strong>Account data:</strong> your email address, your name, a username, your country, your date of birth, an optional profile photo, your preferences (such as citation style and how you plan to use the service), and your password (stored only as a secure hash by our login provider, never in readable form).</li>
 <li><strong>Chats:</strong> the titles and messages (yours and the AI's) of conversations you save in your account.</li>
 <li><strong>Technical data:</strong> IP address, browser type and request times, which appear in hosting and server logs, plus short-lived counters used to enforce message-rate limits.</li>
 <li><strong>Browser storage:</strong> a login session and your last selected model, kept in your browser's local storage on your device. We set no advertising or tracking cookies.</li>
@@ -16,13 +16,20 @@
 
 <h2>3. How your messages are processed</h2>
 <p>Your message travels over HTTPS to our own server, where open-source models generate the reply. Your messages are not sent to third-party AI companies and are not used to train models. Our gateway does not write message content to its logs.</p>
+<p><strong>Files and voice.</strong> If you attach a document, its text is read in your browser and sent with your message to our server. Only the file name is saved in your chat history, not the document text. The microphone button uses your browser's built-in speech recognition, which in most browsers sends audio to the browser maker (for example Google or Apple) to be turned into text. Audio files you upload are transcribed on your own device with a small speech model, and the audio is not uploaded to us. Profile photos you choose are stored with Supabase.</p>
+<p><strong>Research documents.</strong> In Deep Research, the documents you add are read in your browser and kept only in your browser's memory for that session. For each question, short relevant excerpts are sent to our server to produce the answer. The documents themselves, and the author and title details you type for citations, are not saved to your account.</p>
+<p><strong>Sneak Peek.</strong> You can try the assistant without an account. Those messages are processed to produce a reply and are not saved anywhere, and your IP address is used only to apply a free-use limit.</p>
+<p><strong>Groups, shared chats and projects.</strong> Messages, reactions, shared files and project files you post in a group are stored with Supabase and can be seen by the current members of that group. Your display name, username and profile photo are visible to people you share a group with. When you leave or are removed from a group you no longer see it. Files you share are stored privately and only group members can download them. When you share a chat, a copy is posted into the group you choose and your original chat stays private. When you ask @Garo in a group, a limited amount of recent group conversation, and your project files if it is a Developers project, is sent to Garo to answer.</p>
+<p><strong>Web search.</strong> When you turn on Web search, press "Verify with the web", or tell Garo that an answer is wrong or outdated, a short search query based on your message is sent to our own private search service. It asks public search engines for results from our server's address, not yours, and your account details are not sent with the query. Garo reads the top results to answer and shows its sources as links.</p>
+<p><strong>Moderation.</strong> Administrators can suspend or delete accounts that break the Terms of Use. We keep a log of each action (which administrator, which account, when and why) so that decisions can be reviewed. A suspended account cannot sign in until the suspension is lifted.
 
 <h2>4. Who handles your data</h2>
 <ul>
 <li><strong>Supabase</strong> provides login and stores accounts and saved chats, in the West EU (Ireland) region.</li>
 <li><strong>Oracle Cloud</strong> hosts the server that runs the AI models and the gateway.</li>
 <li><strong>GitHub</strong> hosts this website and may log visitors' IP addresses.</li>
-<li><strong>jsDelivr</strong> delivers a script library to your browser, so it sees your IP address.</li>
+<li><strong>jsDelivr</strong> delivers script libraries (login, document reading, zip creation and speech-to-text code) to your browser, so it sees your IP address.</li>
+<li><strong>Hugging Face</strong> supplies the small speech model your browser downloads if you use audio-file transcription.</li>
 <li><strong>Our email provider</strong> sends verification and password-reset emails.</li>
 </ul>
 <p>These providers process data on our behalf under their own terms and privacy policies.</p>
@@ -31,16 +38,16 @@
 <p>Saved chats are protected so that other users cannot read them, but they are not end-to-end encrypted. The administrator of the service can technically access stored data. We only do so to keep the service secure, investigate abuse, fix faults or respond to a legal duty, or when you ask us for help.</p>
 
 <h2>6. How long we keep data</h2>
-<p>Chats stay until you delete them or close your account. Deleting a chat in the app removes it from our database. Account data is deleted when we close your account at your request. Backups are kept for up to 14 days and then overwritten. Server logs are kept for a short period for security.</p>
+<p>Chats stay until you delete them or close your account. Deleting a chat in the app removes it from our database. Account data is deleted when you delete your account, or when an administrator deletes an account that broke the Terms of Use. Backups are kept for up to 14 days and then overwritten. Server logs are kept for a short period for security.</p>
 
 <h2>7. Security</h2>
 <p>We use HTTPS, email verification, per-user access rules on stored chats, rate limits, and a model server that is not directly reachable from the internet. No system is perfectly secure, so please use a strong, unique password.</p>
 
 <h2>8. Your rights</h2>
-<p>Depending on where you live, including under the Nigeria Data Protection Act 2023 and the EU and UK GDPR, you may have the right to access your data, correct it, delete it, receive a copy, restrict or object to some uses, and complain to your data protection authority. Email us to use any of these rights and we will reply within 30 days. You can delete individual chats yourself at any time.</p>
+<p>Depending on where you live, including under the Nigeria Data Protection Act 2023 and the EU and UK GDPR, you may have the right to access your data, correct it, delete it, receive a copy, restrict or object to some uses, and complain to your data protection authority. You can delete individual chats at any time, and you can delete your whole account yourself from your profile: this erases your account, saved chats, profile photo and the messages and files you posted in groups, and hands any groups you manage to another member. For other requests, such as a copy of your data, email us and we will reply within 30 days.</p>
 
 <h2>9. Children</h2>
-<p>The service is not for people under 16, and we do not knowingly collect their data. If you believe a child has signed up, contact us and we will delete the account.</p>
+<p>The service is not for people under 16, and we do not knowingly collect their data. We ask for your date of birth at sign-up to check this. We store it with your account only to confirm your age and to show you a birthday greeting on your birthday. If you believe a child has signed up, contact us and we will delete the account.</p>
 
 <h2>10. International processing</h2>
 <p>Your data may be processed in Ireland (Supabase) and in the country where our server is hosted. We rely on our providers' safeguards for these transfers.</p>
