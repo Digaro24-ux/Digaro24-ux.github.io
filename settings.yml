@@ -1,0 +1,18 @@
+# Garo's private web search (SearXNG). It is reachable only from the gateway, never from the internet.
+use_default_settings: true
+general:
+  instance_name: "Garo search"
+  enable_metrics: false
+search:
+  safe_search: 1
+  default_lang: "en"
+  formats:
+    - html
+    - json
+server:
+  limiter: false
+  image_proxy: false
+  public_instance: false
+outgoing:
+  request_timeout: 6.0
+  max_request_timeout: 10.0
