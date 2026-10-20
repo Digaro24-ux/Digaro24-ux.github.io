@@ -25,12 +25,29 @@ services:
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
-      - ALLOWED_MODELS=${ALLOWED_MODELS}
+      - GARO_MODELS=${GARO_MODELS:-garo-chat=llama3.2:3b,garo-think=qwen2.5:3b,garo-code=qwen2.5-coder:3b}
+      - PEEK_PER_HOUR=${PEEK_PER_HOUR:-8}
+      - SEARX_URL=http://searxng:8080
+      - ADMIN_EMAILS=${ADMIN_EMAILS:-digaroinyang@gmail.com}
+      - SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY:-}
       - RATE_PER_MIN=${RATE_PER_MIN}
     networks: [proxy, ai]
     depends_on: [ollama]
 
-  open-webui:         # admin console: model downloads, API keys
+  searxng:            # private web search for Garo (not reachable from the internet)
+    image: searxng/searxng:latest
+    container_name: divine-searxng
+    restart: unless-stopped
+    environment:
+      - SEARXNG_SECRET=${SEARXNG_SECRET}
+      - SEARXNG_BASE_URL=http://searxng:8080/
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    cap_drop: [ALL]
+    cap_add: [CHOWN, SETGID, SETUID]
+    networks: [ai]
+
+  open-webui:         # model console: model downloads, API keys
     image: ghcr.io/open-webui/open-webui:main
     container_name: divine-webui
     restart: unless-stopped
