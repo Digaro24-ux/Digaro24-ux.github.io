@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Garo | Your private AI for chat, research and code</title>
+<title>GARO AI | Your private AI for chat, research and code</title>
+<link rel="icon" type="image/png" sizes="64x64" href="garoai-icon-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="garoai-icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#020617">
 <meta name="description" content="Meet Garo, a free private AI assistant. Chat, research with your own documents and citations, build projects, and team up in groups.">
 <style>
 
@@ -324,6 +328,27 @@ html{scroll-behavior:auto}}
 .pr.danger,.pr.danger i{color:var(--bad)}.pr.logout{margin-top:6px;border:1px solid var(--line)}.pr.logout:hover{border-color:var(--bad);color:var(--bad)}
 .ppanel{margin:2px 6px 8px 48px;padding:6px 4px}.ppanel .btn{margin-top:10px}.ppanel p{margin:6px 0;font-size:.88rem}
 @media (max-width:760px){.plog{padding:6px 10px}}
+#site .mark{width:42px;height:42px;padding:0;overflow:hidden;background:#fefefe;border-radius:10px;border:1px solid #38bdf866;box-shadow:0 0 18px #38bdf833}#site .mark img{width:100%;height:100%;display:block}#site .mark::after{display:none}
+#site .hero-logo{border-radius:28px;box-shadow:0 0 50px #38bdf855;margin-bottom:18px;background:#fefefe}
+.brand{display:flex;align-items:center}.brandimg{width:30px;height:30px;border-radius:8px;margin-right:9px}
+.ctitle{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.92rem}
+.hdots{font-size:1.4rem;font-weight:700;color:var(--ink);line-height:1}.hdots[aria-expanded=true]{background:var(--panel);color:var(--sky)}
+.mwrap{display:flex;flex-direction:column;margin:0 0 18px}.mwrap.user{align-items:flex-end}.mwrap .msg{margin-bottom:4px}.mwrap.user .msg.user{margin-left:0;max-width:86%}
+.mact{display:flex;gap:2px;opacity:0;transition:opacity .15s}.mwrap:hover .mact,.mwrap:focus-within .mact,.mwrap.keep .mact{opacity:1}
+@media (hover:none){.mact{opacity:1}}
+.mab{background:none;border:0;border-radius:8px;padding:6px 8px;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;gap:4px;font-size:.78rem}.mab:hover,.mab:focus-visible{background:var(--panel);color:var(--ink)}.mab.done{color:var(--ok)}
+.mab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.medit{width:100%;max-width:640px;margin-left:auto;background:var(--card);border:1px solid var(--sky);border-radius:18px;padding:10px 12px}
+.medit textarea{width:100%;border:0;background:none;resize:none;outline:none;color:var(--ink);font:inherit;line-height:1.5}
+.medit .mbtns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}.medit button{border-radius:999px;padding:7px 18px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:none;color:var(--ink)}
+.medit .go{background:var(--sky);border-color:var(--sky);color:var(--onsky)}.medit .go:disabled{opacity:.45;cursor:not-allowed}
+.edtag{font-size:.7rem;color:var(--muted);margin-left:8px}
+#adm .rscard{padding:0;display:flex;flex-direction:column;max-height:calc(100dvh - 32px);width:100%;max-width:980px;overflow:hidden}
+#adm .rshead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}#adm .rshead h1{font-size:1.4rem;margin:0}
+#adm .rsbody{overflow-y:scroll;padding:12px 18px 18px;flex:1;min-height:220px;scrollbar-width:auto;scrollbar-color:var(--sky) var(--panel)}
+#adm .rsbody::-webkit-scrollbar{width:12px}#adm .rsbody::-webkit-scrollbar-track{background:var(--panel);border-radius:8px}#adm .rsbody::-webkit-scrollbar-thumb{background:var(--sky);border-radius:8px;border:2px solid var(--panel)}
+.knew{background:var(--panel);border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin:8px 0}.knew b{display:block;color:var(--gold);margin-bottom:6px}
+.krow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.krow .un{flex:1;min-width:220px;display:flex;flex-direction:column}.krow small{color:var(--muted);font-size:.78rem}
 </style>
 </head>
 <body>
@@ -332,8 +357,8 @@ html{scroll-behavior:auto}}
 <nav aria-label="Main">
  <div class="nav">
   <a class="lbrand" href="#" aria-label="Garo home">
-   <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
-   <span><span class="name">GARO</span><span class="tag">by Divine-Ollama</span></span>
+   <span class="mark"><img src="garoai-logo.png" alt="GARO AI logo" width="42" height="42"></span>
+   <span><span class="name">GARO AI</span><span class="tag">Private AI assistant</span></span>
   </a>
   <div class="links"><a href="#features">Features</a><a href="#how">How it works</a><a href="#models">Models</a><a href="#faq">FAQ</a></div>
   <div class="cta">
@@ -347,6 +372,7 @@ html{scroll-behavior:auto}}
 <div id="v-landing">
 <div class="wrap">
   <header class="hero">
+   <img class="hero-logo" src="garoai-logo.png" alt="GARO AI" width="132" height="132">
    <span class="badge">● Free · Private · Always on</span>
    <h1>Meet Garo.<br><span class="grad">Your private AI for chat, research and code.</span></h1>
    <p class="lead">Ask questions, add your own documents for cited research, describe an app and watch it get built step by step, and team up with others in shared groups, all from one assistant on its own private server.</p>
@@ -385,7 +411,7 @@ html{scroll-behavior:auto}}
 
   <section id="models">
    <div class="spec">
-    <div class="spec-h"><div><h2>Meet the Garo models</h2></div><span>SELF-HOSTED · OLLAMA</span></div>
+    <div class="spec-h"><div><h2>Meet the Garo models</h2></div><span>SELF-HOSTED · PRIVATE</span></div>
     <div class="rows">
      <div class="lrow"><span>Garo Chat</span><span class="c-sky">Fast everyday answers</span></div>
      <div class="lrow"><span>Garo Think</span><span class="c-sky">Writing and research</span></div>
@@ -399,10 +425,10 @@ html{scroll-behavior:auto}}
 
   <section id="faq">
    <h2>Questions</h2><p class="lsub">Straight answers.</p>
-   <details><summary>Who is Garo?</summary><p>Garo is the AI assistant of Divine-Ollama. It runs on a private server that Divine-Ollama operates, so your conversations are not sent to big AI companies.</p></details>
-   <details><summary>Who is the owner of Divine-Ollama (Garo AI)?</summary><p>Divine-Ollama and Garo AI are owned by <b>Divinewill Gopeh Inyang</b>, also known as <b>Divine Gopeh</b>: a young Nigerian web developer who studied at the University of the People. Born on 24 October 2003. Dark in complexion.</p></details>
+   <details><summary>Who is Garo?</summary><p>Garo is the private AI assistant of GARO AI. It runs on a private server that GARO AI operates, so your conversations are not sent to big AI companies.</p></details>
+   <details><summary>Who is the owner of GARO AI?</summary><p>GARO AI is owned by <b>Divinewill Gopeh Inyang</b>, also known as <b>Divine Gopeh</b>: a young Nigerian web developer who studied at the University of the People. Born on 24 October 2003. Dark in complexion.</p></details>
    <details><summary>Is it really free?</summary><p>Yes. There are no per-message charges. It runs on a free server, so it is shared and has fair-use limits.</p></details>
-   <details><summary>Is the chat unlimited?</summary><p>There is no message cap, but the server has limited power. When several people chat at once, replies queue, and each account has a per-minute limit to keep things fair.</p></details>
+   <details><summary>Is the chat unlimited?</summary><p>There is no fixed message cap by default, but the server has limited power. When several people chat at once, replies queue, and each account has a per-minute limit to keep things fair. The administrator can also give an account extra free usage, or set a daily allowance, for a period of time.</p></details>
    <details><summary>Can Garo read or create images?</summary><p>Not yet. For now Garo focuses on text, documents and code. Image features may come later once the server can handle them.</p></details>
    <details><summary>What is Developers mode?</summary><p>It is a shared group where several people build one project together. Anyone can ask Garo to build or change files, save the result to the project, preview it, and download it. Admins can add people, lock the group and manage roles.</p></details>
    <details><summary>How does Deep Research cite my documents?</summary><p>You add the documents and, if you like, each one's author, year and title. Garo writes from the documents and the app adds the in-text citations and the reference list in the style you choose. Without documents, Garo does standard research and will not invent references.</p></details>
@@ -477,7 +503,7 @@ html{scroll-behavior:auto}}
 </main>
 <footer>
  <div class="lfoot">
-  <span>Garo by Divine-Ollama © <span id="yr"></span>. All rights reserved.</span>
+  <span>GARO AI © <span id="yr"></span>. All rights reserved.</span>
   <nav aria-label="Footer"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav>
  </div>
 </footer>
@@ -499,12 +525,24 @@ html{scroll-behavior:auto}}
  <div class="row" style="margin-top:14px"><button class="btn alt" id="onb-skip" type="button">Skip for now</button><button class="btn alt" id="onb-back" type="button">Back</button><button class="btn" id="onb-next" type="button">Next</button></div>
 </div></section>
 <div class="bday" id="bday" role="status" hidden><p id="bday-t"></p><div class="row"><button class="btn" id="bday-view" type="button" style="margin:0;width:auto;padding:8px 14px">View message</button><button class="btn alt" id="bday-x" type="button" style="margin:0;width:auto;padding:8px 14px">Dismiss</button></div></div>
-<section id="adm" class="auth" hidden><div class="card wide" style="max-width:940px"><button class="close" id="adm-close" type="button" aria-label="Close">✕</button>
- <h1 style="font-size:1.5rem;margin:0 0 4px">Admin portal</h1><p class="hint" style="margin:0 0 8px">Review accounts and act on Terms of Use violations. Every action is recorded in the activity log.</p>
- <div class="seg" style="margin:6px 0"><button id="adm-t1" type="button" aria-selected="true">Users</button><button id="adm-t2" type="button" aria-selected="false">Activity log</button></div>
- <div id="adm-users"><div class="adm-bar"><input id="adm-q" type="search" placeholder="Search by name or email" aria-label="Search users"><select id="adm-f" aria-label="Filter accounts"><option value="all">All accounts</option><option value="suspended">Suspended only</option></select><button class="btn alt" id="adm-go" type="button" style="margin:0;width:auto">Search</button></div>
-  <p class="hint" id="adm-sum"></p><div id="adm-list"></div><div class="row"><button class="btn alt" id="adm-prev" type="button" style="margin-top:8px">← Previous</button><button class="btn alt" id="adm-next" type="button" style="margin-top:8px">Next →</button></div></div>
- <div id="adm-log" hidden></div><p id="adm-msg" class="hint" role="alert" style="color:var(--bad)"></p>
+<section id="adm" class="auth" hidden><div class="card wide rscard" role="dialog" aria-label="Admin portal">
+ <div class="rshead"><h1>Admin portal</h1><button class="rsx" id="adm-close" type="button" aria-label="Close admin portal" title="Close">✕</button></div>
+ <div class="rsbody">
+  <div class="seg" style="margin:0 0 8px"><button id="adm-t1" type="button" aria-selected="true">Users</button><button id="adm-t2" type="button" aria-selected="false">API keys</button><button id="adm-t3" type="button" aria-selected="false">Activity log</button></div>
+  <div id="adm-users">
+   <p class="hint" style="margin:0 0 6px">Every account is listed here. Block people for a number of days, give or limit usage for a set time, or delete accounts that break the Terms of Use. Every action is logged.</p>
+   <div class="adm-bar"><input id="adm-q" type="search" placeholder="Search by name or email" aria-label="Search users"><select id="adm-f" aria-label="Filter accounts"><option value="all">All accounts</option><option value="suspended">Blocked only</option></select><button class="btn alt" id="adm-go" type="button" style="margin:0;width:auto">Search</button></div>
+   <p class="hint" id="adm-sum"></p><div id="adm-list"></div><div class="row"><button class="btn alt" id="adm-prev" type="button" style="margin-top:8px">← Previous</button><button class="btn alt" id="adm-next" type="button" style="margin-top:8px">Next →</button></div>
+  </div>
+  <div id="adm-keys" hidden>
+   <p class="hint" style="margin:0 0 6px">Keys let your other projects use Garo's models and the private web search through this server. Only you can create them. Keep each key secret and store it on your own server, never inside a web page.</p>
+   <div class="adm-bar"><input id="k-name" type="text" maxlength="60" placeholder="Key name, for example the project" aria-label="Key name"><select id="k-exp" aria-label="Expiry"><option value="">Never expires</option><option value="30">Expires in 30 days</option><option value="90">Expires in 90 days</option><option value="365">Expires in 1 year</option></select><input id="k-rate" type="number" min="1" max="600" value="30" aria-label="Requests per minute" title="Requests per minute" style="width:110px"><button class="btn" id="k-go" type="button" style="margin:0;width:auto">Generate key</button></div>
+   <div id="k-new" class="knew" hidden><b>Copy your new key now. It will not be shown again.</b><div class="row" style="align-items:center"><input id="k-val" readonly type="text" class="sin" style="flex:1" aria-label="Your new API key"><button class="btn alt" id="k-copy" type="button" style="margin:0;width:auto">Copy</button></div></div>
+   <div id="adm-klist"></div>
+   <details class="bfile" style="margin-top:12px"><summary style="padding:8px 12px">How to use a key</summary><div style="padding:0 12px 12px"><p class="hint">Base address: <code id="k-base"></code>. Models: garo-chat, garo-think, garo-code. Add "web": true to a chat request to ground the answer in web search. GET /search?q=your+words returns search results only.</p><pre id="k-curl"></pre><pre id="k-py"></pre><pre id="k-js"></pre></div></details>
+  </div>
+  <div id="adm-log" hidden></div><p id="adm-msg" class="hint" role="alert" style="color:var(--bad)"></p>
+ </div>
 </div></section>
 <section id="sheet" class="auth" hidden><div class="card wide"><button class="close" id="sheet-close" type="button" aria-label="Close">✕</button><h1 id="sheet-title" style="font-size:1.4rem;margin:0 0 10px"></h1><div id="sheet-body"></div></div></section>
 <div class="pop fixed" id="msgmenu" role="menu" hidden></div>
@@ -569,9 +607,9 @@ html{scroll-behavior:auto}}
 <!-- ========== APP ========== -->
 <div id="app" class="app" hidden>
  <aside class="side" id="side">
-  <header><a class="brand" href="#">GARO<span style="color:var(--gold)"> AI</span></a></header>
+  <header><a class="brand" href="#" aria-label="GARO AI home"><img class="brandimg" src="garoai-logo.png" alt="" width="30" height="30"><span>GARO AI</span></a></header>
   <div class="seg" role="tablist"><button id="tab-chats" role="tab" aria-selected="true" type="button">Chats</button><button id="tab-groups" role="tab" aria-selected="false" type="button">Groups</button></div>
-  <div class="newrow" id="newrow"><button class="new" id="new" type="button">+ New chat</button><button class="newdots" id="new-menu" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Options for this chat" title="Share, rename, pin, move or delete this chat">⋮</button></div>
+  <div class="newrow" id="newrow"><button class="new" id="new" type="button">+ New chat</button></div>
   <button class="new" id="gnew" type="button" hidden>+ New group or project</button>
   <nav class="list" id="list" aria-label="Chats"></nav>
   <nav class="list" id="glist" aria-label="Groups" hidden></nav>
@@ -580,8 +618,9 @@ html{scroll-behavior:auto}}
  <main class="main" id="garomain">
   <div class="top">
    <button id="menu" type="button" aria-label="Open chats">☰</button><button class="sbt" id="sbtoggle" type="button" aria-label="Toggle sidebar" style="border-radius:8px;padding:5px 10px">☰</button>
-   <span class="ttl">Garo</span><select id="model" aria-label="Model" hidden></select>
+   <span class="ttl">Garo</span><span class="ctitle" id="ctitle">New chat</span><select id="model" aria-label="Model" hidden></select>
    <span class="dot" id="dot"></span><span class="stxt" id="stxt"></span><div class="gb" id="gb"><button type="button" id="b-in">Log in</button><button type="button" class="pri" id="b-up">Sign up free</button></div>
+   <button class="tb hdots" id="new-menu" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Chat options: share, rename, pin, move or delete" title="Chat options">⋮</button>
   </div>
   <div class="peekbar" id="peekbar" hidden><span>👁 <b>Notice:</b> In Sneak Peek mode, conversations are not saved and will clear once you refresh. <span id="peekleft"></span></span><button class="sbt" id="pk-up" type="button">Sign up free</button><button class="sbt" id="pk-in" type="button">Log in</button></div>
   <div class="msgs" id="msgs"><div class="col" id="col"></div></div>
@@ -635,11 +674,11 @@ html{scroll-behavior:auto}}
 const CFG = {
   SUPABASE_URL: "https://pqtcwnyeowcycvkmmjow.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_-rhFaqBNexDaBaFQguMRrA_x8_1O-bi",
-  API_URL: "https://divine-ollama.duckdns.org",
+  API_URL: "https://garoai.duckdns.org",
   GOOGLE: false,           // set true after enabling Google in Supabase -> Authentication -> Providers
-  ADMIN_URL: "https://divine-admin.duckdns.org",
+  ADMIN_URL: "https://garoai-admin.duckdns.org",
   ADMIN_EMAILS: ["digaroinyang@gmail.com"],   // only decides who is offered the admin shortcut; the admin console has its own login
-  CONTACT: "digaroinyang@gmail.com"
+  CONTACT: "garoai.003@gmail.com"
 };
 let recovering = /type=recovery/.test(location.hash + location.search);
 const sb = supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
@@ -720,7 +759,7 @@ document.addEventListener('keydown',e=>{ if(e.key!=='Escape') return; if(!$('she
 for(const id of ['b-in','gf-in','pk-in']) $(id).onclick=()=>openAuth('in');
 for(const id of ['b-up','pk-up']) $(id).onclick=()=>openAuth('up');
 $('sbtoggle').onclick=()=>$('app').classList.toggle('nosb');
-function guestUI(on){ $('app').hidden=false; $('guestfoot').hidden=!on; $('userfoot').hidden=on; $('gb').hidden=!on; $('model').disabled=on; $('mp-btn').disabled=on; $('peekbar').hidden=!on; if(on){ $('mp-label').textContent='Garo Chat'; closePops(); } }
+function guestUI(on){ $('app').hidden=false; $('guestfoot').hidden=!on; $('userfoot').hidden=on; $('gb').hidden=!on; $('model').disabled=on; $('mp-btn').disabled=on; $('peekbar').hidden=!on; $('new-menu').hidden=on; if(on){ $('mp-label').textContent='Garo Chat'; closePops(); } }
 function greet(){ const n=user&&callme(); return n?'Hello, '+esc(n)+'. What are we working on?':'Hi, I am Garo. Where should we begin?'; }
 function needAccount(f){ toast(f+' needs a free account. Use "Sign up free" above.'); }
 function setPeekLeft(n){ $('peekleft').textContent=n+' free message'+(n===1?'':'s')+' left this hour.'; }
@@ -766,7 +805,7 @@ $('f-pass').onsubmit=async e=>{ e.preventDefault(); const p=$('p-pass').value;
   const {error}=await sb.auth.updateUser({password:p}); if(error) return pmsg(friendly(error),'err'); $('p-pass').value=''; pmsg('Password changed.'); };
 $('p-export').onclick=async()=>{ const {data,error}=await sb.from('chats').select('id,title,messages,updated_at').order('updated_at');
   if(error) return pmsg(error.message,'err');
-  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='divine-ollama-chats.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); };
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='garo-chats.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); };
 function askMode(){ $('pick-admin').href=CFG.ADMIN_URL; $('role').hidden=false; }
 $('pick-user').onclick=()=>{ sessionStorage.setItem('dv-mode','user'); $('role').hidden=true; };
 $('pick-admin').onclick=()=>{ sessionStorage.setItem('dv-mode','admin'); $('role').hidden=true; };
@@ -812,7 +851,7 @@ function makeTitle(t){
   const orig=t.replace(/```[\s\S]*?```/g,' ').replace(/\s+/g,' ').trim(); let s=orig;
   const filler=/^(?:please|pls|hey|hi|hello|garo|kindly|(?:can|could|would) you|i (?:want|need) you to|help me(?: to)?)\b[\s,:-]*/i;
   for(let i=0;i<5;i++){ const n=s.replace(filler,''); if(n===s) break; s=n; }
-  s=(s||orig).replace(/[?.!]+$/,'').replace(/\s+please$/i,''); if(!s) return 'New chat';
+  if(s.length<8) s=orig; s=s.replace(/[?.!]+$/,'').replace(/\s+please$/i,''); if(!s) return 'New chat';
   if(s.length>42){ s=s.slice(0,42); const k=s.lastIndexOf(' '); s=s.slice(0,k>20?k:42)+'…'; } return s.charAt(0).toUpperCase()+s.slice(1);
 }
 async function loadChats(){
@@ -820,7 +859,7 @@ async function loadChats(){
   chats=(data||[]).map(c=>({...c,pinned:!!c.pinned,pin_order:c.pin_order||0})); sortChats(); renderList();
 }
 function renderList(){
-  const l=$('list'); l.innerHTML=''; const pin=chats.filter(c=>c.pinned);
+  const l=$('list'); if(cur&&$('ctitle')) $('ctitle').textContent=cur.title; l.innerHTML=''; const pin=chats.filter(c=>c.pinned);
   const row=c=>{ const r=el('div',{className:'item'+(cur&&cur.id===c.id?' on':'')}); r.dataset.id=c.id;
     const t=el('button',{className:'t',type:'button',textContent:(c.pinned?'📌 ':'')+c.title}); t.onclick=()=>openChat(c.id);
     const x=el('button',{className:'x',type:'button',textContent:'⋯'}); x.setAttribute('aria-haspopup','menu'); x.setAttribute('aria-label','Chat options for '+c.title); x.onclick=e=>{ e.stopPropagation(); openChatMenu(c.id,x); };
@@ -836,7 +875,7 @@ function openChatMenu(id,anchor){
   item('🔗','Share chat',()=>shareChat(id)); item('✏️','Rename',()=>renameChat(id)); item('📌',c&&c.pinned?'Unpin chat':'Pin chat',()=>pinChat(id));
   if(c&&c.pinned){ if(i>0) item('⬆️','Move up',()=>moveChat(id,-1)); if(i<pinned.length-1) item('⬇️','Move down',()=>moveChat(id,1)); } else item('⬆️','Move to top',()=>bumpChat(id));
   m.append(el('hr')); item('🗑','Delete',()=>delChat(id),true);
-  const r=anchor.getBoundingClientRect(); m.hidden=false; m.style.top=Math.max(8,Math.min(r.bottom+4,innerHeight-300))+'px'; m.style.left=Math.max(8,Math.min(r.left-150,innerWidth-240))+'px'; anchor.setAttribute('aria-expanded','true');
+  const r=anchor.getBoundingClientRect(); m.hidden=false; m.style.top=Math.max(8,Math.min(r.bottom+4,innerHeight-300))+'px'; m.style.left=Math.max(8,Math.min(r.right-232,innerWidth-240))+'px'; anchor.setAttribute('aria-expanded','true');
 }
 async function bumpChat(id){
   const c=chats.find(x=>x.id===id); if(!c) return; c.updated_at=new Date().toISOString(); sortChats(); renderList();
@@ -872,7 +911,7 @@ async function delChat(id){
 }
 async function save(){
   if(!user||!cur||!cur.messages.length) return;
-  const row={id:cur.id,user_id:user.id,title:cur.title,messages:cur.messages.map(({role,content,att})=>({role,content,...(att&&att.length?{att}:{})})),updated_at:new Date().toISOString()};
+  const row={id:cur.id,user_id:user.id,title:cur.title,messages:cur.messages.map(({role,content,att,edited})=>({role,content,...(att&&att.length?{att}:{}),...(edited?{edited:true}:{})})),updated_at:new Date().toISOString()};
   const {error}=await sb.from('chats').upsert(row);
   if(!error){ const ex=chats.find(c=>c.id===cur.id); if(ex){ ex.title=cur.title; ex.updated_at=row.updated_at; } else chats.unshift({id:cur.id,title:cur.title,updated_at:row.updated_at,pinned:false,pin_order:0}); sortChats(); }
 }
@@ -885,8 +924,9 @@ function md(t){
   }).join('');
 }
 function bubble(m){ const d=document.createElement('div'); d.className='msg '+m.role; if(m.role==='user'){ d.textContent=m.content; if(m.att&&m.att.length){ const c=document.createElement('div'); for(const a of m.att){ const sp=document.createElement('span'); sp.className='chip'; sp.textContent=(a.kind==='image'?'🖼 ':'📄 ')+a.name; c.append(sp); } d.prepend(c); } } else d.innerHTML=msgHtml(m,false); return d; }
-function render(){
-  const col=$('col'); col.innerHTML='';
+function render(keep){
+  const col=$('col'), sc=$('msgs'), st0=sc.scrollTop; col.innerHTML='';
+  $('ctitle').textContent=(cur&&cur.title)||'New chat';
   if(!cur.messages.length){
     col.innerHTML='<div class="empty"><h1>'+greet()+'</h1><p>I am Garo. Ask me anything, add your documents for research, or describe an app to build.</p><div class="chips"></div></div>';
     const picks=user?['Explain Docker volumes simply','Write a Python function to merge two sorted lists','Build a to-do app with HTML, CSS and JavaScript']:['Explain Docker volumes simply','Write a Python function to merge two sorted lists'];
@@ -896,14 +936,23 @@ function render(){
     if(!user){ const b=document.createElement('button'); b.textContent='▶ See a sample project build'; b.onclick=samplePeek; col.querySelector('.chips').append(b); }
     return;
   }
-  const lastA=cur.messages.map(x=>x.role).lastIndexOf('assistant');
-  cur.messages.forEach((m,i)=>{ col.append(bubble(m)); if(m.role==='assistant'&&!m.error){ addActs(m);
-    if(user&&i===lastA&&!busy&&m.content&&!buildLike(m)){ const v=el('button',{type:'button',className:'vbtn',textContent:'🌐 Verify with the web'}); v.onclick=()=>send({text:'Please verify your last answer using current web sources and correct anything that is outdated.',web:true}); col.append(v); } } });
-  $('msgs').scrollTop=$('msgs').scrollHeight;
+  const lastA=cur.messages.map(x=>x.role).lastIndexOf('assistant'), n=cur.messages.length;
+  cur.messages.forEach((m,i)=>{
+    const wrap=el('div',{className:'mwrap '+m.role+(i>=n-2?' keep':'')}); wrap.dataset.i=i;
+    if(m.role==='user'&&editIdx===i){ wrap.append(editorNode(m,i)); col.append(wrap); return; }
+    wrap.append(bubble(m));
+    if(m.role==='user'&&m.edited) wrap.querySelector('.msg').append(el('span',{className:'edtag',textContent:'edited'}));
+    if(m.role==='assistant'&&!m.error) addActs(m,wrap);
+    if(!(m.role==='assistant'&&!m.content)) wrap.append(msgActions(m,i));
+    if(m.role==='assistant'&&!m.error&&user&&i===lastA&&!busy&&m.content&&!buildLike(m)){ const v=el('button',{type:'button',className:'vbtn',textContent:'🌐 Verify with the web'}); v.onclick=()=>send({text:'Please verify your last answer using current web sources and correct anything that is outdated.',web:true}); wrap.append(v); }
+    col.append(wrap);
+  });
+  if(keep) sc.scrollTop=st0; else sc.scrollTop=sc.scrollHeight;
 }
 function paintLast(){
-  const el=$('col').lastElementChild, m=cur.messages[cur.messages.length-1]; if(!el) return;
-  el.innerHTML=msgHtml(m,true);
+  const w=$('col').lastElementChild, m=cur.messages[cur.messages.length-1]; if(!w) return;
+  const box=w.classList&&w.classList.contains('mwrap')?w.querySelector('.msg'):w; if(!box) return;
+  box.innerHTML=msgHtml(m,true);
   const s=$('msgs'); if(s.scrollHeight-s.scrollTop-s.clientHeight<160) s.scrollTop=s.scrollHeight;
 }
 $('col').addEventListener('click',e=>{
@@ -1152,6 +1201,52 @@ $('in').addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey&&!e.isCo
 $('send').onclick=()=>{ if(busy&&ctl) ctl.abort(); else send(); };
 $('new').onclick=newChat; $('new-menu').onclick=e=>{ e.stopPropagation(); openChatMenu(cur?cur.id:'',$('new-menu')); }; $('menu').onclick=()=>$('side').classList.toggle('open');
 
+/* ---------- message actions: copy, edit and resend, regenerate ---------- */
+const ICO={copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',edit:'<svg viewBox="0 0 24 24"><path d="M4 20h4L18 10l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',regen:'<svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>',check:'<svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>'};
+let editIdx=-1;
+function mbtn(kind,label,fn,text){ const b=document.createElement('button'); b.type='button'; b.className='mab'; b.innerHTML=ICO[kind]+(text?'<span>'+text+'</span>':''); b.setAttribute('aria-label',label); b.title=label; b.onclick=e=>{ e.stopPropagation(); fn(b); }; return b; }
+async function copyText(text,btn){
+  let ok=false;
+  try{ if(navigator.clipboard&&navigator.clipboard.writeText){ await navigator.clipboard.writeText(text); ok=true; } }catch{}
+  if(!ok){ try{ const t=document.createElement('textarea'); t.value=text; t.style.cssText='position:fixed;opacity:0'; document.body.append(t); t.select(); ok=!!(document.execCommand&&document.execCommand('copy')); t.remove(); }catch{} }
+  if(!btn) return ok;
+  if(ok){ const old=btn.innerHTML, lab=btn.getAttribute('aria-label'); btn.innerHTML=ICO.check+'<span>Copied</span>'; btn.classList.add('done'); btn.setAttribute('aria-label','Copied'); setTimeout(()=>{ btn.innerHTML=old; btn.classList.remove('done'); btn.setAttribute('aria-label',lab); },1600); }
+  else toast('Could not copy. Select the text and copy it by hand.');
+  return ok;
+}
+function msgActions(m,i){
+  const bar=el('div',{className:'mact'});
+  if(m.role==='user'){ bar.append(mbtn('copy','Copy message',b=>copyText(m.content,b))); if(user) bar.append(mbtn('edit','Edit message',()=>startEdit(i))); }
+  else if(m.error){ if(user) bar.append(mbtn('regen','Retry',()=>regenerate(i),'Retry')); }
+  else if(m.content){ bar.append(mbtn('copy','Copy response',b=>copyText(m.content,b))); if(user&&i===cur.messages.length-1) bar.append(mbtn('regen','Regenerate response',()=>regenerate(i))); }
+  return bar;
+}
+function startEdit(i){ if(busy) return toast('Wait for Garo to finish, or press the stop button.'); editIdx=i; render(true); const ta=document.querySelector('.medit textarea'); if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length); } }
+function cancelEdit(){ editIdx=-1; render(true); }
+function editorNode(m,i){
+  const box=el('div',{className:'medit'}); box.setAttribute('role','group'); box.setAttribute('aria-label','Editing your message');
+  const ta=el('textarea',{value:m.content,rows:1}); ta.setAttribute('aria-label','Edit your message');
+  const cancel=el('button',{type:'button',textContent:'Cancel'}), go=el('button',{type:'button',className:'go',textContent:'Send',disabled:true});
+  cancel.setAttribute('aria-label','Cancel editing'); go.setAttribute('aria-label','Send edited message');
+  const changed=()=>{ const v=ta.value.trim(); return !!v&&v!==m.content.trim()&&!busy; };
+  const sync=()=>{ go.disabled=!changed(); ta.style.height='auto'; ta.style.height=Math.min(ta.scrollHeight,Math.round(window.innerHeight*0.5))+'px'; };
+  const submit=()=>{ if(!changed()) return; go.disabled=true; const v=ta.value.trim(); editIdx=-1; resendFrom(i,v,true); };
+  ta.addEventListener('input',sync);
+  ta.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){ e.preventDefault(); submit(); } else if(e.key==='Escape'){ e.preventDefault(); cancelEdit(); } });
+  go.onclick=submit; cancel.onclick=cancelEdit; box.append(ta,el('div',{className:'mbtns'},cancel,go)); setTimeout(sync,0); return box;
+}
+function resendFrom(i,text,edited){
+  if(busy) return; const old=cur.messages[i]; if(!old||old.role!=='user') return;
+  if(old.att&&old.att.length&&!old.docs) toast('Attached files are not re-sent when you edit a saved chat. Attach them again if Garo needs them.');
+  const docs=old.docs||[]; cur.messages.splice(i);              // the edited prompt replaces this message and everything after it
+  send({text,docs,edited:!!edited});
+}
+function regenerate(i){
+  if(busy) return toast('Garo is still answering.');
+  let u=i; while(u>=0&&cur.messages[u].role!=='user') u--; if(u<0) return;
+  const old=cur.messages[u], docs=old.docs||[], text=old.content, edited=!!old.edited; cur.messages.splice(u); send({text,docs,edited});
+}
+
 /* ---------- Build mode: live step-by-step view ---------- */
 const cleanName=n=>n.replace(/\*+/g,'').trim().replace(/\.\.+/g,'.').replace(/^[./\\]+/,'').replace(/[^\w./-]/g,'_');
 function parseBuild(t){
@@ -1200,9 +1295,10 @@ async function send(opts){
   if(user&&text.length>12000){ toast('That message is too long (12,000 characters max).'); return; }
   if(user&&!$('model').value){ alert('Garo is not available yet. The server has no models installed.'); return; }
   if(!opts.text){ $('in').value=''; autosize(); }
-  const docs=pending.slice(); pending=[]; renderAtts();
+  const docs=opts.docs||pending.slice(); if(!opts.docs){ pending=[]; renderAtts(); }
   const shown=text||'Summarize the attached file.';
-  const msg={role:'user',content:shown,att:docs.map(({name})=>({kind:'doc',name}))};
+  const msg={role:'user',content:shown,att:docs.map(({name})=>({kind:'doc',name})),...(opts.edited?{edited:true}:{})};
+  if(docs.length) msg.docs=docs;
   if(docs.length) msg.ctx=docs.map(d=>'Attached file "'+d.name+'":\n```\n'+d.text+'\n```\n\n').join('')+shown;
   const rc=(user&&mode==='research'&&lib.length)?researchContext(shown):null; if(rc) msg.rctx=rc.text;
   const complaint=COMPLAINT.test(shown), fresh=FRESH.test(shown)&&!/```/.test(shown), useWeb=!!user&&mode!=='build'&&(!!opts.web||mode==='web'||(mode==='chat'&&(complaint||fresh)));
@@ -1622,67 +1718,110 @@ async function callApi(path,opt){
   if(!r.ok) throw new Error(j.detail||'The request failed ('+r.status+')'); return j;
 }
 
-/* ---------- admin portal: suspend, unsuspend and delete accounts that break the Terms of Use ---------- */
-const ADM={page:1};
+/* ---------- admin portal: users, usage, blocking, API keys and the activity log ---------- */
+const ADM={page:1,def:0};
 const REASON_OPTS=[['harassment','Harassment or abuse'],['illegal','Illegal content'],['spam','Spam or misuse'],['other','Other']];
-function admTab(n){ $('adm-t1').setAttribute('aria-selected',n===1); $('adm-t2').setAttribute('aria-selected',n===2); $('adm-users').hidden=n!==1; $('adm-log').hidden=n!==2; if(n===2) loadAdminLog(); }
-function openAdmin(){ if(!isAdmin()) return; $('adm').hidden=false; $('adm-msg').textContent=''; admTab(1); loadAdminUsers(1); }
+const dtm=iso=>iso?new Date(iso).toLocaleString([],{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}):'never';
+const dday=iso=>new Date(iso).toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'});
+const pill=(cls,t)=>el('span',{className:'pill '+cls,textContent:t});
+function admTab(n){ for(const k of [1,2,3]) $('adm-t'+k).setAttribute('aria-selected',String(n===k)); $('adm-users').hidden=n!==1; $('adm-keys').hidden=n!==2; $('adm-log').hidden=n!==3; $('adm-msg').textContent=''; if(n===2) loadKeys(); if(n===3) loadAdminLog(); }
+function openAdmin(){ if(!isAdmin()) return; $('adm').hidden=false; admTab(1); loadAdminUsers(1); keyDocs(); }
 $('adm-close').onclick=()=>{ $('adm').hidden=true; };
-$('adm-t1').onclick=()=>admTab(1); $('adm-t2').onclick=()=>admTab(2);
+for(const k of [1,2,3]) $('adm-t'+k).onclick=()=>admTab(k);
 $('adm-go').onclick=()=>loadAdminUsers(1); $('adm-f').onchange=()=>loadAdminUsers(1);
 $('adm-q').onkeydown=e=>{ if(e.key==='Enter') loadAdminUsers(1); };
 $('adm-prev').onclick=()=>loadAdminUsers(Math.max(1,ADM.page-1)); $('adm-next').onclick=()=>loadAdminUsers(ADM.page+1);
-const dt=iso=>iso?new Date(iso).toLocaleString([],{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}):'never';
 async function loadAdminUsers(page){
   ADM.page=page; const list=$('adm-list'); list.innerHTML='<p class="hint">Loading…</p>'; $('adm-msg').textContent='';
   try{
     const q=$('adm-q').value.trim(), f=$('adm-f').value;
-    const j=await callApi('/v1/admin/users?page='+page+'&q='+encodeURIComponent(q)+'&status='+f);
-    list.innerHTML=''; $('adm-sum').textContent=j.users.length+' account'+(j.users.length===1?'':'s')+(q?' matching "'+q+'"':' on this page')+(f==='suspended'?' (suspended only)':'');
+    const j=await callApi('/v1/admin/users?page='+page+'&q='+encodeURIComponent(q)+'&status='+f); ADM.def=j.default_daily_limit||0;
+    list.innerHTML=''; $('adm-sum').textContent=(j.total?j.total+' accounts in total. ':'')+j.users.length+' shown'+(q?' for "'+q+'"':'')+(f==='suspended'?' (blocked only)':'')+'. Standard allowance: '+(ADM.def?ADM.def+' messages a day':'no daily cap')+'.';
     $('adm-prev').hidden=page<=1||!!q; $('adm-next').hidden=!j.has_more;
     if(!j.users.length) list.append(el('p',{className:'hint',textContent:'No accounts found.'}));
     for(const u of j.users){
-      const name=el('b',{textContent:u.name||u.email}); if(u.suspended) name.append(el('span',{className:'pill bad',textContent:'Suspended'})); else if(u.is_admin) name.append(el('span',{className:'pill gold',textContent:'Admin'})); else name.append(el('span',{className:'pill ok',textContent:'Active'}));
-      const row=el('div',{className:'urow'},el('span',{className:'un'},name,el('small',{textContent:u.email+(u.country?' · '+u.country:'')}),el('small',{textContent:'Joined '+dt(u.created_at)+' · Last sign-in '+dt(u.last_sign_in_at)})));
+      const name=el('b',{textContent:u.name||u.email});
+      if(u.is_admin) name.append(pill('gold','Admin')); else if(u.suspended) name.append(pill('bad',u.blocked_forever?'Blocked permanently':'Blocked until '+dday(u.banned_until))); else name.append(pill('ok','Active'));
+      if(u.access) name.append(pill(u.access.mode==='free'?'ok':'gold',(u.access.mode==='free'?'Free usage':'Limited to '+u.access.daily_limit+' a day')+' until '+dday(u.access.expires_at)));
+      const row=el('div',{className:'urow'},el('span',{className:'un'},name,el('small',{textContent:u.email+(u.country?' · '+u.country:'')}),
+        el('small',{textContent:'Joined '+dtm(u.created_at)+' · Last sign-in '+dtm(u.last_sign_in_at)+' · Today: '+u.usage_today+' message'+(u.usage_today===1?'':'s')})));
       if(!u.is_admin){
-        if(u.suspended){ const b=el('button',{type:'button',className:'sbt',textContent:'Unsuspend'}); b.onclick=()=>admAct('unsuspend',u); row.append(b); }
-        else { const b=el('button',{type:'button',className:'sbt',textContent:'Suspend'}); b.onclick=()=>admAct('suspend',u); row.append(b); }
-        const d=el('button',{type:'button',className:'sbt danger',textContent:'Delete'}); d.onclick=()=>admAct('delete',u); row.append(d);
+        const b1=el('button',{type:'button',className:'sbt',textContent:u.suspended?'Unblock':'Block'}); b1.onclick=()=>u.suspended?admUnblock(u):admBlock(u);
+        const b2=el('button',{type:'button',className:'sbt',textContent:'Usage'}); b2.onclick=()=>admUsage(u);
+        const b3=el('button',{type:'button',className:'sbt danger',textContent:'Delete'}); b3.onclick=()=>admDelete(u);
+        row.append(b1,b2,b3);
       }
       list.append(row);
     }
   }catch(e){ list.innerHTML=''; $('adm-msg').textContent=e.message; }
 }
-function admAct(kind,u){
-  const label={suspend:'Suspend account',unsuspend:'Lift suspension',delete:'Delete account permanently'}[kind];
-  openSheet(label,b=>{
-    b.append(el('p',{},el('b',{textContent:u.name||u.email}),' ('+u.email+')'));
-    let sel=null, note=null, confirm=null;
-    if(kind!=='unsuspend'){
-      sel=el('select',{className:'sin'}); for(const [v,t] of REASON_OPTS) sel.add(new Option(t,v));
-      note=el('textarea',{className:'sin',rows:2,maxLength:300,placeholder:'Optional note for the activity log'});
-      b.append(field('Reason (Terms of Use violation)',sel),field('Note',note));
-    }
-    b.append(el('p',{className:'hint',textContent:{suspend:'The person cannot sign in or use Garo until you lift the suspension. Their data is kept.',unsuspend:'The person will be able to sign in and use Garo again.',delete:'This permanently deletes the account, saved chats, profile and group messages. It cannot be undone.'}[kind]}));
-    if(kind==='delete'){ confirm=el('input',{type:'text',className:'sin',placeholder:'Type the email to confirm',autocomplete:'off'}); b.append(field('Confirm',confirm)); }
-    const msg=el('p',{className:'hint',role:'alert',style:'color:var(--bad)'}), go=el('button',{type:'button',className:'btn'+(kind==='delete'?' alt danger':''),textContent:label});
-    go.onclick=async()=>{
-      if(kind==='delete'&&confirm.value.trim().toLowerCase()!==u.email.toLowerCase()) return msg.textContent='Type the exact email to confirm.';
-      go.disabled=true; msg.textContent='';
-      try{
-        const body=sel?{reason:sel.value,note:note.value}:{};
-        await callApi('/v1/admin/users/'+u.id+(kind==='delete'?'':'/'+kind),{method:kind==='delete'?'DELETE':'POST',body});
-        closeSheet(); toast({suspend:'Account suspended',unsuspend:'Suspension lifted',delete:'Account deleted'}[kind]); loadAdminUsers(ADM.page);
-      }catch(e){ msg.textContent=e.message; go.disabled=false; }
-    };
-    b.append(msg,go);
-  });
+const reasonSel=()=>{ const s=el('select',{className:'sin'}); for(const [v,t] of REASON_OPTS) s.add(new Option(t,v)); return s; };
+const daysSel=(vals,def)=>{ const s=el('select',{className:'sin'}); for(const [v,t] of vals) s.add(new Option(t,v)); s.value=def; return s; };
+function dlg(title,u,build){ openSheet(title,b=>{ b.append(el('p',{},el('b',{textContent:u.name||u.email}),' ('+u.email+')')); const msg=el('p',{className:'hint',role:'alert',style:'color:var(--bad)'}); build(b,msg); }); }
+async function admCall(path,method,body,okText,msg,btn){
+  btn.disabled=true; msg.textContent='';
+  try{ await callApi(path,{method,body}); closeSheet(); toast(okText); loadAdminUsers(ADM.page); }catch(e){ msg.textContent=e.message; btn.disabled=false; }
 }
+function admBlock(u){ dlg('Block this account',u,(b,msg)=>{
+  const sel=daysSel([['1','1 day'],['3','3 days'],['7','7 days'],['14','14 days'],['30','30 days'],['90','90 days'],['custom','A number of days I choose…'],['perm','Permanently']],'7');
+  const cd=el('input',{type:'number',className:'sin',min:1,max:3650,value:7,hidden:true}); cd.setAttribute('aria-label','Number of days'); sel.onchange=()=>{ cd.hidden=sel.value!=='custom'; };
+  const rs=reasonSel(), note=el('textarea',{className:'sin',rows:2,maxLength:300,placeholder:'Optional note for the activity log'});
+  const go=el('button',{type:'button',className:'btn',textContent:'Block account'});
+  go.onclick=()=>{ let days=sel.value==='perm'?null:sel.value==='custom'?parseInt(cd.value,10):parseInt(sel.value,10);
+    if(sel.value!=='perm'&&!(days>=1&&days<=3650)) return msg.textContent='Enter a number of days between 1 and 3650.';
+    admCall('/v1/admin/users/'+u.id+'/suspend','POST',{days,reason:rs.value,note:note.value},sel.value==='perm'?'Account blocked permanently':'Account blocked for '+days+' day'+(days===1?'':'s'),msg,go); };
+  b.append(field('How long',sel),cd,field('Reason (Terms of Use violation)',rs),field('Note',note),el('p',{className:'hint',textContent:'The person cannot sign in or use Garo until the time is up, or until you unblock them. Their data is kept.'}),msg,go); }); }
+function admUnblock(u){ dlg('Unblock this account',u,(b,msg)=>{ const go=el('button',{type:'button',className:'btn',textContent:'Unblock account'}); go.onclick=()=>admCall('/v1/admin/users/'+u.id+'/unsuspend','POST',{},'Account unblocked',msg,go);
+  b.append(el('p',{className:'hint',textContent:'The person will be able to sign in and use Garo again straight away.'}),msg,go); }); }
+function admUsage(u){ dlg('Usage allowance',u,(b,msg)=>{
+  const cur=u.access; let mode=cur?cur.mode:'free';
+  const r1=el('input',{type:'radio',name:'um',checked:mode==='free'}), r2=el('input',{type:'radio',name:'um',checked:mode==='restricted'});
+  const lim=el('input',{type:'number',className:'sin',min:0,max:100000,value:cur&&cur.daily_limit!=null?cur.daily_limit:10}); lim.setAttribute('aria-label','Messages per day');
+  const limBox=field('Messages per day',lim); const upd=()=>{ limBox.hidden=mode!=='restricted'; }; r1.onchange=()=>{ mode='free'; upd(); }; r2.onchange=()=>{ mode='restricted'; upd(); }; upd();
+  const sel=daysSel([['7','7 days'],['30','30 days'],['90','90 days'],['365','1 year'],['custom','A number of days I choose…']],'30'), cd=el('input',{type:'number',className:'sin',min:1,max:3650,value:30,hidden:true}); cd.setAttribute('aria-label','Number of days'); sel.onchange=()=>{ cd.hidden=sel.value!=='custom'; };
+  const note=el('input',{type:'text',className:'sin',maxLength:200,placeholder:'Optional note'});
+  const go=el('button',{type:'button',className:'btn',textContent:'Apply'});
+  go.onclick=()=>{ const days=sel.value==='custom'?parseInt(cd.value,10):parseInt(sel.value,10); if(!(days>=1&&days<=3650)) return msg.textContent='Enter a number of days between 1 and 3650.';
+    const body={mode,days,note:note.value}; if(mode==='restricted'){ const n=parseInt(lim.value,10); if(!(n>=0)) return msg.textContent='Enter how many messages per day.'; body.daily_limit=n; }
+    admCall('/v1/admin/users/'+u.id+'/access','POST',body,mode==='free'?'Free usage granted':'Usage restricted',msg,go); };
+  b.append(el('p',{className:'hint',textContent:'Standard allowance: '+(ADM.def?ADM.def+' messages a day':'no daily cap')+'. '+(cur?'Current: '+(cur.mode==='free'?'free usage':'limited to '+cur.daily_limit+' a day')+' until '+dday(cur.expires_at)+'.':'No special allowance set.')}),
+    el('label',{className:'opt'},r1,' Free usage: no daily limit'),el('label',{className:'opt'},r2,' Restricted: a set number of messages a day'),limBox,field('For how long',sel),cd,field('Note',note),msg,go);
+  if(cur){ const clr=el('button',{type:'button',className:'btn alt',textContent:'Clear allowance (back to standard)'}); clr.onclick=()=>admCall('/v1/admin/users/'+u.id+'/access','DELETE',undefined,'Allowance cleared',msg,clr); b.append(clr); } }); }
+function admDelete(u){ dlg('Delete account permanently',u,(b,msg)=>{
+  const rs=reasonSel(), note=el('textarea',{className:'sin',rows:2,maxLength:300,placeholder:'Optional note for the activity log'}), cf=el('input',{type:'text',className:'sin',placeholder:'Type the email to confirm',autocomplete:'off'});
+  const go=el('button',{type:'button',className:'btn alt danger',textContent:'Delete account permanently'});
+  go.onclick=()=>{ if(cf.value.trim().toLowerCase()!==u.email.toLowerCase()) return msg.textContent='Type the exact email to confirm.'; admCall('/v1/admin/users/'+u.id,'DELETE',{reason:rs.value,note:note.value},'Account deleted',msg,go); };
+  b.append(field('Reason (Terms of Use violation)',rs),field('Note',note),el('p',{className:'hint',textContent:'This permanently deletes the account, saved chats, profile and group messages. It cannot be undone.'}),field('Confirm',cf),msg,go); }); }
+/* API keys */
+function keyDocs(){ const base=CFG.API_URL+'/api/v1'; $('k-base').textContent=base;
+  $('k-curl').textContent='curl '+base+'/chat/completions \\\n  -H "Authorization: Bearer dgk_YOUR_KEY" -H "Content-Type: application/json" \\\n  -d \'{"model":"garo-chat","messages":[{"role":"user","content":"Hello"}],"web":true}\'';
+  $('k-py').textContent='from openai import OpenAI\nclient = OpenAI(base_url="'+base+'", api_key="dgk_YOUR_KEY")\nr = client.chat.completions.create(model="garo-chat", messages=[{"role":"user","content":"Hello"}], extra_body={"web": True})\nprint(r.choices[0].message.content)';
+  $('k-js').textContent='// run this on your server, never in a web page\nconst r = await fetch("'+base+'/chat/completions", { method: "POST",\n  headers: { "Authorization": "Bearer dgk_YOUR_KEY", "Content-Type": "application/json" },\n  body: JSON.stringify({ model: "garo-chat", messages: [{ role: "user", content: "Hello" }] }) });\nconsole.log((await r.json()).choices[0].message.content);'; }
+async function loadKeys(){
+  const box=$('adm-klist'); box.innerHTML='<p class="hint">Loading…</p>';
+  try{ const j=await callApi('/v1/admin/keys'); box.innerHTML='';
+    if(!j.keys.length) box.append(el('p',{className:'hint',textContent:'No keys yet. Name one above and press Generate key.'}));
+    for(const k of j.keys){
+      const name=el('b',{textContent:k.name}); name.append(pill(k.status==='active'?'ok':k.status==='revoked'?'bad':'gold',k.status[0].toUpperCase()+k.status.slice(1)));
+      const row=el('div',{className:'krow'},el('span',{className:'un'},name,el('small',{textContent:k.prefix+'…  ·  '+k.rate_per_min+' requests a minute  ·  '+(k.expires_at?'Expires '+dday(k.expires_at):'Never expires')}),
+        el('small',{textContent:'Created '+dtm(k.created_at)+' by '+k.created_by+'  ·  Last used '+dtm(k.last_used_at)+'  ·  '+k.request_count+' request'+(k.request_count===1?'':'s')})));
+      if(k.status==='active'){ const rv=el('button',{type:'button',className:'sbt danger',textContent:'Revoke'}); rv.onclick=async()=>{ if(!confirm('Revoke "'+k.name+'"? Projects using it will stop working immediately.')) return; try{ await callApi('/v1/admin/keys/'+k.id,{method:'DELETE'}); toast('Key revoked'); loadKeys(); }catch(e){ $('adm-msg').textContent=e.message; } }; row.append(rv); }
+      box.append(row); }
+  }catch(e){ box.innerHTML=''; $('adm-msg').textContent=e.message; }
+}
+$('k-go').onclick=async()=>{
+  const name=$('k-name').value.trim(); $('adm-msg').textContent=''; if(!name) return $('adm-msg').textContent='Give the key a name first.';
+  $('k-go').disabled=true;
+  try{ const j=await callApi('/v1/admin/keys',{method:'POST',body:{name,expires_days:$('k-exp').value?+$('k-exp').value:null,rate_per_min:+$('k-rate').value||30}});
+    $('k-val').value=j.key; $('k-new').hidden=false; $('k-name').value=''; loadKeys(); toast('Key created. Copy it now.'); }
+  catch(e){ $('adm-msg').textContent=e.message; } $('k-go').disabled=false;
+};
+$('k-copy').onclick=()=>copyText($('k-val').value,$('k-copy'));
 async function loadAdminLog(){
   const box=$('adm-log'); box.innerHTML='<p class="hint">Loading…</p>';
   try{ const j=await callApi('/v1/admin/log'); box.innerHTML='';
     if(!j.log.length) box.append(el('p',{className:'hint',textContent:'Nothing has been recorded yet.'}));
-    for(const r of j.log) box.append(el('div',{className:'lrow2'},el('b',{textContent:r.action.replace('_',' ')}),el('span',{textContent:(r.target_email||'unknown')+' · '+(r.reason||'')}),el('span',{className:'hint',textContent:dt(r.created_at)+' · by '+r.admin_email})));
+    for(const r of j.log) box.append(el('div',{className:'lrow2'},el('b',{textContent:r.action.replace(/_/g,' ')}),el('span',{textContent:(r.target_email||'—')+' · '+(r.reason||'')}),el('span',{className:'hint',textContent:dtm(r.created_at)+' · by '+r.admin_email})));
   }catch(e){ box.innerHTML=''; $('adm-msg').textContent=e.message; }
 }
 $('pick-portal').onclick=()=>{ sessionStorage.setItem('dv-mode','admin'); $('role').hidden=true; openAdmin(); };
@@ -1789,9 +1928,9 @@ function bdayInfo(){
 function bdayMessage(){
   const i=bdayInfo(), n=callme()||'friend', age=i?i.age:'';
   return [
-    'Happy Birthday, '+n+'! Today you turn '+age+'. Everyone at Divine-Ollama is wishing you a day full of good things. Thank you for letting Garo be part of your work and ideas. May this new year bring you big breakthroughs, steady progress and plenty of reasons to celebrate.',
+    'Happy Birthday, '+n+'! Today you turn '+age+'. Everyone at GARO AI is wishing you a day full of good things. Thank you for letting Garo be part of your work and ideas. May this new year bring you big breakthroughs, steady progress and plenty of reasons to celebrate.',
     'Happy Birthday, '+n+'! Another year, another chapter, and you are '+age+' today. Garo is glad to be on your side for the questions, the projects and the late-night ideas. Enjoy every moment of today, you deserve it.',
-    'Happy Birthday, '+n+'! '+age+' looks great on you. May your year be full of curiosity, good company and finished projects. Thank you for being part of Divine-Ollama. Now go and celebrate!'
+    'Happy Birthday, '+n+'! '+age+' looks great on you. May your year be full of curiosity, good company and finished projects. Thank you for being part of GARO AI. Now go and celebrate!'
   ][new Date().getFullYear()%3];
 }
 const anyModal=()=>['profile','onb','rs','prev','role','adm','sheet'].some(id=>!$(id).hidden);
