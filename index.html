@@ -359,6 +359,17 @@ html{scroll-behavior:auto}}
 #site .lfoot button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0}#site .lfoot button:hover{color:var(--ink)}
 .phone-row{display:flex;gap:8px}.phone-row select{width:112px;flex:none}.phone-row input{flex:1;min-width:0}
 
+
+/* dialogs with the scrollbar on the left; Group info is a fixed full-screen page */
+#sheet.lsb:not(.fixed) .card{max-height:calc(100dvh - 32px);overflow-y:auto;direction:rtl}
+#sheet.lsb:not(.fixed) .card>*{direction:ltr}
+#sheet.fixed{padding:0;background:var(--bg);display:block;overflow:hidden}
+#sheet.fixed .card{max-width:none;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:0;display:flex;flex-direction:column;overflow:hidden}
+#sheet.fixed .close{left:10px;right:auto;top:8px;font-size:1.3rem;z-index:2}
+#sheet.fixed #sheet-title{margin:0!important;padding:14px 16px 14px 64px;border-bottom:1px solid var(--line);font-size:1.2rem!important}
+#sheet.fixed #sheet-body{flex:1;min-height:0;overflow-y:auto;direction:rtl;padding:16px 16px 40px}
+#sheet.fixed #sheet-body>*{direction:ltr;max-width:760px;margin-left:auto;margin-right:auto}
+#sheet.fixed #sheet-body>.sec{margin-top:18px}
 /* searchable country-code picker */
 .cp{position:relative;flex:none;--cp-bg:var(--card);--cp-bd:var(--line);--cp-ink:var(--ink);--cp-mut:var(--muted);--cp-hov:var(--panel);--cp-fld:var(--bg)}
 #site .cp{--cp-bg:#0f172a;--cp-bd:#1e293b;--cp-ink:#f1f5f9;--cp-mut:#94a3b8;--cp-hov:#1e293b;--cp-fld:#0f172acc}
@@ -805,7 +816,7 @@ $('f-reset').onsubmit = async e => { e.preventDefault(); const p=$('rs-pass').va
 $('out').onclick = () => { $('profile').hidden=true; sessionStorage.removeItem('dv-mode'); sb.auth.signOut(); };
 $('out-all').onclick = () => { $('profile').hidden=true; sessionStorage.removeItem('dv-mode'); sb.auth.signOut({scope:'global'}); };
 function toast(t){ const d=document.createElement('div'); d.className='toast'; d.setAttribute('role','status'); d.textContent=t; document.body.append(d); setTimeout(()=>d.remove(),3500); }
-document.addEventListener('keydown',e=>{ if(e.key!=='Escape') return; if(!$('sheet').hidden) closeSheet(); else if(!$('adm').hidden) $('adm').hidden=true; else if(!$('prev').hidden) $('pv-close').click(); else if(!$('profile').hidden) $('profile').hidden=true; });
+document.addEventListener('keydown',e=>{ if(e.key!=='Escape') return; if(!$('sheet').hidden){ if(!$('sheet').classList.contains('fixed')) closeSheet(); } else if(!$('adm').hidden) $('adm').hidden=true; else if(!$('prev').hidden) $('pv-close').click(); else if(!$('profile').hidden) $('profile').hidden=true; });
 for(const id of ['b-in','gf-in','pk-in']) $(id).onclick=()=>openAuth('in');
 for(const id of ['b-up','pk-up']) $(id).onclick=()=>openAuth('up');
 $('sbtoggle').onclick=()=>$('app').classList.toggle('nosb');
@@ -1651,9 +1662,10 @@ async function downloadShared(f){
 }
 
 /* sheet (dialog) helpers */
-function openSheet(title,build){ const b=$('sheet-body'); b.innerHTML=''; $('sheet-title').textContent=title; build(b); $('sheet').hidden=false; }
-function closeSheet(){ $('sheet').hidden=true; }
-$('sheet-close').onclick=closeSheet; $('sheet').addEventListener('mousedown',e=>{ if(e.target===$('sheet')) closeSheet(); });
+function openSheet(title,build,o){ o=o||{}; const b=$('sheet-body'); b.innerHTML=''; $('sheet').className='auth'+(o.lsb?' lsb':'')+(o.fixed?' fixed':''); $('sheet-title').textContent=title; build(b); $('sheet').hidden=false; }
+let GI_DRAFT=null;
+function closeSheet(){ $('sheet').hidden=true; GI_DRAFT=null; }
+$('sheet-close').onclick=closeSheet; $('sheet').addEventListener('mousedown',e=>{ if(e.target===$('sheet')&&!$('sheet').classList.contains('fixed')) closeSheet(); });
 function field(label,node){ return el('label',{className:'sl'},label,node); }
 function memberFinder(list){
   const wrap=el('div',{}); const inp=el('input',{type:'text',className:'sin',placeholder:'Email or username',maxLength:120}), go=el('button',{type:'button',className:'btn alt',textContent:'Find',style:'margin:0;width:auto;flex:none'}), msg=el('p',{className:'hint'}), chips=el('div',{className:'chips'});
@@ -1671,15 +1683,17 @@ function openCreateGroup(pre){
     b.append(field('Name',name),field('Description',desc),
       el('label',{className:'opt'},k1,' Group chat: talk together and @mention Garo'),el('label',{className:'opt'},k2,' Developers mode: build a project together with Garo'),
       field('Colour',color),field('Add people (they must have a Garo account)',memberFinder(list)),msg,go);
-    if(pre&&pre.name) setTimeout(()=>name.select(),0); else setTimeout(()=>name.focus(),0); });
+    if(pre&&pre.name) setTimeout(()=>name.select(),0); else setTimeout(()=>name.focus(),0); },{lsb:true});
 }
 function openGroupInfo(){
   const g=G.cur; if(!g) return; const admin=G.me==='admin';
+  const keep=(!$('sheet').hidden&&$('sheet').classList.contains('fixed'))?$('sheet-body').scrollTop:0;
   openSheet('Group info',async b=>{
     b.innerHTML=''; const head=el('div',{className:'row',style:'align-items:center;margin-bottom:8px'},gAvatar(g,'big'),el('div',{},el('b',{textContent:g.name}),el('p',{className:'hint',style:'margin:0',textContent:(g.kind==='project'?'Developers mode · ':'')+G.members.length+' members'}))); b.append(head);
     if(g.description) b.append(el('p',{textContent:g.description}));
-    if(admin){ const name=el('input',{type:'text',className:'sin',value:g.name,maxLength:60}), desc=el('textarea',{className:'sin',rows:2,maxLength:300,value:g.description||''}), color=el('input',{type:'color',value:g.color||'#38bdf8'}), sv=el('button',{type:'button',className:'btn alt',textContent:'Save details'});
-      sv.onclick=async()=>{ try{ await rpc('update_group',{gid:g.id,p_name:name.value,p_description:desc.value,p_color:color.value}); toast('Saved'); await refreshGroup(false); openGroupInfo(); }catch(e){ toast(e.message); } };
+    if(admin){ const dr=(GI_DRAFT&&GI_DRAFT.gid===g.id)?GI_DRAFT:null; const name=el('input',{type:'text',className:'sin',value:dr?dr.name:g.name,maxLength:60}), desc=el('textarea',{className:'sin',rows:2,maxLength:300,value:dr?dr.desc:(g.description||'')}), color=el('input',{type:'color',value:dr?dr.color:(g.color||'#38bdf8')}), sv=el('button',{type:'button',className:'btn alt',textContent:'Save details'});
+      const sync=()=>{ GI_DRAFT={gid:g.id,name:name.value,desc:desc.value,color:color.value}; }; name.oninput=desc.oninput=color.oninput=sync;
+      sv.onclick=async()=>{ try{ await rpc('update_group',{gid:g.id,p_name:name.value,p_description:desc.value,p_color:color.value}); toast('Saved'); closeSheet(); await refreshGroup(false); }catch(e){ toast(e.message); } };
       b.append(el('div',{className:'sec'},field('Name',name),field('Description',desc),field('Colour',color),sv));
       const lk=el('label',{className:'opt'},el('input',{type:'checkbox',checked:!!g.locked}),' Lock group: only admins can send messages'); lk.querySelector('input').onchange=async e=>{ try{ await rpc('set_locked',{gid:g.id,lk:e.target.checked}); await refreshGroup(false); }catch(err){ toast(err.message); e.target.checked=!e.target.checked; } }; b.append(lk); }
     const search=el('input',{type:'text',className:'sin',placeholder:'Search members'}), list=el('div',{});
@@ -1704,7 +1718,8 @@ function openGroupInfo(){
     const out=el('button',{type:'button',className:'btn alt',textContent:'Leave group',style:'color:var(--bad);border-color:var(--bad)'});
     out.onclick=async()=>{ if(!confirm(admin&&G.members.filter(m=>m.role==='admin').length<2?'You are the only admin. Leaving will make the longest-standing member an admin. Leave anyway?':'Leave this group? You will no longer see it.')) return; try{ await rpc('leave_group',{gid:g.id}); closeSheet(); leaveView('You left the group.'); }catch(e){ toast(e.message); } };
     b.append(el('div',{className:'sec'},out)); if(admin){ const del=el('button',{type:'button',className:'btn alt',textContent:'Delete group for everyone',style:'color:var(--bad);border-color:var(--bad)'}); del.onclick=async()=>{ if(!confirm('Delete this group and all its messages for everyone? This cannot be undone.')) return; try{ await rpc('delete_group',{gid:g.id}); closeSheet(); leaveView('Group deleted.'); }catch(e){ toast(e.message); } }; b.append(del); }
-  });
+    $('sheet-body').scrollTop=keep;
+  },{lsb:true,fixed:true});
 }
 $('g-info').onclick=openGroupInfo; $('g-head').onclick=e=>{ if(!e.target.closest('button')) openGroupInfo(); };
 
