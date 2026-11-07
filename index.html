@@ -889,7 +889,16 @@ for(const id of ['b-in','gf-in','pk-in']) $(id).onclick=()=>openAuth('in');
 for(const id of ['b-up','pk-up']) $(id).onclick=()=>openAuth('up');
 $('sbtoggle').onclick=()=>$('app').classList.toggle('nosb');
 function guestUI(on){ $('app').hidden=false; $('guestfoot').hidden=!on; $('userfoot').hidden=on; $('gb').hidden=!on; $('model').disabled=on; $('mp-btn').disabled=on; $('peekbar').hidden=!on; $('new-menu').hidden=on; if(on){ $('mp-label').textContent='Garo Chat'; closePops(); } }
-function greet(){ const n=user&&callme(), h=new Date().getHours(), p=h<12?'Good morning':h<18?'Good afternoon':'Good evening'; return n?p+', '+esc(n)+'. Welcome back!':'Hi, I am Garo. Where should we begin?'; }
+/* uses the clock and time zone of the person's own device: 5am-11:59am morning, 12pm-4:59pm afternoon, 5pm-8:59pm evening, 9pm-4:59am night */
+function dayPart(){ const h=new Date().getHours(); return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'late'; }
+function greetWord(){ const p=dayPart(); return p==='late'?'Hello':'Good '+p; }
+function greetPlain(name){ const n=(name||'').trim(); return greetWord()+(n?', '+n:'')+'!'; }
+function greet(){ const n=user&&callme(); return n?esc(greetPlain(n)):greetWord()+'! I am Garo.'; }
+function helpLine(){ return 'How can I assist you today?'; }
+function todayKey(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+const GREETED=new Set();
+function greetedToday(gid){ const k='garo-greeted:'+user.id+':'+gid+':'+todayKey(); if(GREETED.has(k)) return true; try{ if(localStorage.getItem(k)){ GREETED.add(k); return true; } }catch{} return (G.msgs||[]).some(m=>m.kind==='garo'&&m.user_id===user.id&&m.payload&&m.payload.greeted&&new Date(m.created_at).toDateString()===new Date().toDateString()); }
+function markGreeted(gid){ const k='garo-greeted:'+user.id+':'+gid+':'+todayKey(); GREETED.add(k); try{ localStorage.setItem(k,'1'); for(let i=localStorage.length-1;i>=0;i--){ const x=localStorage.key(i); if(x&&x.startsWith('garo-greeted:')&&!x.endsWith(':'+todayKey())) localStorage.removeItem(x); } }catch{} }
 function needAccount(f){ toast(f+' needs a free account. Use "Sign up free" above.'); }
 function setPeekLeft(n){ $('peekleft').textContent=n+' free message'+(n===1?'':'s')+' left this hour.'; }
 document.querySelectorAll('input[type=password]').forEach(inp=>{
@@ -1057,7 +1066,7 @@ function render(keep){
   const col=$('col'), sc=$('msgs'), st0=sc.scrollTop; col.innerHTML='';
   $('ctitle').textContent=(cur&&cur.title)||'New chat';
   if(!cur.messages.length){
-    col.innerHTML='<div class="empty"><img class="welcome-art" alt="Garo, your AI assistant" width="210" height="210"><h1>'+greet()+'</h1><p class="sayhi">'+(user?'How can I help you today?':'How can I help you today? Try a quick example below.')+'</p><p>Ask me anything, add your documents for research, or describe an app to build.</p><div class="chips"></div></div>'; col.querySelector('.welcome-art').src=GARO_FULL;
+    col.innerHTML='<div class="empty"><img class="welcome-art" alt="Garo, your AI assistant" width="210" height="210"><h1>'+greet()+'</h1><p class="sayhi">'+(user?helpLine():helpLine()+' Please try a quick example below.')+'</p><p>Ask me anything, add your documents for research, or describe an app to build.</p><div class="chips"></div></div>'; col.querySelector('.welcome-art').src=GARO_FULL;
     const picks=user?['Explain Docker volumes simply','Write a Python function to merge two sorted lists','Build a to-do app with HTML, CSS and JavaScript']:['Explain Docker volumes simply','Write a Python function to merge two sorted lists'];
     for(const s of picks){
       const b=document.createElement('button'); b.textContent=s; b.onclick=()=>{ if(/^Build /.test(s)&&mode!=='build') setMode('build'); $('in').value=s; send(); }; col.querySelector('.chips').append(b);
@@ -1682,7 +1691,7 @@ async function gSend(){
 
 /* @Garo in a group: recent messages, project files and attached text go to Garo; the answer is posted for everyone */
 async function askGaroInGroup(trigger,files){
-  const gid=G.cur.id, q=trigger.content.replace(/@garo\b/ig,'').trim()||'Please help.', proj=G.cur.kind==='project';
+  const gid=G.cur.id, firstToday=!greetedToday(gid), pre=firstToday?greetPlain(pname(user.id))+' Happy to help with that.\n\n':'', q=trigger.content.replace(/@garo\b/ig,'').trim()||'Please help.', proj=G.cur.kind==='project';
   const build=/^\s*build\b/i.test(q)||(proj&&/^\s*(create|make|add|implement|fix|update|change|improve)\b/i.test(q));
   const recent=G.msgs.filter(m=>m.kind!=='system'&&m.id!==trigger.id).slice(-10).map(m=>(m.kind==='garo'?'Garo':pname(m.user_id))+': '+(m.content||'').slice(0,1200));
   let ctx='Recent group conversation:\n'+(recent.join('\n')||'(none)')+'\n\n';
@@ -1694,11 +1703,11 @@ async function askGaroInGroup(trigger,files){
   try{
     const model=[...$('model').options].map(o=>o.value).find(v=>build?/code/i.test(v):/chat|think/i.test(v))||$('model').value;
     const web=!build&&/\b(search|verify|fact.?check|latest|news|current|today)\b/i.test(q); let srcs=[];
-    let full=await garoStream({messages:[{role:'user',content:ctx.slice(0,28000)}],mode:build?'build':'chat',model,web,query:q.slice(0,200),onSources:j=>{ srcs=j.sources||[]; },signal:ctlr.signal,onToken:t=>{ body.innerHTML=msgHtml({content:t,build},true); $('gmsgs').scrollTop=$('gmsgs').scrollHeight; }});
-    if(web&&srcs.length&&full.trim()) full+=sourcesText(srcs);
+    let full=await garoStream({messages:[{role:'user',content:ctx.slice(0,28000)}],mode:build?'build':'chat',model,web,query:q.slice(0,200),onSources:j=>{ srcs=j.sources||[]; },signal:ctlr.signal,onToken:t=>{ body.innerHTML=msgHtml({content:pre+t,build},true); $('gmsgs').scrollTop=$('gmsgs').scrollHeight; }});
+    if(web&&srcs.length&&full.trim()) full+=sourcesText(srcs); if(full.trim()) full=pre+full;
     G.garoLive=null; if(!full.trim()) throw new Error('Garo did not return an answer. Try again.');
-    const {data,error}=await sb.from('group_messages').insert({group_id:gid,user_id:user.id,kind:'garo',content:full,reply_to:trigger.id,payload:{build,for:pname(user.id)}}).select().single();
-    if(error) throw new Error(error.message); if(G.cur&&G.cur.id===gid&&!G.msgs.some(m=>m.id===data.id)) G.msgs.push(data); renderGroupMsgs(true);
+    const {data,error}=await sb.from('group_messages').insert({group_id:gid,user_id:user.id,kind:'garo',content:full,reply_to:trigger.id,payload:{build,for:pname(user.id),greeted:firstToday}}).select().single();
+    if(error) throw new Error(error.message); if(firstToday) markGreeted(gid); if(G.cur&&G.cur.id===gid&&!G.msgs.some(m=>m.id===data.id)) G.msgs.push(data); renderGroupMsgs(true);
   }catch(e){ G.garoLive=null; renderGroupMsgs(false); toast(e.message||'Garo could not answer.'); }
 }
 
@@ -2066,10 +2075,16 @@ const CP_PN=makeCp($('pn-cp'),$('pn-dial'));
 $('up-phone').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/[^\d\s+\-().]/g,''); });
 $('pn-input').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/[^\d\s+\-().]/g,''); });
 let PHONE=null;
+async function savePhoneRow(phone){
+  const now=new Date().toISOString();
+  let r=await sb.from('user_phones').update({phone,updated_at:now}).eq('user_id',user.id).select('user_id');
+  if(!r.error&&r.data&&r.data.length) return r;
+  return await sb.from('user_phones').insert({user_id:user.id,phone,updated_at:now});
+}
 async function loadPhone(){
   try{
     const {data}=await sb.from('user_phones').select('phone').eq('user_id',user.id).maybeSingle(); PHONE=data?data.phone:null;
-    const mp=meta().phone; if(!PHONE&&mp){ const n=normPhone('',mp); if(n.phone){ PHONE=n.phone; sb.from('user_phones').upsert({user_id:user.id,phone:n.phone,updated_at:new Date().toISOString()},{onConflict:'user_id'}); } }
+    const mp=meta().phone; if(!PHONE&&mp){ const n=normPhone('',mp); if(n.phone){ PHONE=n.phone; savePhoneRow(n.phone); } }
   }catch{}
 }
 function fillPhone(){
@@ -2081,7 +2096,7 @@ $('pn-save').onclick=async()=>{
   const n=normPhone($('pn-dial').value,$('pn-input').value,CP_PN.country); if(n.err) return pmsg(n.err,'err');
   $('pn-save').disabled=true; pmsg('Saving…');
   let ok=false, err=null;
-  const r=await sb.from('user_phones').upsert({user_id:user.id,phone:n.phone,updated_at:new Date().toISOString()},{onConflict:'user_id'}); if(!r.error) ok=true; else err=r.error;
+  const r=await savePhoneRow(n.phone); if(!r.error) ok=true; else err=r.error;
   const u=await sb.auth.updateUser({data:{phone:n.phone}}); if(!u.error){ ok=true; if(u.data&&u.data.user) user=u.data.user; } else err=err||u.error;
   $('pn-save').disabled=false;
   if(!ok) return pmsg('Could not save the number: '+(err&&err.message||'unknown error'),'err');
