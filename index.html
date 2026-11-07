@@ -349,6 +349,16 @@ html{scroll-behavior:auto}}
 #adm .rsbody::-webkit-scrollbar{width:12px}#adm .rsbody::-webkit-scrollbar-track{background:var(--panel);border-radius:8px}#adm .rsbody::-webkit-scrollbar-thumb{background:var(--sky);border-radius:8px;border:2px solid var(--panel)}
 .knew{background:var(--panel);border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin:8px 0}.knew b{display:block;color:var(--gold);margin-bottom:6px}
 .krow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.krow .un{flex:1;min-width:220px;display:flex;flex-direction:column}.krow small{color:var(--muted);font-size:.78rem}
+.cc{position:fixed;left:16px;bottom:16px;z-index:55;width:min(500px,calc(100vw - 32px));background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px 14px;box-shadow:0 14px 44px #00000088;color:var(--ink)}
+.cc b{display:block;font-size:1rem;margin:0 28px 4px 0}.cc p{margin:0 0 12px;font-size:.88rem;color:var(--muted)}.cc a{color:var(--sky)}
+.cc-x{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer}.cc-x:hover,.cc-x:focus-visible{background:var(--panel);color:var(--ink)}
+.cc-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.cc-btns button{border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:none;color:var(--ink);font-size:.88rem}
+.cc-btns .go{background:var(--sky);border-color:var(--sky);color:var(--onsky)}.cc-btns button:hover{border-color:var(--sky)}
+.cc-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);font-size:.86rem}.cc-row input{margin-top:3px;width:auto}.cc-row small{display:block;color:var(--muted)}
+.nudge{background:var(--panel);border-bottom:1px solid var(--sky);padding:8px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.88rem}.nudge span{flex:1;min-width:200px}.nudge .rsx{width:30px;height:30px}
+#site .lfoot button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0}#site .lfoot button:hover{color:var(--ink)}
+.phone-row{display:flex;gap:8px}.phone-row select{width:112px;flex:none}.phone-row input{flex:1;min-width:0}
+@media (max-width:640px){.cc{left:8px;right:8px;bottom:8px;width:auto}.cc-btns button{flex:1}}
 </style>
 </head>
 <body>
@@ -463,6 +473,7 @@ html{scroll-behavior:auto}}
      <select class="au-i" id="up-country" autocomplete="country-name"><option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option><option>Cameroon</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>India</option><option>Other</option></select></div>
     <div><label class="au-l" for="up-email">Email address</label><input class="au-i" id="up-email" type="email" autocomplete="email" required></div>
     <div><label class="au-l" for="up-dob">Date of birth</label><input class="au-i" id="up-dob" type="date" autocomplete="bday" required><small class="au-hint">Used to confirm you are 16 or older and to send you a birthday greeting.</small></div>
+    <div style="grid-column:1/-1"><label class="au-l" for="up-phone">Phone number</label><div class="phone-row"><select class="au-i" id="up-dial" aria-label="Country code"></select><input class="au-i" id="up-phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="801 234 5678" required></div><small class="au-hint">Used to protect your account and recover it if you forget your password. Kept private, never shared and never used for marketing.</small></div>
     <div><label class="au-l" for="up-pass">Create password</label><input class="au-i" id="up-pass" type="password" autocomplete="new-password" minlength="10" required></div>
     <div><label class="au-l" for="up-pass2">Confirm password</label><input class="au-i" id="up-pass2" type="password" autocomplete="new-password" required></div>
    </div>
@@ -504,7 +515,7 @@ html{scroll-behavior:auto}}
 <footer>
  <div class="lfoot">
   <span>GARO AI © <span id="yr"></span>. All rights reserved.</span>
-  <nav aria-label="Footer"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav>
+  <nav aria-label="Footer"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><button type="button" id="ft-cookies">Cookie settings</button></nav>
  </div>
 </footer>
 </div>
@@ -524,6 +535,17 @@ html{scroll-behavior:auto}}
  <p class="hint" id="onb-msg" role="alert" style="color:var(--bad)"></p>
  <div class="row" style="margin-top:14px"><button class="btn alt" id="onb-skip" type="button">Skip for now</button><button class="btn alt" id="onb-back" type="button">Back</button><button class="btn" id="onb-next" type="button">Next</button></div>
 </div></section>
+<div id="cc" class="cc" role="dialog" aria-label="Cookies and local storage" hidden>
+ <button class="cc-x" id="cc-x" type="button" aria-label="Close and keep only essential cookies" title="Close">✕</button>
+ <div id="cc-main"><b>Cookies and local storage</b>
+  <p>GARO AI uses cookies and your browser's local storage (cache) to keep you signed in and to remember choices such as your theme and model. We do not use advertising or tracking cookies. <a href="privacy.html#cookies">Learn more</a></p>
+  <div class="cc-btns"><button id="cc-manage" type="button">Manage</button><button id="cc-ess" type="button">Essential only</button><button id="cc-all" type="button" class="go">Accept all</button></div></div>
+ <div id="cc-prefs" hidden><b>Your choices</b>
+  <label class="cc-row"><input type="checkbox" checked disabled><span>Essential<small>Keeps you signed in and remembers this choice. Always on.</small></span></label>
+  <label class="cc-row"><input type="checkbox" id="cc-pref"><span>Preferences<small>Remembers your theme, last model, recent emojis and reminders between visits.</small></span></label>
+  <div class="cc-row"><span style="padding-left:2px">Advertising and tracking<small>Not used on this site.</small></span></div>
+  <div class="cc-btns" style="margin-top:6px"><button id="cc-save" type="button" class="go">Save choices</button></div></div>
+</div>
 <div class="bday" id="bday" role="status" hidden><p id="bday-t"></p><div class="row"><button class="btn" id="bday-view" type="button" style="margin:0;width:auto;padding:8px 14px">View message</button><button class="btn alt" id="bday-x" type="button" style="margin:0;width:auto;padding:8px 14px">Dismiss</button></div></div>
 <section id="adm" class="auth" hidden><div class="card wide rscard" role="dialog" aria-label="Admin portal">
  <div class="rshead"><h1>Admin portal</h1><button class="rsx" id="adm-close" type="button" aria-label="Close admin portal" title="Close">✕</button></div>
@@ -565,6 +587,14 @@ html{scroll-behavior:auto}}
    <p class="hint" id="p-dob"></p><div class="row" id="p-dobadd" hidden><input id="p-dobin" type="date" style="flex:1"><button class="btn alt" id="p-dobsave" type="button" style="margin:0;flex:none;min-width:0;width:auto">Save birthday</button></div>
    <div id="p-bday" hidden><p style="font-weight:700;margin:6px 0">🎂 A message for you</p><p id="p-bmsg" style="margin:0;font-size:.95rem"></p></div>
   </div>
+  <button class="pr" type="button" data-p="pn" aria-expanded="false"><i>📱</i><span>Phone number</span><em>›</em></button>
+  <div class="ppanel" id="pp-pn" hidden>
+   <p class="hint" id="pn-state"></p>
+   <div class="phone-row"><select id="pn-dial" aria-label="Country code"></select><input id="pn-input" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="801 234 5678" aria-label="Phone number"></div>
+   <button class="btn" id="pn-save" type="button">Save number</button>
+   <button class="btn alt danger" id="pn-del" type="button" hidden>Remove number</button>
+   <p class="hint">Used only to protect your account and for password recovery. Only you can see it. It is never shared or used for marketing. Verification codes are not switched on yet, so the number is stored as not verified.</p>
+  </div>
   <button class="pr" type="button" data-p="ph" aria-expanded="false"><i>🖼</i><span>Profile photo</span><em>›</em></button>
   <div class="ppanel" id="pp-ph" hidden>
    <div class="row"><button class="btn alt" id="p-photo" type="button" style="margin-top:0">Upload from this device</button><button class="btn alt" id="p-rmphoto" type="button" style="margin-top:0">Remove photo</button></div>
@@ -584,6 +614,7 @@ html{scroll-behavior:auto}}
   <button class="pr" id="p-export" type="button"><i>⬇️</i><span>Export my chats</span></button>
   <a class="pr" href="privacy.html" target="_blank" rel="noopener"><i>🔒</i><span>Privacy policy</span></a>
   <a class="pr" href="terms.html" target="_blank" rel="noopener"><i>📄</i><span>Terms of use</span></a>
+  <button class="pr" id="p-cookies" type="button"><i>🍪</i><span>Cookie settings</span></button>
   <button class="pr danger" id="p-del" type="button"><i>🗑</i><span>Delete my account</span></button>
   <div class="plabel">Help</div>
   <a class="pr" id="p-fb" href="#"><i>💬</i><span>Send feedback</span></a>
@@ -623,6 +654,7 @@ html{scroll-behavior:auto}}
    <button class="tb hdots" id="new-menu" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Chat options: share, rename, pin, move or delete" title="Chat options">⋮</button>
   </div>
   <div class="peekbar" id="peekbar" hidden><span>👁 <b>Notice:</b> In Sneak Peek mode, conversations are not saved and will clear once you refresh. <span id="peekleft"></span></span><button class="sbt" id="pk-up" type="button">Sign up free</button><button class="sbt" id="pk-in" type="button">Log in</button></div>
+  <div class="nudge" id="pnudge" hidden role="region" aria-label="Add your phone number"><span>📱 Add your phone number so you can recover your account later.</span><button class="sbt" id="pn-add" type="button">Add number</button><button class="rsx" id="pn-x" type="button" aria-label="Not now" title="Not now">✕</button></div>
   <div class="msgs" id="msgs"><div class="col" id="col"></div></div>
   <div class="comp">
       <div class="modechip" id="modechip" hidden><span id="mc-text"></span><button type="button" id="mc-manage" hidden>Manage sources</button><button type="button" id="mc-x" aria-label="Turn off this tool">✕</button></div>
@@ -731,11 +763,12 @@ $('f-up').onsubmit = async e => { e.preventDefault(); say('msg-up','');
   if(!Y||new Date(Y,M-1,D)>t) return say('msg-up','Enter a valid date of birth.','err');
   let age=t.getFullYear()-Y; if(t.getMonth()+1<M||(t.getMonth()+1===M&&t.getDate()<D)) age--;
   if(age<16) return say('msg-up','You must be at least 16 years old to create an account.','err');
+  const pn=normPhone($('up-dial').value,$('up-phone').value); if(pn.err) return say('msg-up',pn.err,'err');
   if(!strong(p)) return say('msg-up','Password needs 10+ characters with a letter and a number.','err');
   if(p!==$('up-pass2').value) return say('msg-up','Passwords do not match.','err');
   if(!$('up-terms').checked) return say('msg-up','Please accept the Terms and Privacy Policy.','err');
   busyBtn(e.target,true);
-  const {error}=await sb.auth.signUp({email,password:p,options:{emailRedirectTo:redirect,data:{full_name:name.slice(0,60),country:$('up-country').value,dob}}});
+  const {error}=await sb.auth.signUp({email,password:p,options:{emailRedirectTo:redirect,data:{full_name:name.slice(0,60),country:$('up-country').value,dob,phone:pn.phone}}});
   busyBtn(e.target,false);
   if(error) return say('msg-up',friendly(error),'err');
   e.target.reset(); updateMeter(''); say('msg-up','Check your email for a verification link. You can sign in after you confirm.','ok'); };
@@ -792,11 +825,11 @@ function openProfile(){
   $('p-name').value=meta().full_name||''; $('p-theme').value=localStorage.getItem('dv-theme')||'dark';
   const adm=isAdmin(); $('p-mode').hidden=!adm; $('p-portal').hidden=!adm; $('p-adminlabel').hidden=!adm;
   $('p-fb').href='mailto:'+CFG.CONTACT+'?subject='+encodeURIComponent('Garo feedback');
-  pmsg(''); fillProfile(); collapseProfile(); $('profile').hidden=false;
+  pmsg(''); fillProfile(); fillPhone(); collapseProfile(); $('profile').hidden=false;
 }
 $('pbtn').onclick=openProfile; $('p-close').onclick=()=>$('profile').hidden=true;
 $('profile').addEventListener('mousedown',e=>{ if(e.target===$('profile')) $('profile').hidden=true; });
-$('p-theme').onchange=e=>{ localStorage.setItem('dv-theme',e.target.value); applyTheme(e.target.value); };
+$('p-theme').onchange=e=>{ setPref('dv-theme',e.target.value); applyTheme(e.target.value); };
 $('f-prof').onsubmit=async e=>{ e.preventDefault();
   const {data,error}=await sb.auth.updateUser({data:{full_name:$('p-name').value.trim().slice(0,60)}});
   if(error) return pmsg(friendly(error),'err'); user=data.user; setWho(); if(!cur.messages.length) render(); pmsg('Name saved.'); };
@@ -820,7 +853,7 @@ sb.auth.onAuthStateChange((ev, session) => {
 });
 
 /* ---------- app ---------- */
-function leaveApp(){ user=null; chats=[]; cur=null; pending=[]; lib.length=0; mode='chat'; stopBday(); stopGroup(); stopPoll(); G.list=[]; G.profiles={}; try{ setTab('chats'); }catch{} renderAtts(); refreshChip(); $('in').placeholder=PLACE.chat; $('onb').hidden=true; $('rs').hidden=true; $('role').hidden=true; $('profile').hidden=true; $('app').hidden=true; $('dot').className='dot'; $('stxt').textContent=''; route(); }
+function leaveApp(){ user=null; chats=[]; cur=null; pending=[]; lib.length=0; mode='chat'; stopBday(); PHONE=null; $('pnudge').hidden=true; stopGroup(); stopPoll(); G.list=[]; G.profiles={}; try{ setTab('chats'); }catch{} renderAtts(); refreshChip(); $('in').placeholder=PLACE.chat; $('onb').hidden=true; $('rs').hidden=true; $('role').hidden=true; $('profile').hidden=true; $('app').hidden=true; $('dot').className='dot'; $('stxt').textContent=''; route(); }
 async function enterApp(session){
   if (user && user.id===session.user.id) return;
   user = session.user; $('site').hidden=true; guestUI(false); setWho(); history.replaceState(null,'',location.pathname+location.search);
@@ -997,7 +1030,7 @@ function buildModelMenu(){
     b.append(el('span',null,el('b',{textContent:gname(o.value)}),el('small',{textContent:(GM[o.value]||{}).description||''})));
     b.onclick=()=>{ setModel(o.value); closePops(); }; m.append(b); }
 }
-function setModel(id,auto){ $('model').value=id; if(!auto) lastManual=id; try{ localStorage.setItem('dv-model',lastManual||id); }catch{} syncCaps(); }
+function setModel(id,auto){ $('model').value=id; if(!auto) lastManual=id; setPref('dv-model',lastManual||id); syncCaps(); }
 function syncCaps(){ if(lastManual===null&&$('model').value) lastManual=$('model').value; const v=$('model').value; $('mp-label').textContent=user&&v?gname(v):'Garo Chat'; renderAtts(); }
 function pickModel(re){ const o=[...$('model').options].find(x=>re.test(x.value)); if(o) setModel(o.value,true); }
 
@@ -1499,7 +1532,7 @@ function openMsgInfo(m){ openSheet('Message info',b=>{
 /* emoji picker (also used for reactions) */
 function emojiGrid(onPick){
   const wrap=el('div',{className:'emo'}); let fr=[]; try{ fr=JSON.parse(localStorage.getItem('dv-emo')||'[]'); }catch{}
-  const remember=e=>{ try{ localStorage.setItem('dv-emo',JSON.stringify([e,...fr.filter(x=>x!==e)].slice(0,12))); }catch{} };
+  const remember=e=>{ setPref('dv-emo',JSON.stringify([e,...fr.filter(x=>x!==e)].slice(0,12))); };
   const sec=(t,list)=>{ wrap.append(el('div',{className:'lh',textContent:t})); const g=el('div',{className:'eg'}); for(const e of list){ const b=el('button',{type:'button',textContent:e}); b.setAttribute('aria-label','Emoji '+e); b.onclick=()=>{ remember(e); onPick(e); }; g.append(b); } wrap.append(g); };
   if(fr.length) sec('Frequently used',fr); sec('Quick reactions',QUICK); sec('More reactions',[...new Set(REQ_EMOJI)]); sec('Faces',FACES); sec('Hands and symbols',SYMS); return wrap;
 }
@@ -1854,6 +1887,68 @@ $('p-lib').onclick=()=>{ $('profile').hidden=true; openLib(); };
 $('p-avbtn').onclick=()=>$('p-file').click();
 $('p-support').onclick=e=>{ e.currentTarget.href='mailto:'+CFG.CONTACT+'?subject='+encodeURIComponent('Garo support'); };
 
+/* ---------- cookies and local storage notice ---------- */
+const PREF_KEYS=/^(dv-theme|dv-model|dv-emo|dv-bday-|dv-phone-nudge-)/;
+function ccRead(){ try{ const c=JSON.parse(localStorage.getItem('dv-consent')||'null'); if(c&&c.v===1&&Date.now()-new Date(c.ts).getTime()<365*864e5) return c; }catch{} return null; }
+const canPref=()=>{ const c=ccRead(); return !!(c&&c.prefs); };
+function setPref(k,v){ try{ (canPref()?localStorage:sessionStorage).setItem(k,v); }catch{} }       // optional items are only kept between visits with your consent
+function ccSave(prefs){ try{ localStorage.setItem('dv-consent',JSON.stringify({v:1,prefs:!!prefs,ts:new Date().toISOString()})); if(!prefs) Object.keys(localStorage).filter(k=>PREF_KEYS.test(k)).forEach(k=>localStorage.removeItem(k)); }catch{} $('cc').hidden=true; }
+function showCc(manage){ $('cc').hidden=false; $('cc-main').hidden=!!manage; $('cc-prefs').hidden=!manage; $('cc-pref').checked=canPref(); }
+$('cc-all').onclick=()=>{ ccSave(true); toast('Preferences saved'); };
+$('cc-ess').onclick=()=>{ ccSave(false); toast('Only essential storage is used'); };
+$('cc-x').onclick=()=>ccSave(false);
+$('cc-manage').onclick=()=>showCc(true);
+$('cc-save').onclick=()=>{ ccSave($('cc-pref').checked); toast('Your choices are saved'); };
+$('ft-cookies').onclick=()=>showCc(true);
+$('p-cookies').onclick=()=>{ $('profile').hidden=true; showCc(true); };
+
+/* ---------- phone number (registration, profile and a gentle reminder) ---------- */
+const DIALS=[['NG','+234'],['GH','+233'],['KE','+254'],['ZA','+27'],['CM','+237'],['US','+1'],['GB','+44'],['CA','+1'],['IN','+91']];
+const COUNTRY_DIAL={'Nigeria':'+234','Ghana':'+233','Kenya':'+254','South Africa':'+27','Cameroon':'+237','United States':'+1','United Kingdom':'+44','Canada':'+1','India':'+91'};
+function normPhone(dial,raw){
+  let s=String(raw||'').trim().replace(/[\s\-().]/g,'');
+  if(!s) return {err:'Enter your phone number.'};
+  let full;
+  if(s.startsWith('+')) full=s; else if(s.startsWith('00')) full='+'+s.slice(2);
+  else { if(!dial) return {err:'Add the country code, for example +234 801 234 5678.'}; if(s.startsWith('0')) s=s.slice(1); full=dial+s; }
+  if(!/^\+[1-9]\d{7,14}$/.test(full)) return {err:'That number does not look right. Check the digits and the country code.'};
+  if(full.startsWith('+234')&&!/^\+234[789]\d{9}$/.test(full)) return {err:'Nigerian numbers have 10 digits after +234, for example +234 801 234 5678.'};
+  return {phone:full};
+}
+const maskPhone=p=>p.slice(0,4)+'•••••'+p.slice(-3);
+function fillDials(sel,country){ sel.innerHTML=''; for(const [iso,c] of DIALS) sel.add(new Option(iso+' '+c,c)); sel.add(new Option('Other',''));  sel.value=COUNTRY_DIAL[country]||''; if(sel.value!==(COUNTRY_DIAL[country]||'')) sel.value=''; }
+fillDials($('up-dial'),'Nigeria'); fillDials($('pn-dial'),'Nigeria');
+$('up-country').onchange=()=>{ $('up-dial').value=COUNTRY_DIAL[$('up-country').value]||''; };
+let PHONE=null;
+async function loadPhone(){
+  try{
+    const {data}=await sb.from('user_phones').select('phone').eq('user_id',user.id).maybeSingle(); PHONE=data?data.phone:null;
+    const mp=meta().phone; if(!PHONE&&mp){ const n=normPhone('',mp); if(n.phone){ const r=await sb.from('user_phones').upsert({user_id:user.id,phone:n.phone,updated_at:new Date().toISOString()},{onConflict:'user_id'}); if(!r.error) PHONE=n.phone; } }
+  }catch{}
+}
+function fillPhone(){
+  $('pn-state').textContent=PHONE?'Your number: '+maskPhone(PHONE)+' (not verified yet)':'No phone number added yet.';
+  $('pn-save').textContent=PHONE?'Change number':'Save number'; $('pn-del').hidden=!PHONE;
+}
+$('pn-save').onclick=async()=>{
+  const n=normPhone($('pn-dial').value,$('pn-input').value); if(n.err) return pmsg(n.err,'err');
+  $('pn-save').disabled=true; pmsg('Saving…');
+  const {error}=await sb.from('user_phones').upsert({user_id:user.id,phone:n.phone,updated_at:new Date().toISOString()},{onConflict:'user_id'}); $('pn-save').disabled=false;
+  if(error) return pmsg(/relation|does not exist|42P01|schema cache/i.test(error.message)?'Phone numbers are not set up yet. Run 2-collab.sql in Supabase, then try again.':'Could not save the number: '+error.message,'err');
+  PHONE=n.phone; $('pn-input').value=''; fillPhone(); $('pnudge').hidden=true; pmsg('Phone number saved. Only you can see it.');
+};
+$('pn-del').onclick=async()=>{
+  if(!confirm('Remove your phone number?')) return; const {error}=await sb.from('user_phones').delete().eq('user_id',user.id);
+  if(error) return pmsg('Could not remove the number: '+error.message,'err'); PHONE=null; fillPhone(); pmsg('Phone number removed.');
+};
+function maybeNudge(){
+  if(!user||PHONE) { $('pnudge').hidden=true; return; }
+  let ts=0; try{ ts=+(localStorage.getItem('dv-phone-nudge-'+user.id)||sessionStorage.getItem('dv-phone-nudge-'+user.id)||0); }catch{}
+  $('pnudge').hidden=Date.now()-ts<14*864e5;
+}
+$('pn-x').onclick=()=>{ setPref('dv-phone-nudge-'+user.id,String(Date.now())); $('pnudge').hidden=true; };
+$('pn-add').onclick=()=>{ openProfile(); collapseProfile('pn'); setTimeout(()=>$('pn-input').focus(),0); };
+
 /* ---------- preferences, setup questions and birthdays ---------- */
 const prefs=()=>({cite:'apa',detail:'balanced',...((user&&user.user_metadata&&user.user_metadata.prefs)||{})});
 const callme=()=>{ const m=(user&&user.user_metadata)||{}; return ((m.prefs&&m.prefs.callme)||(m.full_name||'').split(' ')[0]||'').trim(); };
@@ -1901,7 +1996,7 @@ $('onb-skip').onclick=async()=>{ $('onb').hidden=true; await sb.auth.updateUser(
 
 function afterLogin(){
   if(underAge()) return;
-  const go=()=>{ if(isAdmin()&&!sessionStorage.getItem('dv-mode')) askMode(); startBday(); syncProfile(); loadGroups(); handleJoin(); };
+  const go=()=>{ if(isAdmin()&&!sessionStorage.getItem('dv-mode')) askMode(); startBday(); syncProfile(); loadGroups(); handleJoin(); loadPhone().then(maybeNudge); };
   if(!meta().onboarded) openOnb(go); else go();
 }
 
@@ -1951,11 +2046,12 @@ function startBday(){
   bdayT=setInterval(()=>{                              // counts only time you are actually using the app
     if(document.visibilityState!=='visible'||Date.now()-lastAct>60000) return;
     st.a+=5; if(st.n<3&&st.a>=AT[st.n]&&!anyModal()){ showBday(st.n); st.n++; }
-    try{ localStorage.setItem(key,JSON.stringify(st)); }catch{}
+    setPref(key,JSON.stringify(st));
   },5000);
 }
 
 /* ---------- boot ---------- */
+if(!ccRead()) showCc();
 landingStatus();
 (async()=>{ const jm=/^#join=([A-Za-z0-9]{20,})/.exec(location.hash); if(jm) sessionStorage.setItem('dv-join',jm[1]);
   const {data:{session}}=await sb.auth.getSession(); if(!recovering&&session) enterApp(session); else route(); })();
