@@ -9,6 +9,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#020617">
 <meta name="description" content="Meet Garo, a free private AI assistant. Chat, research with your own documents and citations, build projects, and team up in groups.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 
 :root{--bg:#f1f5f9;--panel:#e6ecf4;--card:#fff;--ink:#0f172a;--muted:#475569;--gold:#b45309;--sky:#0369a1;--onsky:#fff;--line:#cbd5e1;--user:#dbeafe;--ok:#047857;--bad:#b91c1c;--code:#0b1220}
@@ -363,9 +364,19 @@ html{scroll-behavior:auto}}
 /* New group / Group info: same pop-up look, visible scrollbar on the left, stays open until saved or X */
 #sheet.lsb .card{display:flex;flex-direction:column;max-height:calc(100dvh - 32px);overflow:hidden;padding:0}
 #sheet.lsb #sheet-title{margin:0!important;padding:22px 56px 12px 28px}
-#sheet.lsb #sheet-body{flex:1;min-height:0;overflow-y:scroll;direction:rtl;padding:0 28px 28px 16px;scrollbar-width:auto;scrollbar-color:var(--sky) var(--panel)}
-#sheet.lsb #sheet-body>*{direction:ltr}
+#sheet.lsb #sheet-body{flex:1;min-height:0;overflow-y:scroll;padding:0 16px 28px 28px;scrollbar-width:auto;scrollbar-color:var(--sky) var(--panel)}
+#sheet.gi .card{max-height:calc(100dvh - 64px)}
 #sheet.lsb .close{top:14px;right:16px;z-index:2}
+/* profile: phone number box matches the home page (dark, white Cormorant Garamond) */
+#pp-pn .cp{--cp-bg:#0f172a;--cp-bd:#1e293b;--cp-ink:#fff;--cp-mut:#94a3b8;--cp-hov:#1e293b;--cp-fld:#0f172a}
+#pp-pn .cp-btn,#pp-pn .cp-dd,#pp-pn .cp-dd *{font-family:'Cormorant Garamond',serif;color:#fff}
+#pp-pn .cp-btn{font-size:1.1rem;font-weight:600}
+#pp-pn .cp-l li{font-size:1.05rem}
+#pp-pn .cp-l li b,#pp-pn .cp-ar{color:#94a3b8}
+#pp-pn #pn-input{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:10px 12px;color:#fff;font:600 1.1rem 'Cormorant Garamond',serif}
+#pp-pn #pn-input::placeholder{color:#64748b}
+#pp-pn #pn-input:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 0 1px #38bdf8}
+#pp-pn .cp-s::placeholder{color:#64748b}
 /* searchable country-code picker */
 .cp{position:relative;flex:none;--cp-bg:var(--card);--cp-bd:var(--line);--cp-ink:var(--ink);--cp-mut:var(--muted);--cp-hov:var(--panel);--cp-fld:var(--bg)}
 #site .cp{--cp-bg:#0f172a;--cp-bd:#1e293b;--cp-ink:#f1f5f9;--cp-mut:#94a3b8;--cp-hov:#1e293b;--cp-fld:#0f172acc}
@@ -1658,7 +1669,7 @@ async function downloadShared(f){
 }
 
 /* sheet (dialog) helpers */
-function openSheet(title,build,o){ o=o||{}; const b=$('sheet-body'); b.innerHTML=''; $('sheet').className='auth'+(o.lsb?' lsb':'')+(o.fixed?' fixed':''); $('sheet-title').textContent=title; build(b); $('sheet').hidden=false; }
+function openSheet(title,build,o){ o=o||{}; const b=$('sheet-body'); b.innerHTML=''; $('sheet').className='auth'+(o.lsb?' lsb':'')+(o.fixed?' fixed':'')+(o.gi?' gi':''); $('sheet-title').textContent=title; build(b); $('sheet').hidden=false; }
 let GI_DRAFT=null;
 function closeSheet(){ $('sheet').hidden=true; GI_DRAFT=null; }
 $('sheet-close').onclick=closeSheet; $('sheet').addEventListener('mousedown',e=>{ if(e.target===$('sheet')&&!$('sheet').classList.contains('fixed')) closeSheet(); });
@@ -1715,7 +1726,7 @@ function openGroupInfo(){
     out.onclick=async()=>{ if(!confirm(admin&&G.members.filter(m=>m.role==='admin').length<2?'You are the only admin. Leaving will make the longest-standing member an admin. Leave anyway?':'Leave this group? You will no longer see it.')) return; try{ await rpc('leave_group',{gid:g.id}); closeSheet(); leaveView('You left the group.'); }catch(e){ toast(e.message); } };
     b.append(el('div',{className:'sec'},out)); if(admin){ const del=el('button',{type:'button',className:'btn alt',textContent:'Delete group for everyone',style:'color:var(--bad);border-color:var(--bad)'}); del.onclick=async()=>{ if(!confirm('Delete this group and all its messages for everyone? This cannot be undone.')) return; try{ await rpc('delete_group',{gid:g.id}); closeSheet(); leaveView('Group deleted.'); }catch(e){ toast(e.message); } }; b.append(del); }
     $('sheet-body').scrollTop=keep;
-  },{lsb:true,fixed:true});
+  },{lsb:true,fixed:true,gi:true});
 }
 $('g-info').onclick=openGroupInfo; $('g-head').onclick=e=>{ if(!e.target.closest('button')) openGroupInfo(); };
 
