@@ -607,6 +607,7 @@ body{overscroll-behavior-y:none}
     <div class="lcard"><div class="ico">🔬</div><h3>Deep Research</h3><p>Add up to 10 documents at a time. Garo writes from them and cites them in APA, Harvard, Chicago, MLA, IEEE or Vancouver.</p></div>
     <div class="lcard"><div class="ico">🛠</div><h3>Build Mode</h3><p>Describe an app or website, or start from your own files. Preview it in a safe sandbox and download the whole project.</p></div>
     <div class="lcard"><div class="ico">👥</div><h3>Groups and Developers mode</h3><p>Chat with friends or teammates, @mention Garo, share a conversation, and build a project together in one shared workspace.</p></div>
+    <div class="lcard"><div class="ico">🎨</div><h3>Pictures</h3><p>Create pictures from a description and ask Garo about a photo. Share pictures with friends in groups and private chats, with optional view once.</p></div>
     <div class="lcard"><div class="ico">📎</div><h3>Files and voice</h3><p>Attach PDFs, Word files, text and code. Dictate with the microphone or turn an audio file into text.</p></div>
     <div class="lcard"><div class="ico">🔒</div><h3>Private and personal</h3><p>Verified sign-in, your own profile and preferences, per-user access rules, and a model server that is never exposed.</p></div>
    </div>
@@ -623,11 +624,13 @@ body{overscroll-behavior-y:none}
 
   <section id="models">
    <div class="spec">
-    <div class="spec-h"><div><h2>Meet the Garo models</h2></div><span>SELF-HOSTED · PRIVATE</span></div>
+    <div class="spec-h"><div><h2>Meet the Garo models</h2></div><span>PRIVATE SERVER + CLOUDFLARE WORKERS AI</span></div>
     <div class="rows">
      <div class="lrow"><span>Garo Chat</span><span class="c-sky">Fast everyday answers</span></div>
      <div class="lrow"><span>Garo Think</span><span class="c-sky">Writing and research</span></div>
      <div class="lrow"><span>Garo Code</span><span class="c-amb">Programming and Build Mode</span></div>
+     <div class="lrow"><span>Garo Image</span><span class="c-amb">Creates pictures (FLUX.1 Schnell)</span></div>
+     <div class="lrow"><span>Garo Vision</span><span class="c-amb">Looks at pictures (Moondream 3.1)</span></div>
      <div class="lrow"><span>Speech to text</span><span>Browser + Whisper tiny</span></div>
      <div class="lrow"><span>Accounts and storage</span><span>Supabase</span></div>
      <div class="lrow"><span>Hosting</span><span>Oracle Cloud Free Tier</span></div>
@@ -637,16 +640,23 @@ body{overscroll-behavior-y:none}
 
   <section id="faq">
    <h2>Questions</h2><p class="lsub">Straight answers.</p>
-   <details><summary>Who is Garo?</summary><p>Garo is the private AI assistant of GARO AI. It runs on a private server that GARO AI operates, so your conversations are not sent to big AI companies.</p></details>
+   <details><summary>Who is Garo?</summary><p>Garo is the private AI assistant of GARO AI. Your text conversations run on a private server that GARO AI operates, so they are not sent to big AI companies. Only when you use Generate Image or Understand Image, that description or picture is processed by Cloudflare Workers AI through GARO AI's server.</p></details>
    <details><summary>Who is the owner of GARO AI?</summary><p>GARO AI is owned by <b>Divinewill Gopeh Inyang</b>, also known as <b>Divine Gopeh</b>: a young Nigerian web developer who studied at the University of the People. Born on 24 October 2003. Dark in complexion.</p></details>
    <details><summary>Is it really free?</summary><p>Yes. There are no per-message charges. It runs on a free server, so it is shared and has fair-use limits.</p></details>
    <details><summary>Is the chat unlimited?</summary><p>There is no fixed message cap by default, but the server has limited power. When several people chat at once, replies queue, and each account has a per-minute limit to keep things fair. The administrator can also give an account extra free usage, or set a daily allowance, for a period of time.</p></details>
-   <details><summary>Can Garo read or create images?</summary><p>Not yet. For now Garo focuses on text, documents and code. Image features may come later once the server can handle them.</p></details>
+   <details><summary>Can Garo read or create images?</summary><p>Yes, both. <b>Read:</b> attach a picture in a chat (or press + then Understand Image), type your question and press send. Garo looks at the picture and answers using Moondream 3.1. <b>Create:</b> press + then Generate Image (or pick Garo Image in the model list), describe the picture and send. Garo draws it with FLUX.1 Schnell, saves it to My files and shows a Download button. Garo only uses an AI model on a picture when you press send. Videos are not supported yet.</p></details>
+   <details><summary>Which models does Garo use?</summary><p>Five. Garo Chat, Garo Think and Garo Code run on GARO AI's private server for text. Garo Image (FLUX.1 Schnell) creates pictures and Garo Vision (Moondream 3.1) looks at pictures. Both picture models run on Cloudflare Workers AI, always through GARO AI's own server, so no access keys are ever in your browser.</p></details>
+   <details><summary>Are there limits on pictures?</summary><p>Yes. The two picture models share one small free daily allowance, and each account also has its own daily limit. When the shared allowance is nearly used up, picture features pause for everyone and the app shows when they return (they come back automatically at 00:00 UTC, which is 1 AM in Nigeria). Normal chat, groups, private messages and sharing pictures with friends are not affected.</p></details>
+   <details><summary>Do pictures I share with friends go to the AI?</summary><p>No. Pictures you send in groups, private chats or to Website Administration are only stored and delivered. They never reach FLUX or Moondream. Only the two buttons that say Generate Image and Understand Image, or sending a picture you attached in a chat, use those models.</p></details>
+   <details><summary>Can I message a group member privately?</summary><p>Yes. Tap a member's name or picture in a group (or in Group info) to see their profile card, then press Message. You can also long-press a group message and choose Reply privately. Only the two of you can read a private chat, not other members and not group admins. You can block anyone from their profile.</p></details>
+   <details><summary>What is "View once"?</summary><p>When you send a picture in a group, a private chat or to Website Administration you can switch on View once. The receiver taps to open it one time, and it is then locked and erased from our storage soon after. No website can stop a screenshot or a photo of the screen, so only share what you trust the receiver with.</p></details>
+   <details><summary>Who can change the group picture?</summary><p>Only group admins and the owner. The person who creates a group is its owner and is always an admin. Anyone can tap the group picture to view it.</p></details>
+   <details><summary>How do I contact support?</summary><p>Open your profile, then Help, then Contact support, to chat with Website Administration inside Garo. Replies appear in your Website Administration chat. You can also email GARO AI at <a href="mailto:garoai.003@gmail.com">garoai.003@gmail.com</a>. <button type="button" class="sbt" id="faq-support">Contact support</button></p></details>
    <details><summary>What is Developers mode?</summary><p>It is a shared group where several people build one project together. Anyone can ask Garo to build or change files, save the result to the project, preview it, and download it. Admins can add people, lock the group and manage roles.</p></details>
    <details><summary>How does Deep Research cite my documents?</summary><p>You add the documents and, if you like, each one's author, year and title. Garo writes from the documents and the app adds the in-text citations and the reference list in the style you choose. Without documents, Garo does standard research and will not invent references.</p></details>
-   <details><summary>Is Garo up to date?</summary><p>Garo's built-in knowledge stops at a cutoff date. Turn on Web search from the + menu, or press "Verify with the web", and Garo checks current sources through a private search service and shows them as links. It also searches automatically when you tell it an answer is wrong or outdated.</p></details>
+   <details><summary>Is Garo up to date?</summary><p>Yes. Garo's built-in knowledge stops at a cutoff date, but it can check the web. Garo searches automatically for current things like news, prices and scores, and whenever you tell it an answer is wrong or outdated. You can also turn on Web search from the + menu, or press "Verify with the web" under an answer. Garo then reads current sources through a private search service and shows them as links so you can check them yourself.</p></details>
    <details><summary>Can I delete my account?</summary><p>Yes, any time, from your profile. It erases your account, chats and group messages. Accounts that break the Terms of Use can be suspended or deleted by an administrator.</p></details>
-   <details><summary>Who can see my chats?</summary><p>Other users cannot. Chats are stored in your account with per-user access rules. The administrator can technically reach stored data for security and support. See the <a href="privacy.html">Privacy Policy</a>.</p></details>
+   <details><summary>Who can see my chats?</summary><p>Other users cannot. Chats are stored in your account with per-user access rules. Private messages between two people can be read only by those two. The administrator can technically reach stored data for security and support. See the <a href="privacy.html">Privacy Policy</a>.</p></details>
   </section>
  </div>
 </div>
@@ -717,7 +727,7 @@ body{overscroll-behavior-y:none}
 <footer>
  <div class="lfoot">
   <span>GARO AI © <span id="yr"></span>. All rights reserved.</span>
-  <nav aria-label="Footer"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><button type="button" id="ft-cookies">Cookie settings</button></nav>
+  <nav aria-label="Footer"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><button type="button" id="ft-support">Contact support</button><button type="button" id="ft-cookies">Cookie settings</button></nav>
  </div>
 </footer>
 </div>
@@ -740,7 +750,7 @@ body{overscroll-behavior-y:none}
 <div id="cc" class="cc" role="dialog" aria-label="Cookies and local storage" hidden>
  <button class="cc-x" id="cc-x" type="button" aria-label="Close and keep only essential cookies" title="Close">✕</button>
  <div id="cc-main"><b>Cookies and local storage</b>
-  <p>GARO AI uses cookies and your browser's local storage (cache) to keep you signed in and to remember choices such as your theme and model. We do not use advertising or tracking cookies. <a href="privacy.html#cookies">Learn more</a></p>
+  <p>GARO AI uses cookies and your browser's local storage (cache) to keep you signed in and to remember choices such as your theme, model and welcome screens, and to keep a message safe if your connection drops before it is sent. We do not use advertising or tracking cookies. <a href="privacy.html#cookies">Learn more</a></p>
   <div class="cc-btns"><button id="cc-manage" type="button">Manage</button><button id="cc-ess" type="button">Essential only</button><button id="cc-all" type="button" class="go">Accept all</button></div></div>
  <div id="cc-prefs" hidden><b>Your choices</b>
   <label class="cc-row"><input type="checkbox" checked disabled><span>Essential<small>Keeps you signed in and remembers this choice. Always on.</small></span></label>
@@ -826,7 +836,7 @@ body{overscroll-behavior-y:none}
   <div class="plabel">Help</div>
   <a class="pr" id="p-fb" href="#"><i>💬</i><span>Send feedback</span></a>
   <button class="pr" type="button" data-p="hl" aria-expanded="false"><i>❓</i><span>Help</span><em>›</em></button>
-  <div class="ppanel" id="pp-hl" hidden><p>Press <b>+</b> in the message box to add files or switch on Deep Research, Build Mode or Web search. Only one of those tools runs at a time.</p><p>In a group, type <b>@Garo</b> to ask Garo for help. If an answer looks wrong or outdated, press "Verify with the web" under it.</p><p><a id="p-support" href="#">Contact support</a></p></div>
+  <div class="ppanel" id="pp-hl" hidden><p>Press <b>+</b> in the message box to add files and pictures, or switch on Deep Research, Build Mode, Web search or Generate Image. Only one of those tools runs at a time.</p><p>Attach a picture and send it with a question to have Garo describe it (Understand Image). Use <b>Generate Image</b> to create a picture from a description. Pictures you share with friends never go to the AI. Videos are not supported.</p><p>In a group, type <b>@Garo</b> to ask Garo for help. Tap a member's name to see their profile or message them privately. If an answer looks wrong or outdated, press "Verify with the web" under it.</p><p><a id="p-support" href="#">Contact support</a> · GARO AI, <a href="mailto:garoai.003@gmail.com">garoai.003@gmail.com</a></p></div>
   <div class="plabel" id="p-adminlabel" hidden>Admin</div>
   <button class="pr" id="p-portal" type="button" hidden><i>🛡</i><span>Admin portal</span></button>
   <button class="pr" id="p-mode" type="button" hidden><i>🔀</i><span>Switch mode</span></button>
@@ -1113,14 +1123,14 @@ function leaveApp(){ welcomeSignOut(); if(window.dmReset) dmReset(); v4Reset(); 
 async function enterApp(session){
   if (user && user.id===session.user.id) return;
   user = session.user; $('site').hidden=true; guestUI(false); setWho(); history.replaceState(null,'',location.pathname+location.search);
-  await Promise.all([loadModels(), loadChats()]); welcomeNewSignIn(); newChat(); pollStatus(); resumePending(); dmInit();
+  window.MODELS_P=loadModels(); await loadChats(); welcomeNewSignIn(); newChat(); pollStatus(); resumePending(); dmInit();
   afterLogin();
 }
 async function token(){ const {data:{session}}=await sb.auth.getSession(); return session && session.access_token; }
 async function loadModels(){
   const sel=$('model'); sel.innerHTML='';
   try{
-    const r=await fetch(CFG.API_URL+'/v1/models',{headers:{Authorization:'Bearer '+await token()}});
+    const r=await fetch(CFG.API_URL+'/v1/models',{headers:{Authorization:'Bearer '+await token()},signal:AbortSignal.timeout(8000)});
     const j=await r.json(), ms=j.models||[]; for(const k of Object.keys(GM)) delete GM[k];
     if(!ms.length) sel.innerHTML='<option value="">No models yet</option>';
     for(const o of ms){ GM[o.id]=o; sel.add(new Option(o.name,o.id)); }
@@ -1280,6 +1290,9 @@ function buildModelMenu(){
     const b=document.createElement('button'); b.type='button'; b.setAttribute('role','option'); b.setAttribute('aria-selected',o.value===$('model').value);
     b.append(el('span',null,el('b',{textContent:gname(o.value)}),el('small',{textContent:(GM[o.value]||{}).description||''})));
     b.onclick=()=>{ setModel(o.value); closePops(); }; m.append(b); }
+  m.append(document.createElement('hr'));
+  for(const [name,desc,fn,on] of [['Garo Image','Creates pictures from your description (FLUX.1 Schnell)',()=>toggleMode('image','Generate Image')(),mode==='image'],['Garo Vision','Looks at a picture and answers your question (Moondream 3.1)',()=>openUnderstand(),false]]){
+    const b=document.createElement('button'); b.type='button'; b.setAttribute('role','option'); b.setAttribute('aria-selected',on); b.append(el('span',null,el('b',{textContent:name}),el('small',{textContent:desc}))); b.onclick=()=>{ closePops(); fn(); }; m.append(b); }
 }
 function setModel(id,auto){ $('model').value=id; if(!auto) lastManual=id; setPref('dv-model',lastManual||id); syncCaps(); }
 function syncCaps(){ if(lastManual===null&&$('model').value) lastManual=$('model').value; const v=$('model').value; $('mp-label').textContent=user&&v?gname(v):'Garo Chat'; renderAtts(); }
@@ -1298,6 +1311,7 @@ function refreshChip(){
   $('mc-text').textContent=T[mode]||''; if(mode==='image'&&window.paintImgChip) paintImgChip(); $('mc-manage').hidden=mode!=='research';
   for(const [id,m] of [['m-research','research'],['m-build','build'],['m-web','web'],['m-gen','image']]) $(id).setAttribute('aria-checked',mode===m);
   $('libcount').textContent=lib.length?lib.length+' source'+(lib.length===1?'':'s'):'Your sources';
+  if(mode==='image') $('mp-label').textContent='Garo Image'; else syncCaps();
 }
 const toggleMode=(m,label)=>()=>{ closePops(); if(!user) return needAccount(label); if(mode===m){ setMode('chat'); return; } const prev=mode; setMode(m); if(prev!=='chat') toast('One tool at a time. Switched to '+label+'.'); if(m==='research'&&!lib.length) openLib(); };
 $('m-research').onclick=toggleMode('research','Deep Research');
@@ -1905,7 +1919,7 @@ window.memberLinks=function(row,uid,gid){ if(!uid) return; const go=ev=>{ ev.sto
   for(const e of row.querySelectorAll('.gav:not(.garoav),.gn,.mn')){ e.setAttribute('role','button'); e.tabIndex=0; e.onclick=go; e.onkeydown=ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(ev); } }; } };
 window.openMemberCard=async function(uid,gid){
   if(!gid){ toast('Open a group first.'); return; }
-  openSheet('Profile',async b=>{ b.innerHTML='<p class="hint">Loading…</p>'; let c; try{ c=await rpc('member_card',{p_group:gid,p_user:uid}); }catch(e){ b.innerHTML=''; b.append(el('p',{textContent:e.message})); return; }
+  openSheet('Profile',async b=>{ b.innerHTML='<p class="hint ldg">Loading</p>'; let c; try{ c=await rpc('member_card',{p_group:gid,p_user:uid}); }catch(e){ b.innerHTML=''; b.append(el('p',{textContent:e.message})); return; }
     b.innerHTML=''; const me=c.id===user.id, w=el('div',{className:'mcard'}), av=el('span',{className:'gav huge'}); paintAv(av,c,c.id);
     if(c.avatar_url&&String(c.avatar_url).startsWith(CFG.SUPABASE_URL+'/storage/')){ av.setAttribute('role','button'); av.setAttribute('aria-label','View picture'); av.onclick=()=>lbx(c.avatar_url,c.display_name); } else av.style.cursor='default';
     w.append(av,el('h3',{textContent:(c.display_name||c.username||'Someone')+(me?' (you)':'')}),el('small',{className:'hint',textContent:'@'+(c.username||'')+(c.role==='admin'?' · Group admin':'')}));
@@ -1963,7 +1977,7 @@ window.openDm=async function(tid,opts){ opts=opts||{};
   if(!D.list.some(x=>x.id===tid)) await loadDms(); const t=D.list.find(x=>x.id===tid); if(!t){ toast('That conversation was not found.'); return; }
   stopDm(); D.cur=t; D.msgs=[]; D.quote=opts.quote||null; showView('dm'); setTab('dms'); paintQuote();
   const av=$('dm-av'); av.className='gav big'; av.style.backgroundImage=''; paintAv(av,{display_name:t.other_name,avatar_url:t.other_avatar},t.other_id); $('dm-name').textContent=t.other_name; $('dm-sub').textContent='Private chat · only you two can see this';
-  $('dm-lock').hidden=!t.blocked; $('dm-box').hidden=!!t.blocked; $('dmcol').innerHTML='<p class="hint" style="text-align:center">Loading…</p>';
+  $('dm-lock').hidden=!t.blocked; $('dm-box').hidden=!!t.blocked; $('dmcol').innerHTML='<p class="hint ldg" style="text-align:center">Loading</p>';
   await refreshDm(true); subscribeDm(tid); clearInterval(D.poll); D.poll=setInterval(()=>{ if(document.visibilityState==='visible'&&D.cur) refreshDm(false); },8000); setTimeout(()=>$('dm-in').focus(),0); };
 window.stopDm=function(){ clearInterval(D.poll); D.poll=null; if(D.ch){ try{ sb.removeChannel(D.ch); }catch{} D.ch=null; } D.cur=null; D.quote=null; };
 function subscribeDm(tid){ try{ D.ch=sb.channel('dm-'+tid).on('postgres_changes',{event:'*',schema:'public',table:'dm_messages',filter:'thread_id=eq.'+tid},()=>{ if(D.cur&&D.cur.id===tid) refreshDm(false); }).subscribe(); }catch{} }
@@ -2013,6 +2027,28 @@ window.dmInit=function(){ loadDms(); clearInterval(D.feedPoll); D.feedPoll=setIn
   if(!D.feed){ try{ D.feed=sb.channel('dm-feed').on('postgres_changes',{event:'INSERT',schema:'public',table:'dm_messages'},()=>{ loadDms(); }).subscribe(); }catch{} } };
 window.dmReset=function(){ stopDm(); clearInterval(D.feedPoll); if(D.feed){ try{ sb.removeChannel(D.feed); }catch{} D.feed=null; } D.list=[]; OPENED.clear(); WATCH.clear(); paintDmBadge(); const l=$('dmlist'); if(l) l.innerHTML=''; };
 window.loadDms=loadDms;
+})();
+
+/* ---------- Contact support (chat with Website Administration), animated loading dots ---------- */
+(function(){
+const st=document.createElement('style'); st.textContent=`
+.ldg::after,.status::after{content:'...';display:inline-block;width:0;overflow:hidden;vertical-align:bottom;white-space:nowrap;animation:dotsw 1.2s steps(4,end) infinite}
+@keyframes dotsw{to{width:1.15em}}
+@media (prefers-reduced-motion:reduce){.ldg::after,.status::after{animation:none;width:auto}}
+.sup .cinfo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}.sup textarea,.sup input[type=text]{width:100%;box-sizing:border-box;margin:0 0 8px;font-size:16px}
+.sup .undrow{display:flex;gap:8px;flex-wrap:wrap}.sup .undrow button{flex:1;min-height:44px}`; document.head.append(st);
+window.openSupport=function(){
+  openSheet('Contact support',b0=>{ const b=el('div',{className:'sup'}); b0.append(b);
+    b.append(el('div',{className:'cinfo'},el('b',{textContent:'GARO AI'}),el('br'),el('a',{href:'mailto:'+CFG.CONTACT+'?subject='+encodeURIComponent('Garo support'),textContent:CFG.CONTACT}),el('p',{className:'hint',style:'margin:6px 0 0',textContent:'You can email us, or chat with Website Administration below. Replies appear in your Website Administration chat.'})));
+    if(!user){ b.append(el('p',{textContent:'Log in to chat with Website Administration. You can still email us at any time.'})); const go=el('button',{type:'button',className:'btn',textContent:'Log in'}); go.onclick=()=>{ closeSheet(); const g=document.getElementById('gf-in'); if(g) g.click(); }; b.append(go); return; }
+    const open=(window.AT&&AT.threads||[]).find(t=>t.status==='open');
+    if(open){ const c=el('button',{type:'button',className:'btn alt',style:'width:100%;margin-bottom:10px',textContent:'Continue your open conversation'}); c.onclick=()=>{ closeSheet(); openAdminThread(open.id); }; b.append(c); }
+    const sub=el('input',{type:'text',maxLength:140,placeholder:'Subject (optional)'}), msg=el('textarea',{rows:5,maxLength:5000,placeholder:'How can we help?'}); msg.setAttribute('aria-label','Your message'); sub.setAttribute('aria-label','Subject');
+    const send=el('button',{type:'button',className:'btn',textContent:'Send to Website Administration'}), no=el('button',{type:'button',className:'btn alt',textContent:'Cancel'}); no.onclick=()=>closeSheet();
+    send.onclick=async()=>{ const t=msg.value.trim(); if(!t){ toast('Write your message first.'); return; } send.disabled=true; send.textContent='Sending'; send.classList.add('ldg');
+      try{ const id=await rpc('start_support_thread',{p_message:t,p_subject:sub.value.trim()||null}); closeSheet(); toast('Sent. We will reply in your Website Administration chat.'); try{ await loadAdminThreads(); }catch{} openAdminThread(id); }
+      catch(e){ toast(e.message||'Could not send that message.'); send.disabled=false; send.textContent='Send to Website Administration'; send.classList.remove('ldg'); } };
+    b.append(sub,msg,el('div',{className:'undrow'},send,no)); setTimeout(()=>msg.focus(),60); }); };
 })();
 
 /* ---------- sending ---------- */
@@ -2089,7 +2125,7 @@ function buildView(content,live,force){
   h+='</div>'; return h+(b.tail?md(b.tail):'');
 }
 const buildLike=m=>!!m.build||/(?:^|\n)(?:File|Filename|Path):\s*`?[^\n`]+`?\s*\n```/.test(m.content||'');
-function msgHtml(m,live){ if(!m.content&&m.status) return '<span class="status">'+esc(m.status)+'</span>'; if(!m.content&&m.pending&&!live) return '<span class="status">📡 Waiting to send…</span>'; return buildLike(m)?buildView(m.content,live,!!m.build):md(m.content); }
+function msgHtml(m,live){ if(!m.content&&m.status) return '<span class="status">'+esc(String(m.status).replace(/[….]+\s*$/,''))+'</span>'; if(!m.content&&m.pending&&!live) return '<span class="status">📡 Waiting to send…</span>'; return buildLike(m)?buildView(m.content,live,!!m.build):md(m.content); }
 
 /* ---------- talking to Garo (chat and groups share this) ---------- */
 async function garoStream({messages,mode:md2,model,onToken,onSources,web,query,signal}){
@@ -2117,6 +2153,7 @@ async function send(opts){
   { const im=(opts.docs||pending).find(d=>d.kind==='image'); if(user&&im&&!opts.text&&!opts.docs){ pending=pending.filter(d=>d!==im); $('in').value=''; autosize(); renderAtts(); return imageChatSend(text,im); } }
   if(!user&&text.length>1500){ toast('Sneak Peek messages are limited to 1,500 characters.'); return; }
   if(user&&text.length>12000){ toast('That message is too long (12,000 characters max).'); return; }
+  if(user&&!$('model').value&&window.MODELS_P){ try{ await MODELS_P; }catch{} }
   if(user&&!$('model').value){ alert('Garo is not available yet. The server has no models installed.'); return; }
   if(!opts.text){ $('in').value=''; autosize(); }
   const docs=opts.docs||pending.slice(); if(!opts.docs){ pending=[]; renderAtts(); }
@@ -2227,7 +2264,7 @@ async function loadProfiles(ids){
 }
 async function openGroup(id){
   stopGroup(); const g=G.list.find(x=>x.id===id); if(!g) return;
-  G.cur=g; G.msgs=[]; G.reacts={}; G.files=[]; showView('group'); renderGroupList(); $('gcol').innerHTML='<p class="hint" style="text-align:center">Loading…</p>';
+  G.cur=g; G.msgs=[]; G.reacts={}; G.files=[]; showView('group'); renderGroupList(); $('gcol').innerHTML='<p class="hint ldg" style="text-align:center">Loading</p>';
   await refreshGroup(true); if(!G.cur) return; clearGroupNotifs(id); subscribeGroup(id); startPoll(); setTimeout(()=>$('g-in').focus(),0);
 }
 function groupReacts(rows){ const o={}; for(const r of rows){ (o[r.message_id]=o[r.message_id]||[]).push(r); } return o; }
@@ -2243,7 +2280,7 @@ async function refreshGroup(first){
   if(!G.cur||G.cur.id!==id) return;
   const mine=(mem.data||[]).find(m=>m.user_id===user.id);
   if(!gr.data||!mine){ leaveView('You no longer have access to that group.'); return; }
-  G.cur={...g0,...gr.data}; G.members=mem.data||[]; G.me=mine.role;
+  G.cur={...g0,...gr.data}; G.members=mem.data||[]; G.me=(mine.role==='admin'||(G.cur.created_by&&G.cur.created_by===user.id))?'admin':mine.role;
   await loadProfiles([...G.members.map(m=>m.user_id),...(msgs.data||[]).map(m=>m.user_id)]);
   G.msgs=(msgs.data||[]).slice().reverse(); G.reacts=groupReacts(rea.data||[]); G.files=files.data||[];
   renderGroupHeader(); renderGroupMsgs(first); renderGroupComposer();
@@ -2461,7 +2498,7 @@ function openGroupInfo(){
     const search=el('input',{type:'text',className:'sin',placeholder:'Search members'}), list=el('div',{});
     const admins=G.members.filter(x=>x.role==='admin').length;
     const drawMembers=()=>{ list.innerHTML=''; const q=search.value.toLowerCase(); for(const m of G.members.filter(x=>pname(x.user_id).toLowerCase().includes(q))){
-      const isO=m.user_id===own, badge=isO?'Owner':m.role==='admin'?'Admin':'';
+      const isO=m.user_id===own, badge=isO?'Owner · Admin':m.role==='admin'?'Admin':'';
       const row=el('div',{className:'mrow'},avatar(m.user_id),el('span',{className:'mn'},el('b',{textContent:pname(m.user_id)+(m.user_id===me?' (you)':'')}),el('small',{textContent:'@'+((G.profiles[m.user_id]||{}).username||'')})),badge?el('span',{className:'badge2',textContent:badge}):el('span'));
       memberLinks(row,m.user_id,g.id);
       const act=(t,fn)=>{ const x=el('button',{type:'button',className:'sbt',textContent:t}); x.onclick=async()=>{ try{ await fn(); await refreshGroup(false); openGroupInfo(); }catch(e){ toast(e.message); } }; row.append(x); };
@@ -2573,7 +2610,7 @@ $('adm-go').onclick=()=>loadAdminUsers(1); $('adm-f').onchange=()=>loadAdminUser
 $('adm-q').onkeydown=e=>{ if(e.key==='Enter') loadAdminUsers(1); };
 $('adm-prev').onclick=()=>loadAdminUsers(Math.max(1,ADM.page-1)); $('adm-next').onclick=()=>loadAdminUsers(ADM.page+1);
 async function loadAdminUsers(page){
-  ADM.page=page; const list=$('adm-list'); list.innerHTML='<p class="hint">Loading…</p>'; $('adm-msg').textContent='';
+  ADM.page=page; const list=$('adm-list'); list.innerHTML='<p class="hint ldg">Loading</p>'; $('adm-msg').textContent='';
   try{
     const q=$('adm-q').value.trim(), f=$('adm-f').value;
     const j=await callApi('/v1/admin/users?page='+page+'&q='+encodeURIComponent(q)+'&status='+f); ADM.def=j.default_daily_limit||0;
@@ -2639,7 +2676,7 @@ function keyDocs(){ const base=CFG.API_URL+'/api/v1'; $('k-base').textContent=ba
   $('k-py').textContent='from openai import OpenAI\nclient = OpenAI(base_url="'+base+'", api_key="dgk_YOUR_KEY")\nr = client.chat.completions.create(model="garo-chat", messages=[{"role":"user","content":"Hello"}], extra_body={"web": True})\nprint(r.choices[0].message.content)';
   $('k-js').textContent='// run this on your server, never in a web page\nconst r = await fetch("'+base+'/chat/completions", { method: "POST",\n  headers: { "Authorization": "Bearer dgk_YOUR_KEY", "Content-Type": "application/json" },\n  body: JSON.stringify({ model: "garo-chat", messages: [{ role: "user", content: "Hello" }] }) });\nconsole.log((await r.json()).choices[0].message.content);'; }
 async function loadKeys(){
-  const box=$('adm-klist'); box.innerHTML='<p class="hint">Loading…</p>';
+  const box=$('adm-klist'); box.innerHTML='<p class="hint ldg">Loading</p>';
   try{ const j=await callApi('/v1/admin/keys'); box.innerHTML='';
     if(!j.keys.length) box.append(el('p',{className:'hint',textContent:'No keys yet. Name one above and press Generate key.'}));
     for(const k of j.keys){
@@ -2659,7 +2696,7 @@ $('k-go').onclick=async()=>{
 };
 $('k-copy').onclick=()=>copyText($('k-val').value,$('k-copy'));
 async function loadAdminLog(){
-  const box=$('adm-log'); box.innerHTML='<p class="hint">Loading…</p>';
+  const box=$('adm-log'); box.innerHTML='<p class="hint ldg">Loading</p>';
   try{ const j=await callApi('/v1/admin/log'); box.innerHTML='';
     if(!j.log.length) box.append(el('p',{className:'hint',textContent:'Nothing has been recorded yet.'}));
     for(const r of j.log) box.append(el('div',{className:'lrow2'},el('b',{textContent:r.action.replace(/_/g,' ')}),el('span',{textContent:(r.target_email||'—')+' · '+(r.reason||'')}),el('span',{className:'hint',textContent:dtm(r.created_at)+' · by '+r.admin_email})));
@@ -2693,7 +2730,7 @@ $('p-logout').onclick=()=>$('out').click();
 $('p-portal').onclick=()=>{ $('profile').hidden=true; openAdmin(); };
 $('p-lib').onclick=()=>{ $('profile').hidden=true; openLib(); };
 $('p-avbtn').onclick=()=>$('p-file').click();
-$('p-support').onclick=e=>{ e.currentTarget.href='mailto:'+CFG.CONTACT+'?subject='+encodeURIComponent('Garo support'); };
+$('p-support').onclick=e=>{ e.preventDefault(); $('profile').hidden=true; openSupport(); };
 
 /* ---------- cookies and local storage notice ---------- */
 const PREF_KEYS=/^(dv-theme|dv-model|dv-emo|dv-bday-|dv-phone-nudge-)/;
@@ -2707,7 +2744,7 @@ $('cc-ess').onclick=()=>{ ccSave(false); toast('Only essential storage is used')
 $('cc-x').onclick=()=>ccSave(false);
 $('cc-manage').onclick=()=>showCc(true);
 $('cc-save').onclick=()=>{ ccSave($('cc-pref').checked); toast('Your choices are saved'); };
-$('ft-cookies').onclick=()=>showCc(true);
+$('ft-cookies').onclick=()=>showCc(true); $('ft-support').onclick=()=>openSupport(); { const fs=document.getElementById('faq-support'); if(fs) fs.onclick=()=>openSupport(); }
 $('p-cookies').onclick=()=>{ $('profile').hidden=true; showCc(true); };
 
 /* ---------- phone number (registration, profile and a gentle reminder) ---------- */
@@ -3164,7 +3201,7 @@ async function storePersonalFile(f){
     await quiet('register_file',{p_bucket:'user-files',p_path:path,p_name:f.name,p_mime:f.type||null}); }catch{}
 }
 async function openMyFiles(){
-  openSheet('My uploaded files',async b=>{ const draw=async()=>{ b.innerHTML=''; b.append(el('p',{className:'hint',textContent:'Loading…'}));
+  openSheet('My uploaded files',async b=>{ const draw=async()=>{ b.innerHTML=''; b.append(el('p',{className:'hint ldg',textContent:'Loading'}));
       const {data,error}=await sb.from('files').select('*').eq('bucket','user-files').order('created_at',{ascending:false}).limit(200); b.innerHTML=''; if(error) return b.append(el('p',{textContent:error.message}));
       const tot=(data||[]).reduce((s,x)=>s+(+x.size||0),0); b.append(el('p',{className:'hint',textContent:(data||[]).length+' file'+((data||[]).length===1?'':'s')+' · '+fmtSize(tot)+' used. Files you attach to your chats are kept here so you can remove them whenever you like.'}));
       if(!(data||[]).length) b.append(el('p',{textContent:'You have not uploaded any files yet.'}));
@@ -3240,7 +3277,7 @@ async function ticketView(p,t){
 /* ---------- profile panel: joined groups, time zone, files, help ---------- */
 async function fillV4Profile(){
   const tz=$('p-tz'); if(!tz.options.length){ let zs=[]; try{ zs=Intl.supportedValuesOf('timeZone'); }catch{} if(!zs.includes(DEV_TZ)) zs.unshift(DEV_TZ); for(const z of zs) tz.add(new Option(z,z)); }
-  tz.value=PRIV.timezone||DEV_TZ; const box=$('p-groups'); box.innerHTML='<p class="hint">Loading…</p>';
+  tz.value=PRIV.timezone||DEV_TZ; const box=$('p-groups'); box.innerHTML='<p class="hint ldg">Loading</p>';
   try{ const rows=(await rpc('profile_groups'))||[]; box.innerHTML=''; if(!rows.length) box.append(el('p',{className:'hint',textContent:'You have not joined any groups yet.'}));
     for(const g of rows){ const av=el('span',{className:'gav',textContent:g.name.charAt(0).toUpperCase()}); av.style.background=g.color||'#38bdf8'; if(g.avatar_url&&g.avatar_url.startsWith(CFG.SUPABASE_URL+'/storage/')){ av.textContent=''; av.style.backgroundImage='url("'+g.avatar_url+'")'; }
       const b=el('button',{type:'button',className:'mrow gpr'},av,el('span',{className:'mn'},el('b',{textContent:g.name+(g.locked?' 🔒':'')}),el('small',{textContent:({owner:'Owner',admin:'Admin',member:'Member'}[g.role]||g.role)+' · joined '+dday(g.joined_at)+' · Active'})));
