@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>GARO AI | Your private AI for chat, research and code</title>
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico?v=2" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
 <link rel="icon" type="image/png" sizes="64x64" href="garoai-icon-64.png">
 <link rel="icon" type="image/png" sizes="192x192" href="garoai-icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -1721,7 +1722,7 @@ async function setGroupPhoto(g,file){
     const url=sb.storage.from('group-avatars').getPublicUrl(path).data.publicUrl;
     await rpc('set_group_avatar',{gid:g.id,p_url:url}); if(old) sb.storage.from('group-avatars').remove([old]).catch(()=>{});
     toast('Group picture updated'); closeSheet(); await loadGroups(); await refreshGroup(false);
-  }catch(e){ toast(/policy|row-level|permission/i.test(e.message||'')?'Only group admins can change the group picture.':'Could not change the picture: '+(e.message||'try again')); }
+  }catch(e){ toast(/policy|row-level|permission/i.test(e.message||'')?'Only the group owner and admins can change the group picture. If you are the owner and see this, run migration 8 (8-owner-quota-events.sql).':'Could not change the picture: '+(e.message||'try again')); }
 }
 async function removeGroupPhoto(g){
   if(!confirm('Remove the group picture?')) return;
@@ -2482,7 +2483,7 @@ function openGroupInfo(){
     b.innerHTML=''; const ownerName=own?pname(own):'—';
     b.append(el('div',{className:'row',style:'align-items:center;margin-bottom:8px'},gAvatar(g,'big'),el('div',{},el('b',{textContent:g.name}),el('p',{className:'hint',style:'margin:0',textContent:(g.kind==='project'?'Developers mode · ':'')+G.members.length+' members · Owner: '+ownerName}))));
     { const av0=b.querySelector('.gav.big'); if(av0){ av0.setAttribute('role','button'); av0.setAttribute('aria-label','View group picture'); av0.onclick=()=>openGroupPhoto(g); }
-      if(admin){ const fi=el('input',{type:'file',accept:'image/png,image/jpeg,image/webp',hidden:true}), up=el('button',{type:'button',className:'btn alt',textContent:GAV_OK(g.avatar_url)?'Change group picture':'Add group picture'}); up.onclick=()=>fi.click(); fi.onchange=()=>{ const f=fi.files[0]; fi.value=''; if(f) setGroupPhoto(g,f); };
+      if(admin||isOwner){ const fi=el('input',{type:'file',accept:'image/png,image/jpeg,image/webp',hidden:true}), up=el('button',{type:'button',className:'btn alt',textContent:GAV_OK(g.avatar_url)?'Change group picture':'Add group picture'}); up.onclick=()=>fi.click(); fi.onchange=()=>{ const f=fi.files[0]; fi.value=''; if(f) setGroupPhoto(g,f); };
         const row=el('div',{className:'gpic'},up,fi); if(GAV_OK(g.avatar_url)){ const rm=el('button',{type:'button',className:'btn alt',textContent:'Remove picture'}); rm.onclick=()=>removeGroupPhoto(g); row.append(rm); } b.append(row); } }
     if(g.description) b.append(el('p',{textContent:g.description}));
     if(g.locked&&g.lock_reason) b.append(el('p',{className:'hint',textContent:'🔒 Locked: '+g.lock_reason}));
