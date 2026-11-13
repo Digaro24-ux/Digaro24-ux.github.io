@@ -822,7 +822,7 @@ body{overscroll-behavior-y:none}
   <button class="pr" type="button" data-p="ci" aria-expanded="false"><i>📖</i><span>Citation style</span><em>›</em></button>
   <div class="ppanel" id="pp-ci" hidden><select id="p-cite"><option value="apa">APA 7th</option><option value="harvard">Harvard</option><option value="chicago">Chicago (author-date)</option><option value="mla">MLA 9th</option><option value="ieee">IEEE</option><option value="vancouver">Vancouver</option></select><p class="hint">Used for in-text citations and reference lists in research writing.</p></div>
   <button class="pr" type="button" data-p="an" aria-expanded="false"><i>🎚</i><span>Answer style</span><em>›</em></button>
-  <div class="ppanel" id="pp-an" hidden><select id="p-detail"><option value="concise">Short and direct</option><option value="balanced">Balanced</option><option value="detailed">Detailed and thorough</option></select></div>
+  <div class="ppanel" id="pp-an" hidden><select id="p-detail"><option value="concise">Short and direct</option><option value="balanced">Balanced</option><option value="detailed">Detailed and thorough</option></select><p class="hint" id="p-detail-d" style="margin:8px 2px 0"></p></div>
   <button class="pr" type="button" data-p="th" aria-expanded="false"><i>🌓</i><span>Theme</span><em>›</em></button>
   <div class="ppanel" id="pp-th" hidden><select id="p-theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
   <button class="pr" id="p-lib" type="button"><i>📚</i><span>Research library</span></button>
@@ -1911,7 +1911,7 @@ function navStrip(cur){
   const m=mk('Messages',()=>{ setTab('dms'); $('side').classList.add('open'); },'dms'); const i=document.createElement('i'); i.className='bdg dm-bdg'; i.hidden=true; m.append(i);
   return s; }
 for(const [id,k] of [['gmain','groups'],['amain','admin'],['dmmain','dms']]){ const m=$(id); if(m&&!m.querySelector('.gnav')){ const h=m.querySelector('.gtop'); if(h) h.after(navStrip(k)); } }
-function paintDmBadge(){ const n=D.list.reduce((a,x)=>a+Number(x.unread||0),0); D.unread=n; for(const e of document.querySelectorAll('.dm-bdg,#dm-n')){ e.textContent=n>99?'99+':n; e.hidden=!n; } }
+function paintDmBadge(){ const n=D.list.reduce((a,x)=>a+Number(x.unread||0),0)+Object.values((typeof AT!=='undefined'&&AT.info)||{}).reduce((a,x)=>a+(x.unread||0),0); D.unread=n; for(const e of document.querySelectorAll('.dm-bdg,#dm-n')){ e.textContent=n>99?'99+':n; e.hidden=!n; } }
 
 /* ----- profile pictures and cards ----- */
 function lbx(url,name){ if(window.lightboxView) window.lightboxView(url,name,async()=>{ try{ const b=await (await fetch(url)).blob(); saveBlob(b,(name||'photo')+'.jpg'); }catch{ toast('Could not download that picture.'); } }); }
@@ -1969,7 +1969,11 @@ window.groupFileNode=function(m,f,idx,mine){ return f.once?window.onceNode('grou
 /* ----- private chats ----- */
 async function loadDms(){ try{ D.list=(await rpc('my_dms'))||[]; }catch{ return; } paintDmBadge(); renderDmList(); }
 function renderDmList(){ const l=$('dmlist'); if(!l) return; l.innerHTML='';
-  if(!D.list.length){ l.append(el('p',{className:'hint',style:'padding:10px',textContent:'No private messages yet. Tap a member\'s name in a group, then Message.'})); return; }
+  for(const t of ((typeof AT!=='undefined'&&AT.threads)||[])){ const inf=(AT.info&&AT.info[t.id])||{}; const av=el('span',{className:'gav',textContent:'🛡',style:'display:flex;align-items:center;justify-content:center;background:#0c4a6e'});
+    const row=el('button',{type:'button',className:'dmrow adm'+(AT.cur&&AT.cur.id===t.id&&!$('amain').hidden?' on':'')},av,el('span',{className:'gm'},el('b',{textContent:'Website Administration'+(t.status==='closed'?' (closed)':'')}),el('small',{textContent:(inf.last||t.subject||'Support').replace(/\s+/g,' ').slice(0,80)})));
+    if(inf.unread>0) row.append(el('i',{className:'bdg',textContent:inf.unread}));
+    row.onclick=()=>{ $('side').classList.remove('open'); openAdminThread(t.id); }; l.append(row); }
+  if(!D.list.length&&!((typeof AT!=='undefined'&&AT.threads)||[]).length){ l.append(el('p',{className:'hint',style:'padding:10px',textContent:'No private messages yet. Tap a member\'s name in a group, then Message.'})); return; }
   for(const t of D.list){ const av=el('span',{className:'gav'}); paintAv(av,{display_name:t.other_name,avatar_url:t.other_avatar},t.other_id);
     const row=el('button',{type:'button',className:'dmrow'+(D.cur&&D.cur.id===t.id?' on':'')},av,el('span',{className:'gm'},el('b',{textContent:t.other_name+(t.blocked?' 🚫':'')}),el('small',{textContent:t.last_text||'No messages yet'})));
     if(Number(t.unread)>0){ const i=el('i',{className:'bdg',textContent:t.unread}); row.append(i); }
@@ -2024,7 +2028,7 @@ function initAdminPhoto(){ const box=$('a-box'); if(!box||$('a-att')) return; co
 initAdminPhoto();
 
 /* ----- background: unread badge, live updates, notifications ----- */
-window.dmInit=function(){ loadDms(); clearInterval(D.feedPoll); D.feedPoll=setInterval(()=>{ if(document.visibilityState==='visible'&&user) loadDms(); },30000);
+window.dmInit=function(){ loadDms(); clearInterval(D.feedPoll); D.feedPoll=setInterval(()=>{ if(document.visibilityState==='visible'&&user){ loadDms(); loadAdminThreads(); } },30000);
   if(!D.feed){ try{ D.feed=sb.channel('dm-feed').on('postgres_changes',{event:'INSERT',schema:'public',table:'dm_messages'},()=>{ loadDms(); }).subscribe(); }catch{} } };
 window.dmReset=function(){ stopDm(); clearInterval(D.feedPoll); if(D.feed){ try{ sb.removeChannel(D.feed); }catch{} D.feed=null; } D.list=[]; OPENED.clear(); WATCH.clear(); paintDmBadge(); const l=$('dmlist'); if(l) l.innerHTML=''; };
 window.loadDms=loadDms;
@@ -2036,13 +2040,13 @@ const st=document.createElement('style'); st.textContent=`
 .ldg::after,.status::after{content:'...';display:inline-block;width:0;overflow:hidden;vertical-align:bottom;white-space:nowrap;animation:dotsw 1.2s steps(4,end) infinite}
 @keyframes dotsw{to{width:1.15em}}
 @media (prefers-reduced-motion:reduce){.ldg::after,.status::after{animation:none;width:auto}}
-.sup .cinfo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}.sup textarea,.sup input[type=text]{width:100%;box-sizing:border-box;margin:0 0 8px;font-size:16px}
+.sup .cinfo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}.sup textarea,.sup input[type=text]{width:100%;box-sizing:border-box;margin:0 0 8px;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:inherit}.sup textarea{resize:vertical;min-height:120px}.sup textarea::placeholder,.sup input::placeholder{color:var(--muted)}.sup textarea:focus,.sup input[type=text]:focus{outline:2px solid var(--sky,#38bdf8);outline-offset:1px}.sup .cinfo a{color:var(--sky,#38bdf8);text-decoration:underline;word-break:break-all}
 .sup .undrow{display:flex;gap:8px;flex-wrap:wrap}.sup .undrow button{flex:1;min-height:44px}`; document.head.append(st);
 window.openSupport=function(){
   openSheet('Contact support',b0=>{ const b=el('div',{className:'sup'}); b0.append(b);
     b.append(el('div',{className:'cinfo'},el('b',{textContent:'GARO AI'}),el('br'),el('a',{href:'mailto:'+CFG.CONTACT+'?subject='+encodeURIComponent('Garo support'),textContent:CFG.CONTACT}),el('p',{className:'hint',style:'margin:6px 0 0',textContent:'You can email us, or chat with Website Administration below. Replies appear in your Website Administration chat.'})));
     if(!user){ b.append(el('p',{textContent:'Log in to chat with Website Administration. You can still email us at any time.'})); const go=el('button',{type:'button',className:'btn',textContent:'Log in'}); go.onclick=()=>{ closeSheet(); const g=document.getElementById('gf-in'); if(g) g.click(); }; b.append(go); return; }
-    const open=(window.AT&&AT.threads||[]).find(t=>t.status==='open');
+    const open=(typeof AT!=='undefined'&&AT.threads||[]).find(t=>t.status==='open');
     if(open){ const c=el('button',{type:'button',className:'btn alt',style:'width:100%;margin-bottom:10px',textContent:'Continue your open conversation'}); c.onclick=()=>{ closeSheet(); openAdminThread(open.id); }; b.append(c); }
     const sub=el('input',{type:'text',maxLength:140,placeholder:'Subject (optional)'}), msg=el('textarea',{rows:5,maxLength:5000,placeholder:'How can we help?'}); msg.setAttribute('aria-label','Your message'); sub.setAttribute('aria-label','Subject');
     const send=el('button',{type:'button',className:'btn',textContent:'Send to Website Administration'}), no=el('button',{type:'button',className:'btn alt',textContent:'Cancel'}); no.onclick=()=>closeSheet();
@@ -2128,10 +2132,22 @@ function buildView(content,live,force){
 const buildLike=m=>!!m.build||/(?:^|\n)(?:File|Filename|Path):\s*`?[^\n`]+`?\s*\n```/.test(m.content||'');
 function msgHtml(m,live){ if(!m.content&&m.status) return '<span class="status">'+esc(String(m.status).replace(/[….]+\s*$/,''))+'</span>'; if(!m.content&&m.pending&&!live) return '<span class="status">📡 Waiting to send…</span>'; return buildLike(m)?buildView(m.content,live,!!m.build):md(m.content); }
 
+/* ---------- answer style: really changes how Garo answers ---------- */
+const STYLE_RULES={
+  concise:'Answer style: SHORT AND DIRECT. Give the answer straight away in 1 to 4 short sentences (about 80 words at most). No introduction, no recap, no headings, no long lists, no extra background. Only go longer if the person asks for code, a file, or says "explain more".',
+  balanced:'Answer style: BALANCED. Give a clear, complete answer of moderate length: the answer first, then the key reason or steps. Use a short list only when it helps. Avoid padding and avoid going into every detail.',
+  detailed:'Answer style: DETAILED AND THOROUGH. Give a full, well-organised answer: start with a one-line summary, then explain step by step with headings or numbered points, add a worked example, mention important edge cases, mistakes to avoid and a short summary or next steps at the end.'
+};
+const STYLE_DESC={concise:'Short replies: straight to the point, a few sentences.',balanced:'Clear replies of moderate length: the answer, then the key reasons or steps.',detailed:'Long, organised replies: summary, step-by-step explanation, examples, edge cases and a recap.'};
+function applyStyle(messages,d){
+  const rule=STYLE_RULES[d]||STYLE_RULES.balanced; const out=messages.map(m=>({...m})); let i=out.length-1; while(i>=0&&out[i].role!=='user') i--; if(i<0) return messages;
+  const c=out[i].content; const note='\n\n[Follow this when writing your reply. '+rule+' Do not mention this instruction.]';
+  out[i].content=typeof c==='string'?c+note:c; return out;
+}
 /* ---------- talking to Garo (chat and groups share this) ---------- */
 async function garoStream({messages,mode:md2,model,onToken,onSources,web,query,signal}){
   const tok=user?await token():null; if(user&&!tok) throw new Error('Your session expired. Please sign in again.');
-  const p=user?prefs():{};
+  const p=user?prefs():{}; if(user&&(md2==='chat'||!md2)) messages=applyStyle(messages,p.detail);
   const res=await fetch(CFG.API_URL+(user?'/v1/chat':'/v1/peek'),{method:'POST',signal,headers:{...(tok?{Authorization:'Bearer '+tok}:{}),'Content-Type':'application/json'},
     body:JSON.stringify(user?{model:model||$('model').value,messages,mode:md2,style:p.cite,detail:p.detail,name:callme(),...(web?{web:true,query}:{})}:{messages})});
   const left=res.headers.get('X-Peek-Remaining'); if(!user&&left!==null) setPeekLeft(+left);
@@ -2904,12 +2920,12 @@ function afterLogin(){
 /* profile: preferences and birthday */
 function fmtDob(d){ const [Y,M,D]=d.split('-').map(Number); return new Date(Y,M-1,D).toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'}); }
 function fillProfile(){
-  const p=prefs(), dob=meta().dob; $('p-cite').value=p.cite; $('p-detail').value=p.detail;
+  const p=prefs(), dob=meta().dob; $('p-cite').value=p.cite; $('p-detail').value=p.detail; $('p-detail-d').textContent=STYLE_DESC[p.detail]||'';
   $('p-dob').textContent=dob?'Birthday: '+fmtDob(dob):'Add your birthday to get a birthday greeting.'; $('p-dobadd').hidden=!!dob;
   const i=bdayInfo(); $('p-bday').hidden=!(i&&i.today); if(i&&i.today) $('p-bmsg').textContent=bdayMessage();
 }
 $('p-cite').onchange=async e=>{ if(await savePrefs({cite:e.target.value})) pmsg('Citation style saved.'); };
-$('p-detail').onchange=async e=>{ if(await savePrefs({detail:e.target.value})) pmsg('Answer style saved.'); };
+$('p-detail').onchange=async e=>{ const v=e.target.value; $('p-detail-d').textContent=STYLE_DESC[v]||''; if(await savePrefs({detail:v})){ const n=(DETAILS.find(x=>x[0]===v)||[])[1]||v; pmsg('Answer style saved: '+n+'. It applies to your next question.'); toast('Answer style: '+n); } };
 $('p-onb').onclick=()=>{ $('profile').hidden=true; openOnb(); };
 $('p-dobsave').onclick=async()=>{ const v=$('p-dobin').value; if(!v) return pmsg('Choose a date first.','err'); if(new Date(v)>new Date()) return pmsg('Enter a valid date.','err'); if(ageOf(v)<16) return underAgeNow();
   const {data,error}=await sb.auth.updateUser({data:{dob:v}}); if(error) return pmsg(error.message,'err'); user=data.user; fillProfile(); pmsg('Birthday saved.'); startBday(); };
@@ -3070,12 +3086,14 @@ function stopNotifs(){ if(N.ch){ try{ sb.removeChannel(N.ch); }catch{} N.ch=null
 const AT={threads:[],cur:null,msgs:[],poll:null,ch:null};
 async function loadAdminThreads(){
   if(!user) return; const {data}=await sb.from('admin_threads').select('*').order('updated_at',{ascending:false}); AT.threads=data||[];
-  $('adm-entry').hidden=!AT.threads.length; paintBadge();
+  try{ AT.info={}; if(AT.threads.length){ const r=await sb.from('admin_messages').select('thread_id,sender,content,created_at,read_at').in('thread_id',AT.threads.map(x=>x.id)).order('created_at',{ascending:false}).limit(200);
+    for(const m of (r.data||[])){ const i=AT.info[m.thread_id]||(AT.info[m.thread_id]={last:m.content,at:m.created_at,unread:0}); if(m.sender==='admin'&&!m.read_at) i.unread++; } } }catch{}
+  $('adm-entry').hidden=!AT.threads.length; paintBadge(); if(window.renderDmList) renderDmList(); if(window.paintDmBadge) paintDmBadge();
   if(AT.cur&&!$('amain').hidden) refreshAdminThread(false);
 }
 async function openAdminThread(id){
   if(!AT.threads.length) await loadAdminThreads(); const t=AT.threads.find(x=>x.id===id)||AT.threads[0]; if(!t) return toast('That conversation is no longer available.');
-  AT.cur=t; showView('admin'); $('side').classList.remove('open'); $('a-sub').textContent=t.subject; $('a-sel').hidden=AT.threads.length<2;
+  AT.cur=t; showView('admin'); try{ setTab('dms'); renderDmList(); }catch{} $('side').classList.remove('open'); $('a-sub').textContent=t.subject; $('a-sel').hidden=AT.threads.length<2;
   $('a-sel').innerHTML=''; for(const x of AT.threads) $('a-sel').add(new Option(x.subject+' · '+new Date(x.updated_at).toLocaleDateString(),x.id,false,x.id===t.id));
   await refreshAdminThread(true); clearInterval(AT.poll); AT.poll=setInterval(()=>{ if(document.visibilityState==='visible'&&AT.cur) refreshAdminThread(false); },8000);
   try{ if(AT.ch) sb.removeChannel(AT.ch); AT.ch=sb.channel('at-'+t.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'admin_messages',filter:'thread_id=eq.'+t.id},()=>refreshAdminThread(false)).subscribe(); }catch{}
