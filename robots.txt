@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://digaro24-ux.github.io/sitemap.xml
