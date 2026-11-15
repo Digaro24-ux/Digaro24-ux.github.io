@@ -2019,7 +2019,7 @@ window.onceNode=function(kind,m,idx,mine){ const key=okey(kind,m.id), b=document
   b._paint(); if(!mine){ WATCH.set(key,b); if(!OPENED.has(key)) queueOpened(kind,m.id); b.onclick=()=>viewOnce(kind,m,idx,b); } return b; };
 async function viewOnce(kind,m,idx,btn){
   if(btn){ btn.disabled=true; }
-  let r; try{ r=await rpc('open_view_once',{p_kind:kind,p_message:m.id,p_index:idx}); }catch(e){ if(/Already opened/.test(e.message)){ OPENED.add(okey(kind,m.id)); if(btn) btn._paint(); toast('You already opened this picture.'); } else { toast(e.message); if(btn) btn.disabled=false; } return; }
+  let r; try{ r=kind==='admin'?await rpc('site_admin_open_once',{p_message:m.id}):await rpc('open_view_once',{p_kind:kind,p_message:m.id,p_index:idx}); }catch(e){ if(/Already opened/.test(e.message)){ OPENED.add(okey(kind,m.id)); if(btn) btn._paint(); toast('You already opened this picture.'); } else { toast(e.message); if(btn) btn.disabled=false; } return; }
   OPENED.add(okey(kind,m.id)); let url=null;
   try{ const s=await sb.storage.from(r.bucket).createSignedUrl(r.path,60); if(s.error||!s.data) throw new Error('gone'); const blob=await (await fetch(s.data.signedUrl)).blob(); url=URL.createObjectURL(blob); }catch{ toast('This picture is no longer available.'); if(btn) btn._paint(); return; }
   const o=document.createElement('div'); o.className='ovx'; o.setAttribute('role','dialog'); o.setAttribute('aria-label','View once picture'); const im=document.createElement('img'); im.src=url; im.alt='View once picture'; im.draggable=false; o.oncontextmenu=e=>e.preventDefault();
@@ -2099,7 +2099,14 @@ $('dm-more').onclick=()=>{ const t=D.cur; if(!t) return; openSheet(t.other_name,
 window.replyPrivately=async function(m){ try{ const tid=await rpc('start_dm',{p_other:m.user_id}); await openDm(tid,{quote:{from:pname(m.user_id),text:(window.snippet?snippet(m):m.content||'').slice(0,140),group:G.cur?G.cur.name:''}}); }catch(e){ toast(e.message); } };
 
 /* ----- chat with Administrator: pictures ----- */
-window.adminAtt=function(m){ const out=[]; const files=(m.payload&&m.payload.files)||[]; files.forEach((f,i)=>{ if(m.view_once) out.push(el('div',{className:'once sent',textContent:'📷 View once photo · '+(m.once_opened_at?'opened by Administration':'sent')})); else out.push(window.imageNode('admin-files',f,'aimg')); }); return out; };
+window.adminAtt=function(m){ const out=[]; const files=(m.payload&&m.payload.files)||[];
+  files.forEach((f,i)=>{ if(m.view_once){
+      if(asAdmin()&&m.sender==='user'){ /* the Administrator is the receiver: give a real button */
+        const b=el('button',{type:'button',className:'once'}); const key='admin:'+m.id;
+        b._paint=()=>{ if(m.once_opened_at||OPENED.has(key)){ b.className='once done'; b.textContent='📷 Opened'; b.disabled=true; } else { b.className='once'; b.textContent='📷 Photo · tap to view once'; b.disabled=false; } };
+        b._paint(); b.onclick=async()=>{ await viewOnce('admin',m,0,b); if(OPENED.has(key)&&!m.once_opened_at) m.once_opened_at=new Date().toISOString(); b._paint(); }; out.push(b); }
+      else out.push(el('div',{className:'once sent',textContent:'📷 View once photo · '+(m.once_opened_at?'opened by the Administrator':'sent')}));
+    } else out.push(window.imageNode('admin-files',f,'aimg')); }); return out; };
 function initAdminPhoto(){ const box=$('a-box'); if(!box||$('a-att')) return; const b=el('button',{type:'button',className:'tb',id:'a-att',title:'Send a picture',textContent:'📷'}); b.setAttribute('aria-label','Send a picture'); box.prepend(b);
   b.onclick=()=>{ if(!AT.cur) return; photoSheet('Send a picture to Administration',async(f,cap,once)=>{ const path=upPath(AT.cur.id,once,f.name), up=await sb.storage.from('admin-files').upload(path,f,{contentType:f.type||'image/jpeg'}); if(up.error) throw new Error('Could not upload the picture: '+up.error.message);
     await rpc('send_admin_attachment',{p_thread:AT.cur.id,p_content:cap,p_files:[{path,name:f.name,size:f.size,...(once?{once:true}:{})}],p_once:once}); await refreshAdminThread(true); }); }; }
@@ -2389,7 +2396,7 @@ function openUser(id){ openSheet('User',async b=>{ b.innerHTML='<p class="hint l
   // notes
   const nt=el('textarea',{rows:2,maxLength:4000,placeholder:'Internal note (only administrators see this)',style:'width:100%'}); const nl=el('div'); (notes||[]).forEach(n=>nl.append(row(el('div',{textContent:n.note,style:'white-space:pre-wrap'}),el('div',{className:'hint',textContent:n.author_email+' · '+dtm(n.created_at)}))));
   b.append(pane('Administrator notes',nt,abtn('Add note',async()=>{ if(!nt.value.trim()) return; try{ await rpc('site_admin_add_note',{p_user:id,p_note:nt.value}); toast('Note added'); refresh(); }catch(e){ toast(e.message); } },{main:true}),nl));
- },{wide:true}); }
+ },{wide:true,lsb:true,fixed:true}); }
 
 /* ---------- Login & logout activity ---------- */
 const ACT={page:0,q:'',kind:'all',t:null};
@@ -3828,7 +3835,7 @@ $('p-notifs').onclick=()=>{ $('profile').hidden=true; openNotifPanel('bell'); };
 /* ---------- lifecycle ---------- */
 async function v4Start(){
   startPresence(); startNotifs(); loadSettings();
-  syncPrivate(); loadNotifs(); try{ v10Start(); }catch{} loadAdminProfile().then(()=>quiet('is_site_admin')).then(v=>{ window.SITE_ADMIN=!!v; try{ setWho(); }catch{} return loadAdminThreads(); }); quiet('garo_schema_version').then(v=>{ if(isAdmin()&&!(Number(v)>=11)) toast('Database update needed: run GARO-SETUP-ALL.sql in Supabase.'); });
+  syncPrivate(); loadNotifs(); try{ v10Start(); }catch{} loadAdminProfile().then(()=>quiet('is_site_admin')).then(v=>{ window.SITE_ADMIN=!!v; try{ setWho(); }catch{} return loadAdminThreads(); }); quiet('garo_schema_version').then(v=>{ if(isAdmin()&&!(Number(v)>=12)) toast('Database update needed: run GARO-SETUP-ALL.sql in Supabase.'); });
   if(!ADMROLE_LOADED){ ADMROLE_LOADED=true; quiet('my_admin_role').then(r=>{ if(r) ADMROLE=r; }); }
 }
 function v4Reset(){
