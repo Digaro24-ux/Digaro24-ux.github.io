@@ -581,6 +581,35 @@ body{overscroll-behavior-y:none}
 .gpic{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
 .gav[role=button],#g-av{cursor:zoom-in}
 </style>
+<style id="gs-css">
+.sicon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:0;border-radius:50%;background:transparent;color:var(--muted);cursor:pointer}
+.sicon:hover,.sicon:focus-visible{background:var(--panel);color:var(--ink)}.sicon[hidden]{display:none}
+html.gs-lock{overflow:hidden}
+.gs-ov{position:fixed;inset:0;z-index:10000;background:rgba(2,6,23,.55);display:flex;justify-content:center;align-items:flex-start;padding:10vh 12px 12px;backdrop-filter:blur(2px)}
+.gs-ov[hidden]{display:none}
+.gs-panel{width:min(660px,100%);max-height:78vh;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.35);overflow:hidden}
+.gs-bar{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.gs-mag{font-size:1.05rem;opacity:.7}
+.gs-in{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:1.05rem;padding:6px 2px}
+.gs-esc{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:8px;padding:3px 8px;font-size:.75rem;cursor:pointer}
+.gs-list{overflow-y:auto;padding:6px 8px 10px;overscroll-behavior:contain}
+.gs-h{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 10px 4px}
+.gs-item{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;border:0;background:transparent;color:inherit;font:inherit;padding:9px 10px;border-radius:12px;cursor:pointer}
+.gs-item.on,.gs-item:hover{background:var(--panel)}
+.gs-ic{flex:none;width:28px;text-align:center;font-size:1.05rem;line-height:1.5}
+.gs-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.gs-t{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gs-s{color:var(--muted);font-size:.88rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.gs-meta{flex:none;color:var(--muted);font-size:.75rem;padding-top:3px;white-space:nowrap}
+.gs-list mark,.gs-flash mark,.msg mark,.gb mark{background:rgba(250,204,21,.38);color:inherit;border-radius:3px;padding:0 1px}
+.gs-empty,.gs-tip{color:var(--muted);font-size:.9rem;padding:14px 12px;margin:0}
+.gs-tip{padding-top:8px}
+.gs-foot{border-top:1px solid var(--line);color:var(--muted);font-size:.75rem;padding:8px 14px}
+.gs-flash{animation:gsflash 2.4s ease-out}
+@keyframes gsflash{0%,60%{outline:2px solid var(--sky);outline-offset:3px;border-radius:12px}100%{outline:2px solid transparent;outline-offset:3px}}
+@media (max-width:600px){.gs-ov{padding:0}.gs-panel{width:100%;max-height:100dvh;height:100dvh;border-radius:0;border:0}.gs-foot{display:none}.gs-meta{display:none}}
+@media (prefers-reduced-motion:reduce){.gs-flash{animation:none;outline:2px solid var(--sky);outline-offset:3px}}
+</style>
 </head>
 <body>
 <noscript><div style="padding:24px;max-width:720px;margin:auto"><h1>GARO AI</h1><p>GARO AI is a free, private AI assistant for chat, research with your own documents, building projects and team group chats. Turn on JavaScript to use it.</p><p><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p></div></noscript>
@@ -785,7 +814,7 @@ body{overscroll-behavior-y:none}
  <div class="rshead"><h1>Admin portal</h1><button class="rsx" id="adm-close" type="button" aria-label="Close admin portal" title="Close">✕</button></div>
  <div class="rsbody">
   <button class="adm-burger" id="adm-burger" type="button" aria-controls="adm-nav" onclick="document.getElementById('adm-nav').classList.toggle('open')">☰ <span id="adm-cur">Dashboard</span></button>
-  <nav class="adm-nav" id="adm-nav" aria-label="Admin sections"><h4>Main</h4><button id="adm-t8" type="button" aria-selected="true">Dashboard</button><button id="adm-t15" type="button" aria-selected="false">Usage &amp; analytics</button><button id="adm-t14" type="button" aria-selected="false">Storage</button><h4>User management</h4><button id="adm-t5" type="button" aria-selected="false">All users</button><button id="adm-t13" type="button" aria-selected="false">Login activity</button><button id="adm-t4" type="button" aria-selected="false">Help desk inbox</button><button id="adm-t6" type="button" aria-selected="false">Groups</button><h4>Developer & AI</h4><button id="adm-t2" type="button" aria-selected="false">API keys</button><button id="adm-t1" type="button" aria-selected="false">Blocking</button><button id="adm-t9" type="button" aria-selected="false">File management</button><button id="adm-t3" type="button" aria-selected="false">Server activity log</button><h4>System</h4><button id="adm-t19" type="button" aria-selected="false">System health</button><button id="adm-t12" type="button" aria-selected="false">Audit logs</button><button id="adm-t11" type="button" aria-selected="false">Platform settings</button><button id="adm-t20" type="button" aria-selected="false">Administrators</button><h4>Communication</h4><button id="adm-t16" type="button" aria-selected="false">Announcements</button><button id="adm-t10" type="button" aria-selected="false">Birthdays</button><button id="adm-t17" type="button" aria-selected="false">Feedback &amp; reports</button><button id="adm-t18" type="button" aria-selected="false">Knowledge base</button><button id="adm-t7" type="button" aria-selected="false">My profile</button></nav>
+  <nav class="adm-nav" id="adm-nav" aria-label="Admin sections"><h4>Main</h4><button id="adm-t8" type="button" aria-selected="true">Dashboard</button><button id="adm-t15" type="button" aria-selected="false">Usage &amp; analytics</button><button id="adm-t14" type="button" aria-selected="false">Storage</button><h4>User management</h4><button id="adm-t5" type="button" aria-selected="false">All users</button><button id="adm-t13" type="button" aria-selected="false">Login activity</button><button id="adm-t4" type="button" aria-selected="false">Help desk inbox</button><button id="adm-t6" type="button" aria-selected="false">Groups</button><h4>Developer & AI</h4><button id="adm-t2" type="button" aria-selected="false">API keys</button><button id="adm-t21" type="button" aria-selected="false">Image AI (Cloudflare)</button><button id="adm-t1" type="button" aria-selected="false">Blocking</button><button id="adm-t9" type="button" aria-selected="false">File management</button><button id="adm-t3" type="button" aria-selected="false">Server activity log</button><h4>System</h4><button id="adm-t19" type="button" aria-selected="false">System health</button><button id="adm-t12" type="button" aria-selected="false">Audit logs</button><button id="adm-t11" type="button" aria-selected="false">Platform settings</button><button id="adm-t20" type="button" aria-selected="false">Administrators</button><h4>Communication</h4><button id="adm-t16" type="button" aria-selected="false">Announcements</button><button id="adm-t10" type="button" aria-selected="false">Birthdays</button><button id="adm-t17" type="button" aria-selected="false">Feedback &amp; reports</button><button id="adm-t18" type="button" aria-selected="false">Knowledge base</button><button id="adm-t7" type="button" aria-selected="false">My profile</button></nav>
   <div id="adm-dash"></div><div id="adm-act" hidden></div><div id="adm-stor" hidden></div><div id="adm-usage" hidden></div><div id="adm-ann" hidden></div><div id="adm-fb" hidden></div><div id="adm-kb" hidden></div><div id="adm-health" hidden></div><div id="adm-admins" hidden></div><div id="adm-files" hidden></div><div id="adm-bday" hidden></div><div id="adm-set" hidden></div><div id="adm-audit" hidden></div><div id="adm-inbox" hidden></div><div id="adm-dir" hidden></div><div id="adm-groups" hidden></div><div id="adm-me" hidden></div>
   <div id="adm-users" hidden>
    <p class="hint" style="margin:0 0 6px">Every account is listed here. Block people for a number of days, give or limit usage for a set time, or delete accounts that break the Terms of Use. Every action is logged.</p>
@@ -799,7 +828,7 @@ body{overscroll-behavior-y:none}
    <div id="adm-klist"></div>
    <details class="bfile" style="margin-top:12px"><summary style="padding:8px 12px">How to use a key</summary><div style="padding:0 12px 12px"><p class="hint">Base address: <code id="k-base"></code>. Models: garo-chat, garo-think, garo-code. Add "web": true to a chat request to ground the answer in web search. GET /search?q=your+words returns search results only.</p><pre id="k-curl"></pre><pre id="k-py"></pre><pre id="k-js"></pre></div></details>
   </div>
-  <div id="adm-log" hidden></div><p id="adm-msg" class="hint" role="alert" style="color:var(--bad)"></p>
+  <div id="adm-log" hidden></div><div id="adm-cf" hidden></div><p id="adm-msg" class="hint" role="alert" style="color:var(--bad)"></p>
  </div>
 </div></section>
 <section id="sheet" class="auth" hidden><div class="card wide"><button class="close" id="sheet-close" type="button" aria-label="Close">✕</button><h1 id="sheet-title" style="font-size:1.4rem;margin:0 0 10px"></h1><div id="sheet-body"></div></div></section>
@@ -896,7 +925,7 @@ body{overscroll-behavior-y:none}
 <!-- ========== APP ========== -->
 <div id="app" class="app" hidden>
  <aside class="side" id="side">
-  <header><a class="brand" href="#" aria-label="GARO AI home"><img class="brandimg" src="garoai-logo.png" alt="" width="30" height="30"><span>GARO AI</span></a></header>
+  <header><a class="brand" href="#" aria-label="GARO AI home"><img class="brandimg" src="garoai-logo.png" alt="" width="30" height="30"><span>GARO AI</span></a><button class="sicon" id="gs-btn" type="button" aria-label="Search chats" title="Search (Ctrl+K)" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button></header>
   <div class="seg three" role="tablist"><button id="tab-chats" role="tab" aria-selected="true" type="button">Chats</button><button id="tab-groups" role="tab" aria-selected="false" type="button">Groups</button><button id="tab-dms" role="tab" aria-selected="false" type="button">Messages<i class="bdg" id="dm-n" hidden></i></button></div>
   <div class="newrow" id="newrow"><button class="new" id="new" type="button">+ New Chat</button></div>
   <button class="new" id="gnew" type="button" hidden>+ New group or project</button>
@@ -930,7 +959,7 @@ body{overscroll-behavior-y:none}
     <button role="menuitem" id="m-file" type="button"><i>📎</i><span><b>Attach a file</b><small>Pictures, documents, PDFs and code (no video)</small></span></button>
     <button role="menuitemcheckbox" aria-checked="false" id="m-research" type="button"><i>🔬</i><span><b>Deep Research</b><small>Write from your own documents, with citations</small></span></button>
     <button role="menuitemcheckbox" aria-checked="false" id="m-build" type="button"><i>🛠</i><span><b>Coding (Build Mode)</b><small>Build a whole project from a prompt or sample files</small></span></button>
-    <button role="menuitemcheckbox" aria-checked="false" id="m-web" type="button"><i>🌐</i><span><b>Web search</b><small>Check current facts online and show sources</small></span></button>
+    <button role="menuitemcheckbox" aria-checked="false" id="m-web" type="button"><i>🌐</i><span><b>Web search</b><small>Read full web pages for deeper, current answers with sources</small></span></button>
     <hr>
     <button role="menuitem" id="m-gen" type="button"><i>🎨</i><span><b>Generate Image</b><small>Create a picture from a description</small></span></button>
     <button role="menuitem" id="m-und" type="button"><i>👁</i><span><b>Understand Image</b><small>Pick a photo and ask Garo about it</small></span></button>
@@ -1073,7 +1102,7 @@ document.addEventListener('keydown',e=>{ if(e.key!=='Escape') return; if(!$('she
 for(const id of ['b-in','gf-in','pk-in']) $(id).onclick=()=>openAuth('in');
 for(const id of ['b-up','pk-up']) $(id).onclick=()=>openAuth('up');
 $('sbtoggle').onclick=()=>$('app').classList.toggle('nosb');
-function guestUI(on){ $('app').hidden=false; $('tab-groups').hidden=on; $('tab-dms').hidden=on; document.querySelector('.seg').style.gridTemplateColumns=on?'1fr':''; if(on) setTab('chats'); $('guestfoot').hidden=!on; $('userfoot').hidden=on; $('gb').hidden=!on; $('model').disabled=on; $('mp-btn').disabled=on; $('peekbar').hidden=!on; $('new-menu').hidden=on; if(on){ $('mp-label').textContent='Garo Chat'; closePops(); } }
+function guestUI(on){ $('app').hidden=false; { const gb=$('gs-btn'); if(gb) gb.hidden=on; } $('tab-groups').hidden=on; $('tab-dms').hidden=on; document.querySelector('.seg').style.gridTemplateColumns=on?'1fr':''; if(on) setTab('chats'); $('guestfoot').hidden=!on; $('userfoot').hidden=on; $('gb').hidden=!on; $('model').disabled=on; $('mp-btn').disabled=on; $('peekbar').hidden=!on; $('new-menu').hidden=on; if(on){ $('mp-label').textContent='Garo Chat'; closePops(); } }
 /* uses the clock and time zone of the person's own device: 5am-11:59am morning, 12pm-4:59pm afternoon, 5pm-8:59pm evening, 9pm-4:59am night */
 function dayPart(){ const h=new Date().getHours(); return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':h>=18&&h<22?'evening':'late'; }
 function greetWord(){ const p=dayPart(); return p==='late'?'Hello':'Good '+p; }
@@ -1889,6 +1918,7 @@ async function imgCall(path,body){
   const j=await r.json().catch(()=>({})); if(!r.ok){ const e=new Error(friendly(j,r.status)); e.code=j.error||'error'; throw e; } return j; }
 function friendly(j,s){ const t=j.reset_at?' It comes back at '+fmtReset(j.reset_at)+'.':'';
   switch(j.error){ case 'kill_switch': case 'cloudflare_exhausted': return 'Image features are paused for today.'+t+' Everything else in Garo keeps working.';
+    case 'model_disabled': return 'This picture feature has been switched off for now. Everything else in Garo keeps working.';
     case 'insufficient_quota': return 'Not enough of today\'s shared image allowance is left for this.'+t;
     case 'user_limit': return 'You have used your daily limit for this. It resets at '+fmtReset(j.reset_at)+'.';
     case 'auth': return 'Please sign in again.'; case 'unverified': return 'Verify your email to use image features.';
@@ -1898,7 +1928,7 @@ function friendly(j,s){ const t=j.reset_at?' It comes back at '+fmtReset(j.reset
 let imgStat=null;
 async function refreshImgStatus(){ try{ imgStat=await imgCall('/v1/image/status'); }catch{ imgStat=null; } paintImgChip(); return imgStat; }
 function paintImgChip(){ if(mode!=='image') return; let t='🎨 Image mode · describe the image you want';
-  if(imgStat){ if(imgStat.locked) t='🎨 Image features paused until '+fmtReset(imgStat.reset_at); else if(!imgStat.configured.generation) t='🎨 Image generation is not switched on yet'; else t+=' · '+Math.max(0,imgStat.limits.images_per_day-imgStat.your_images_today)+' left today'; }
+  if(imgStat){ if(imgStat.locked) t='🎨 Image features paused until '+fmtReset(imgStat.reset_at); else if(imgStat.models&&imgStat.models.generation===false) t='🎨 Image generation is switched off for now'; else if(!imgStat.configured.generation) t='🎨 Image generation is not switched on yet'; else t+=' · '+Math.max(0,imgStat.limits.images_per_day-imgStat.your_images_today)+' left today'; }
   $('mc-text').textContent=t; }
 window.paintImgChip=paintImgChip; window.refreshImgStatus=refreshImgStatus;
 
@@ -1913,7 +1943,7 @@ window.generateImage=async function(text){
     a.img={name,data:j.image}; a.content='Here is your image.'; a.status='';
     try{ const path=user.id+'/'+crypto.randomUUID()+'/'+name; const up=await sb.storage.from('user-files').upload(path,blob,{contentType:j.mime||'image/jpeg'});
       if(!up.error){ await quiet('register_file',{p_bucket:'user-files',p_path:path,p_name:name,p_mime:j.mime||'image/jpeg'}); a.img={name,path}; } else a.content='Here is your image. It could not be saved to My files, so download it now.'; }catch{ a.content='Here is your image. It could not be saved to My files, so download it now.'; }
-  }catch(e){ a.error=true; a.status=''; a.content='⚠ '+e.message; if(e.code==='kill_switch'||e.code==='cloudflare_exhausted') refreshImgStatus(); }
+  }catch(e){ a.error=true; a.status=''; a.content='⚠ '+e.message; if(e.code==='kill_switch'||e.code==='cloudflare_exhausted'||e.code==='model_disabled'||e.code==='user_limit') refreshImgStatus(); }
   finally{ setBusy(false); render(); await save(); renderList(); refreshImgStatus(); }
 };
 
@@ -2665,7 +2695,7 @@ async function send(opts){
     const history=cur.messages.slice(0,-1).filter(m=>!m.error).slice(user?-30:-5).map((m,i,arr)=>({role:m.role,content:((i===arr.length-1&&m.rctx)?m.rctx:(m.ctx||m.content))+((i===arr.length-1&&user&&mode==='build'&&m.role==='user')?BUILD_RULES:'')}));
     a.content=await garoStream({messages:history,mode:mode==='web'?'chat':mode,signal:ctl.signal,web:useWeb,query:query.slice(0,200),onSources:j=>{ srcs=j.sources||[]; if(j.notice) toast(j.notice); },onToken:t=>{ a.status=''; a.content=t; paintLast(); }});
     if(rc&&a.content) a.content+=referencesFor(a.content,rc.used);
-    if(useWeb&&srcs.length&&a.content) a.content+=sourcesText(srcs);
+    if(srcs.length&&a.content) a.content+=sourcesText(srcs);
   }catch(e){ if(e.name!=='AbortError'){ if(user&&isNetErr(e)){ a.waiting=true; a.content=''; } else { a.error=true; a.content+=(a.content?'\n\n':'')+'⚠ '+e.message; } } }
   finally{ setBusy(false); ctl=null;
     if(a.waiting){ a.status='📡 Connection lost. Your message is saved and will be sent again automatically.'; outboxSet(); scheduleResume(8000); }
@@ -3851,6 +3881,169 @@ landingStatus(); loadSettings();
 (async()=>{ const jm=/^#join=([A-Za-z0-9]{20,})/.exec(location.hash); if(jm) setPendingInvite(jm[1]);
   const {data:{session}}=await sb.auth.getSession(); if(!recovering&&session) enterApp(session); else route(); })();
 
+
+/* ---------- Universal search (Ctrl/Cmd + K, or the magnifier in the sidebar) ----------
+   One box that finds words in your AI chats, groups and projects, private messages and Administrator chat.
+   The search itself is search_everything() in Supabase and runs as YOU, so you can only ever find your own things. */
+(function(){
+  const LABEL={chat:'Chats',group:'Groups & projects',dm:'Private messages',support:'Administrator'};
+  const ICON={chat:'💬',group:'👥',dm:'✉️',support:'🛡'};
+  const S={built:false,open:false,q:'',seq:0,timer:0,items:[],sel:-1,from:null,busy:false,err:''};
+  let ov,inp,list,foot;
+
+  const terms=q=>q.toLowerCase().split(/\s+/).filter(Boolean).slice(0,6);
+  const esc_=t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  function marked(text,ts){
+    const f=document.createDocumentFragment(); text=String(text||''); if(!text||!ts.length){ f.append(text); return f; }
+    const re=new RegExp('('+ts.map(esc_).join('|')+')','ig'); let last=0,m;
+    while((m=re.exec(text))){ if(m.index>last) f.append(text.slice(last,m.index)); f.append(el('mark',{textContent:m[0]})); last=m.index+m[0].length; if(!m[0].length) re.lastIndex++; }
+    if(last<text.length) f.append(text.slice(last)); return f;
+  }
+  function when(iso){
+    const d=new Date(iso); if(isNaN(d)) return ''; const days=Math.floor((Date.now()-d)/864e5);
+    if(days<1&&new Date().getDate()===d.getDate()) return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+    if(days<7) return d.toLocaleDateString([],{weekday:'short'}); return d.toLocaleDateString([],{day:'numeric',month:'short',year:d.getFullYear()===new Date().getFullYear()?undefined:'numeric'});
+  }
+  function build(){
+    S.built=true; ov=el('div',{className:'gs-ov',hidden:true});
+    const panel=el('div',{className:'gs-panel'}); panel.setAttribute('role','dialog'); panel.setAttribute('aria-modal','true'); panel.setAttribute('aria-label','Search');
+    const bar=el('div',{className:'gs-bar'},el('span',{className:'gs-mag',textContent:'🔍','aria-hidden':'true'}));
+    inp=el('input',{type:'text',className:'gs-in',placeholder:'Search chats, groups and messages',autocomplete:'off',spellcheck:false,maxLength:100});
+    inp.setAttribute('role','combobox'); inp.setAttribute('aria-expanded','true'); inp.setAttribute('aria-controls','gs-list'); inp.setAttribute('aria-label','Search your chats');
+    const x=el('button',{type:'button',className:'gs-esc',textContent:'Esc'}); x.setAttribute('aria-label','Close search'); x.onclick=close;
+    bar.append(inp,x);
+    list=el('div',{className:'gs-list',id:'gs-list'}); list.setAttribute('role','listbox');
+    foot=el('div',{className:'gs-foot',textContent:'↑ ↓ to move · Enter to open · Esc to close'});
+    panel.append(bar,list,foot); ov.append(panel); document.body.append(ov);
+    ov.addEventListener('mousedown',e=>{ if(e.target===ov) close(); });
+    inp.addEventListener('input',()=>{ S.q=inp.value.trim().slice(0,100); schedule(); });
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='ArrowDown'){ e.preventDefault(); move(1); } else if(e.key==='ArrowUp'){ e.preventDefault(); move(-1); }
+      else if(e.key==='Enter'){ e.preventDefault(); const it=S.items[S.sel>=0?S.sel:0]; if(it) choose(it); }
+      else if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); close(); } });
+  }
+  function open(){
+    if(!user){ toast('Log in to search your chats.'); return; }
+    if(!S.built) build(); closePops(); S.from=document.activeElement; S.open=true; S.q=''; S.seq++; inp.value=''; ov.hidden=false; document.documentElement.classList.add('gs-lock');
+    schedule(); setTimeout(()=>inp.focus(),0);
+  }
+  function close(){ if(!S.open) return; S.open=false; S.seq++; clearTimeout(S.timer); ov.hidden=true; document.documentElement.classList.remove('gs-lock'); try{ if(S.from&&S.from.focus) S.from.focus(); }catch{} }
+  function move(d){ if(!S.items.length) return; S.sel=(S.sel+d+S.items.length)%S.items.length; paintSel(true); }
+  function paintSel(scroll){
+    [...list.querySelectorAll('.gs-item')].forEach((b,i)=>{ const on=i===S.sel; b.classList.toggle('on',on); b.setAttribute('aria-selected',String(on)); if(on){ inp.setAttribute('aria-activedescendant',b.id); if(scroll) b.scrollIntoView({block:'nearest'}); } });
+  }
+  function schedule(){
+    clearTimeout(S.timer); const q=S.q, ts=terms(q);
+    if(q.length<2){ S.err=''; S.busy=false; S.seq++; showRecent(); return; }
+    // instant answer from chat titles already on screen, then the full search fills in
+    const local=chats.filter(c=>ts.every(t=>(c.title||'').toLowerCase().includes(t))).slice(0,8).map(c=>({kind:'chat',conv_id:c.id,msg_id:null,msg_index:null,title:c.title,snippet:null,hits:0,ts:c.updated_at}));
+    S.busy=true; S.err=''; paint(local,ts);
+    const my=++S.seq; S.timer=setTimeout(()=>run(q,ts,my),220);
+  }
+  async function run(q,ts,my){
+    let rows;
+    try{ rows=await rpc('search_everything',{p_q:q,p_limit:40}); }
+    catch(e){ if(my!==S.seq) return; S.busy=false; S.err=/does not exist|could not find|schema cache/i.test(e.message||'')?'Search needs one database update. Run 9-gateway-ledger-search.sql in Supabase, then try again.':'Search is not available right now. Please try again.'; paint(S.items,ts); return; }
+    if(my!==S.seq) return;
+    await Promise.allSettled([(typeof G!=='undefined'&&G.list&&G.list.length)?0:loadGroups(),(typeof D!=='undefined'&&D.list&&D.list.length)?0:loadDms()]);
+    if(my!==S.seq) return; S.busy=false; paint(rows||[],ts);
+  }
+  function titleOf(r){
+    if(r.kind==='group') return r.title||'Group';
+    if(r.kind==='dm'){ const t=(typeof D!=='undefined'&&D.list||[]).find(x=>x.id===r.conv_id); return t?t.other_name:'Private chat'; }
+    if(r.kind==='support') return 'Administrator'+(r.title?' · '+r.title:'');
+    return r.title||'Chat';
+  }
+  function showRecent(){
+    const items=chats.slice(0,8).map(c=>({kind:'chat',conv_id:c.id,msg_id:null,msg_index:null,title:c.title,snippet:null,hits:0,ts:c.updated_at}));
+    S.items=items; S.sel=items.length?0:-1; list.innerHTML='';
+    if(!items.length){ list.append(el('p',{className:'gs-empty',textContent:'No chats yet. Start one, then search it here.'})); return; }
+    list.append(el('div',{className:'gs-h',textContent:'Recent chats'})); items.forEach((r,i)=>list.append(rowFor(r,i,[]))); paintSel(false);
+    list.append(el('p',{className:'gs-tip',textContent:'Type two or more letters to search every chat, group and private message you can see.'}));
+  }
+  function rowFor(r,i,ts){
+    const b=el('button',{type:'button',className:'gs-item',id:'gs-i'+i}); b.setAttribute('role','option'); b.setAttribute('aria-selected','false');
+    const main=el('span',{className:'gs-main'}), t=el('span',{className:'gs-t'}); t.append(marked(titleOf(r),ts)); main.append(t);
+    if(r.snippet){ const s=el('span',{className:'gs-s'}); s.append(marked(r.snippet,ts)); main.append(s); }
+    const meta=el('span',{className:'gs-meta',textContent:(r.hits>1?r.hits+' matches · ':'')+when(r.ts)});
+    b.append(el('span',{className:'gs-ic',textContent:ICON[r.kind]||'💬','aria-hidden':'true'}),main,meta);
+    b.onmouseenter=()=>{ S.sel=i; paintSel(false); }; b.onclick=()=>choose(r); return b;
+  }
+  function paint(rows,ts){
+    const order=['chat','group','dm','support']; const sorted=[]; for(const k of order) for(const r of rows.filter(x=>x.kind===k)) sorted.push(r);
+    S.items=sorted; S.sel=sorted.length?0:-1; list.innerHTML=''; let i=0;
+    for(const k of order){ const grp=sorted.filter(x=>x.kind===k); if(!grp.length) continue; list.append(el('div',{className:'gs-h',textContent:LABEL[k]})); for(const r of grp) list.append(rowFor(r,i++,ts)); }
+    if(S.err) list.append(el('p',{className:'gs-empty',textContent:S.err,role:'alert'}));
+    else if(S.busy) list.append(el('p',{className:'gs-tip',textContent:sorted.length?'Searching messages…':'Searching…'}));
+    else if(!sorted.length) list.append(el('p',{className:'gs-empty',textContent:'Nothing found for “'+S.q+'”. Try fewer or different words.'}));
+    paintSel(false);
+  }
+  /* ---- go to the result ---- */
+  function markIn(root,ts){
+    if(!root||!ts.length) return; const re=new RegExp('('+ts.map(esc_).join('|')+')','ig'), w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement&&!n.parentElement.closest('mark,script,style,textarea,button')&&re.test(n.nodeValue)?(re.lastIndex=0,NodeFilter.FILTER_ACCEPT):(re.lastIndex=0,NodeFilter.FILTER_REJECT)}), hit=[];
+    while(w.nextNode()) hit.push(w.currentNode);
+    for(const n of hit.slice(0,60)){ const f=marked(n.nodeValue,ts); n.replaceWith(f); }
+  }
+  function reveal(node,ts){
+    if(!node) return false; node.scrollIntoView({block:'center',behavior:'smooth'}); node.classList.add('gs-flash'); markIn(node,ts); setTimeout(()=>node.classList.remove('gs-flash'),2600); return true;
+  }
+  const hasAll=(n,ts)=>{ const t=(n.textContent||'').toLowerCase(); return ts.every(x=>t.includes(x)); };
+  function findRow(box,r,ts){
+    if(!box) return null; if(r.msg_id){ const byId=[...box.querySelectorAll('[data-id]')].find(n=>n.dataset.id===r.msg_id); if(byId) return byId; }
+    const rows=[...box.querySelectorAll('.grow')].filter(n=>hasAll(n,ts)); return rows[rows.length-1]||null;
+  }
+  async function choose(r){
+    const ts=terms(S.q); close(); await new Promise(r=>requestAnimationFrame(r));
+    try{
+      if(r.kind==='chat'){
+        setTab('chats'); await openChat(r.conv_id); await new Promise(r=>requestAnimationFrame(r));
+        const col=$('col'); let n=(r.msg_index!=null)?col.querySelector('.mwrap[data-i="'+r.msg_index+'"]'):null;
+        if(!n&&ts.length) n=[...col.querySelectorAll('.mwrap')].reverse().find(x=>hasAll(x,ts))||null;
+        if(n) reveal(n,ts);
+      } else if(r.kind==='group'){
+        setTab('groups'); if(!G.list.some(g=>g.id===r.conv_id)) await loadGroups(); await openGroup(r.conv_id);
+        const n=findRow($('gcol'),r,ts); if(n) reveal(n,ts); else if(r.msg_id) toast('Opened the group. That message is older than the most recent ones shown.');
+      } else if(r.kind==='dm'){
+        setTab('dms'); await openDm(r.conv_id); const n=findRow($('dmcol'),r,ts); if(n) reveal(n,ts); else if(r.msg_id) toast('Opened the chat. That message is older than the most recent ones shown.');
+      } else if(r.kind==='support'){
+        setTab('dms'); await openAdminThread(r.conv_id);
+      }
+    }catch(e){ toast('Could not open that result.'); }
+  }
+  window.openSearch=open; window.closeSearch=close;
+  const btn=$('gs-btn'); if(btn) btn.onclick=open;
+  document.addEventListener('keydown',e=>{ if((e.ctrlKey||e.metaKey)&&!e.altKey&&!e.shiftKey&&e.key.toLowerCase()==='k'){ if(!user||$('app').hidden) return; e.preventDefault(); S.open?close():open(); } });
+})();
+
+/* ---------- Administrator: Image AI (Cloudflare) card. Numbers come from the Supabase ledger via the gateway. ---------- */
+Object.assign(PANES,{21:'adm-cf'});
+const OLD_TAB_CF=window.admTab;
+window.admTab=function(n){ OLD_TAB_CF(n); if(n===21) loadCf(); };
+{ const t=$('adm-t21'); if(t) t.onclick=()=>admTab(21); }
+async function loadCf(){
+  const box=mkBox('adm-cf'); box.append(ahead('Image AI (Cloudflare)','The shared daily allowance for Generate Image and Understand Image. It is kept in Supabase, so it survives server restarts and the same numbers show everywhere. It resets at 00:00 UTC.'));
+  const body=el('div'); box.append(body); loading(body);
+  let d; try{ d=await callApi('/v1/admin/neurons'); }catch(e){ body.innerHTML=''; amsg(/did not accept|admin/i.test(e.message)?e.message:'The image budget could not be read. Run 9-gateway-ledger-search.sql in Supabase and restart the gateway. ('+e.message+')'); return; }
+  amsg(''); body.innerHTML='';
+  const pct=Math.min(100,Math.round(100*d.used/Math.max(1,d.hard_stop))), userCap=d.hard_stop-d.admin_reserve;
+  const state=!d.enabled?['Switched off in server settings','var(--bad)']:d.locked?['Paused until 00:00 UTC'+(d.lock_reason?' · '+d.lock_reason:''),'var(--bad)']:!d.configured?['Cloudflare keys not set','var(--bad)']:['Running','var(--ok)'];
+  body.append(el('div',{className:'dgrid'},card('Status',state[0],'',state[1]),card('Used today',d.used+' / '+d.hard_stop,pct+'% of the daily limit'),card('Left for users',String(Math.max(0,userCap-d.used)),'users stop at '+userCap),card('Left for you',String(d.remaining),d.admin_reserve+' kept back for admins')));
+  const bar=el('div',{style:'height:10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);overflow:hidden;margin:4px 0 12px'},el('div',{style:'height:100%;width:'+pct+'%;background:'+(pct>85?'var(--bad)':'var(--sky)')})); bar.setAttribute('role','img'); bar.setAttribute('aria-label',pct+' percent of today\'s image allowance used'); body.append(bar);
+  const mods=[['image_generation','Generate Image (FLUX)',d.images_per_user_per_day+' per person a day'],['image_understanding','Understand Image (Moondream)',d.questions_per_user_per_day+' per person a day']];
+  const mp=pane('Features');
+  for(const [op,name,lim] of mods){ const on=(d.models||{})[op]!==false;
+    mp.append(el('div',{style:'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0'},el('span',{style:'flex:1;min-width:200px'},el('b',{textContent:name+' · '+(on?'on':'OFF'),style:'color:'+(on?'var(--ok)':'var(--bad)')}),el('small',{className:'hint',textContent:' '+lim,style:'display:block'})),
+      abtn(on?'Switch off':'Switch on',async()=>{ if(on&&!confirm('Switch off '+name+' for everyone?')) return; try{ await callApi('/v1/admin/cloudflare/model',{method:'POST',body:{op,enabled:!on}}); toast(name+(on?' switched off':' switched on')); loadCf(); }catch(e){ amsg(e.message); } },{danger:on}))); }
+  body.append(mp);
+  body.append(pane('Kill switch',el('p',{className:'hint',textContent:'Pauses every image feature for everyone right now. It lifts by itself at 00:00 UTC (the next day always starts unlocked).'}),
+    abtn('Pause image features until 00:00 UTC',async()=>{ if(!confirm('Pause all image features until 00:00 UTC?')) return; try{ await callApi('/v1/admin/cloudflare/lock',{method:'POST',body:{reason:'Paused by an administrator'}}); toast('Image features paused'); loadCf(); }catch(e){ amsg(e.message); } },{danger:true})));
+  const ops=(d.operations||[]);
+  body.append(pane('Today\'s operations',...(ops.length?ops.map(o=>el('div',{className:'hint',textContent:(o.op==='image_generation'?'Generate':'Understand')+' · '+o.status+' · '+o.count+' × · '+(o.actual_units??o.reserved_units??0)+' neurons'})):[el('p',{className:'hint',textContent:'Nothing yet today.'})])));
+  if((d.top_users||[]).length) body.append(pane('Biggest users today',...d.top_users.map(u=>el('div',{className:'hint',textContent:String(u.user_id).slice(0,8)+'… · '+(u.op==='image_generation'?'Generate':'Understand')+' · '+u.ops+' × · '+u.units+' neurons'}))));
+  body.append(pane('Health',el('div',{className:'hint',textContent:d.consistent===false?'⚠ The counters do not match the operations. Open the Server activity log and check recent events.':d.consistent===true?'Ledger check passed: counters match every operation.':'No operations recorded yet today.',style:d.consistent===false?'color:var(--bad)':''})));
+  if((d.events||[]).length) body.append(pane('Recent events',...d.events.map(e=>el('div',{className:'hint',textContent:dtm(e.created_at)+' · '+e.kind.replace('_',' ')+(e.detail?' · '+e.detail:'')}))));
+  body.append(abtn('Refresh',loadCf,{main:true}));
+}
 </script>
 </body>
 </html>
