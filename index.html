@@ -371,6 +371,11 @@ html{scroll-behavior:auto}}
 @media (hover:none){.mact{opacity:1}}
 .mab{background:none;border:0;border-radius:8px;padding:6px 8px;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;gap:4px;font-size:.78rem}.mab:hover,.mab:focus-visible{background:var(--panel);color:var(--ink)}.mab.done{color:var(--ok)}
 .mab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.aibar{flex-wrap:wrap;align-items:center}.mts{margin-left:8px;font-size:.78rem;color:var(--muted);white-space:nowrap}
+.grow .mact{opacity:1;margin-top:4px}.mab.on{color:var(--sky)}.mab.on svg.fillable{fill:currentColor}
+.minfo{position:fixed;z-index:460;max-width:min(320px,calc(100vw - 24px));background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 40px rgba(2,6,23,.35);padding:12px 14px;font-size:.88rem;line-height:1.5}
+.minfo b{display:block;margin-bottom:4px}.minfo p{margin:.25em 0;color:var(--muted)}
+
 .medit{width:100%;max-width:640px;margin-left:auto;background:var(--card);border:1px solid var(--sky);border-radius:18px;padding:10px 12px}
 .medit textarea{width:100%;border:0;background:none;resize:none;outline:none;color:var(--ink);font:inherit;line-height:1.5}
 .medit .mbtns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}.medit button{border-radius:999px;padding:7px 18px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:none;color:var(--ink)}
@@ -2079,9 +2084,10 @@ function renderDmList(){ const l=$('dmlist'); if(!l) return; l.innerHTML='';
     if(inbox) paintAv(av,{display_name:t.user_name||'User'},t.user_id); else paintAv(av,{display_name:admName(),avatar_url:AP.avatar_url},'admin');
     const title=inbox?(t.user_name||t.user_email||'User'):admName(), row=el('button',{type:'button',className:'dmrow adm'+(AT.cur&&AT.cur.id===t.id&&!$('amain').hidden?' on':'')},av,el('span',{className:'gm'},el('b',{textContent:(inbox?'':'🛡 ')+title+(t.status==='closed'?' (closed)':'')}),el('small',{textContent:(inf.last||t.subject||'Support').replace(/\s+/g,' ').slice(0,80)})));
     if(inf.unread>0) row.append(el('i',{className:'bdg',textContent:inf.unread})); row.onclick=()=>{ $('side').classList.remove('open'); openAdminThread(t.id); }; l.append(row); };
-  if(adm&&AT.inbox.length){ l.append(el('p',{className:'hint',style:'padding:6px 10px 2px',textContent:'INBOX · people writing to you as Administrator'})); for(const t of AT.inbox) mkRow(t,true); l.append(el('p',{className:'hint',style:'padding:8px 10px 2px',textContent:'YOUR OWN CHATS'})); }
+  if(adm){ const pa=el('span',{className:'gav'}); paintAv(pa,{display_name:admName(),avatar_url:AP.avatar_url},'admin'); const pr=el('button',{type:'button',className:'dmrow profrow',id:'adm-prof-row'},pa,el('span',{className:'gm'},el('b',{textContent:'🛡 '+admName()}),el('small',{textContent:'Your Administrator profile · change photo'}))); pr.onclick=()=>{ $('side').classList.remove('open'); if(window.openAdmin){ openAdmin(); if(window.admTab) admTab(7); } }; l.append(pr); }
+  if(adm){ l.append(el('p',{className:'hint',style:'padding:6px 10px 2px',textContent:'INBOX · people writing to you as Administrator'})); if(!AT.inbox.length) l.append(el('p',{className:'hint',style:'padding:2px 10px 8px',textContent:'No one has written to you yet. When a user presses Contact support, it appears here.'})); for(const t of AT.inbox) mkRow(t,true); if(D.list.length) l.append(el('p',{className:'hint',style:'padding:8px 10px 2px',textContent:'YOUR PRIVATE CHATS'})); }
   for(const t of AT.threads) mkRow(t,false);
-  if(!D.list.length&&!AT.threads.length&&!AT.inbox.length){ l.append(el('p',{className:'hint',style:'padding:10px',textContent:'No private messages yet. Tap a member\'s name in a group, then Message.'})); return; }
+  if(!D.list.length&&!AT.threads.length&&!AT.inbox.length&&!adm){ l.append(el('p',{className:'hint',style:'padding:10px',textContent:'No private messages yet. Tap a member\'s name in a group, then Message.'})); return; }
   for(const t of D.list){ const av=el('span',{className:'gav'}); paintAv(av,{display_name:t.other_name,avatar_url:t.other_avatar},t.other_id);
     const row=el('button',{type:'button',className:'dmrow'+(D.cur&&D.cur.id===t.id?' on':'')},av,el('span',{className:'gm'},el('b',{textContent:t.other_name+(t.blocked?' 🚫':'')}),el('small',{textContent:t.last_text||'No messages yet'})));
     if(Number(t.unread)>0){ const i=el('i',{className:'bdg',textContent:t.unread}); row.append(i); }
@@ -2560,6 +2566,36 @@ window.openAdmin=function(){ if(!isAdmin()) return; $('adm').hidden=false; admTa
 let presT=null;
 window.v10Start=function(){ clearInterval(presT); const ping=()=>{ if(user&&document.visibilityState==='visible') quiet('touch_presence'); }; ping(); presT=setInterval(ping,60000);
   quiet('claim_my_birthday').then(n=>{ if(Number(n)>0){ try{ loadNotifs(); }catch{} } }); };
+
+/* ---------- Administrator: Image AI (Cloudflare) card. Numbers come from the Supabase ledger via the gateway. ---------- */
+Object.assign(PANES,{21:'adm-cf'});
+const OLD_TAB_CF=window.admTab;
+window.admTab=function(n){ OLD_TAB_CF(n); if(n===21) loadCf(); };
+{ const t=$('adm-t21'); if(t) t.onclick=()=>admTab(21); }
+async function loadCf(){
+  const box=mkBox('adm-cf'); box.append(ahead('Image AI (Cloudflare)','The shared daily allowance for Generate Image and Understand Image. It is kept in Supabase, so it survives server restarts and the same numbers show everywhere. It resets at 00:00 UTC.'));
+  const body=el('div'); box.append(body); loading(body);
+  let d; try{ d=await callApi('/v1/admin/neurons'); }catch(e){ body.innerHTML=''; amsg(/did not accept|admin/i.test(e.message)?e.message:'The image budget could not be read. Run 9-gateway-ledger-search.sql in Supabase and restart the gateway. ('+e.message+')'); return; }
+  amsg(''); body.innerHTML='';
+  const pct=Math.min(100,Math.round(100*d.used/Math.max(1,d.hard_stop))), userCap=d.hard_stop-d.admin_reserve;
+  const state=!d.enabled?['Switched off in server settings','var(--bad)']:d.locked?['Paused until 00:00 UTC'+(d.lock_reason?' · '+d.lock_reason:''),'var(--bad)']:!d.configured?['Cloudflare keys not set','var(--bad)']:['Running','var(--ok)'];
+  body.append(el('div',{className:'dgrid'},card('Status',state[0],'',state[1]),card('Used today',d.used+' / '+d.hard_stop,pct+'% of the daily limit'),card('Left for users',String(Math.max(0,userCap-d.used)),'users stop at '+userCap),card('Left for you',String(d.remaining),d.admin_reserve+' kept back for admins')));
+  const bar=el('div',{style:'height:10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);overflow:hidden;margin:4px 0 12px'},el('div',{style:'height:100%;width:'+pct+'%;background:'+(pct>85?'var(--bad)':'var(--sky)')})); bar.setAttribute('role','img'); bar.setAttribute('aria-label',pct+' percent of today\'s image allowance used'); body.append(bar);
+  const mods=[['image_generation','Generate Image (FLUX)',d.images_per_user_per_day+' per person a day'],['image_understanding','Understand Image (Moondream)',d.questions_per_user_per_day+' per person a day']];
+  const mp=pane('Features');
+  for(const [op,name,lim] of mods){ const on=(d.models||{})[op]!==false;
+    mp.append(el('div',{style:'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0'},el('span',{style:'flex:1;min-width:200px'},el('b',{textContent:name+' · '+(on?'on':'OFF'),style:'color:'+(on?'var(--ok)':'var(--bad)')}),el('small',{className:'hint',textContent:' '+lim,style:'display:block'})),
+      abtn(on?'Switch off':'Switch on',async()=>{ if(on&&!confirm('Switch off '+name+' for everyone?')) return; try{ await callApi('/v1/admin/cloudflare/model',{method:'POST',body:{op,enabled:!on}}); toast(name+(on?' switched off':' switched on')); loadCf(); }catch(e){ amsg(e.message); } },{danger:on}))); }
+  body.append(mp);
+  body.append(pane('Kill switch',el('p',{className:'hint',textContent:'Pauses every image feature for everyone right now. It lifts by itself at 00:00 UTC (the next day always starts unlocked).'}),
+    abtn('Pause image features until 00:00 UTC',async()=>{ if(!confirm('Pause all image features until 00:00 UTC?')) return; try{ await callApi('/v1/admin/cloudflare/lock',{method:'POST',body:{reason:'Paused by an administrator'}}); toast('Image features paused'); loadCf(); }catch(e){ amsg(e.message); } },{danger:true})));
+  const ops=(d.operations||[]);
+  body.append(pane('Today\'s operations',...(ops.length?ops.map(o=>el('div',{className:'hint',textContent:(o.op==='image_generation'?'Generate':'Understand')+' · '+o.status+' · '+o.count+' × · '+(o.actual_units??o.reserved_units??0)+' neurons'})):[el('p',{className:'hint',textContent:'Nothing yet today.'})])));
+  if((d.top_users||[]).length) body.append(pane('Biggest users today',...d.top_users.map(u=>el('div',{className:'hint',textContent:String(u.user_id).slice(0,8)+'… · '+(u.op==='image_generation'?'Generate':'Understand')+' · '+u.ops+' × · '+u.units+' neurons'}))));
+  body.append(pane('Health',el('div',{className:'hint',textContent:d.consistent===false?'⚠ The counters do not match the operations. Open the Server activity log and check recent events.':d.consistent===true?'Ledger check passed: counters match every operation.':'No operations recorded yet today.',style:d.consistent===false?'color:var(--bad)':''})));
+  if((d.events||[]).length) body.append(pane('Recent events',...d.events.map(e=>el('div',{className:'hint',textContent:dtm(e.created_at)+' · '+e.kind.replace('_',' ')+(e.detail?' · '+e.detail:'')}))));
+  body.append(abtn('Refresh',loadCf,{main:true}));
+}
 })();
 
 /* ---------- sending ---------- */
@@ -2571,7 +2607,13 @@ $('send').onclick=()=>{ if(busy&&ctl) ctl.abort(); else send(); };
 $('new').onclick=()=>{ WEL.next=true; newChat(); }; $('new-menu').onclick=e=>{ e.stopPropagation(); openChatMenu(cur?cur.id:'',$('new-menu')); }; $('menu').onclick=()=>$('side').classList.toggle('open');
 
 /* ---------- message actions: copy, edit and resend, regenerate ---------- */
-const ICO={copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',edit:'<svg viewBox="0 0 24 24"><path d="M4 20h4L18 10l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',regen:'<svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>',check:'<svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>'};
+const ICO={copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',edit:'<svg viewBox="0 0 24 24"><path d="M4 20h4L18 10l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',regen:'<svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>',check:'<svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>',
+speaker:'<svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a8 8 0 0 1 0 11"/></svg>',
+stop:'<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5" class="fillable"/></svg>',
+info:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>',
+share:'<svg viewBox="0 0 24 24"><circle cx="6.5" cy="12" r="2"/><circle cx="17" cy="6.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M8.3 11l7-3.4M8.3 13l7 3.4"/></svg>',
+up:'<svg viewBox="0 0 24 24"><path class="fillable" d="M8 11v8H5v-8zM8 11l3.5-6.5a1.8 1.8 0 0 1 3.3 1.3L14.2 9H19a1.6 1.6 0 0 1 1.6 1.9l-1.2 6.6A2 2 0 0 1 17.4 19H8"/></svg>',
+down:'<svg viewBox="0 0 24 24"><path class="fillable" d="M8 13V5H5v8zM8 13l3.5 6.5a1.8 1.8 0 0 0 3.3-1.3L14.2 15H19a1.6 1.6 0 0 0 1.6-1.9l-1.2-6.6A2 2 0 0 0 17.4 5H8"/></svg>'};
 let editIdx=-1;
 function mbtn(kind,label,fn,text){ const b=document.createElement('button'); b.type='button'; b.className='mab'; b.innerHTML=ICO[kind]+(text?'<span>'+text+'</span>':''); b.setAttribute('aria-label',label); b.title=label; b.onclick=e=>{ e.stopPropagation(); fn(b); }; return b; }
 async function copyText(text,btn){
@@ -2583,11 +2625,74 @@ async function copyText(text,btn){
   else toast('Could not copy. Select the text and copy it by hand.');
   return ok;
 }
+
+/* ---------- AI answer toolbar: copy, read aloud, info, share, good / bad response, regenerate, time ---------- */
+const TTS={btn:null,tok:0};
+function ttsStop(){ TTS.tok++; try{ window.speechSynthesis&&speechSynthesis.cancel(); }catch{} const b=TTS.btn; TTS.btn=null; if(b){ b.classList.remove('on'); b.innerHTML=ICO.speaker; b.setAttribute('aria-pressed','false'); b.setAttribute('aria-label','Read aloud'); b.title='Read aloud'; } }
+function speakable(t){
+  return String(t||'').replace(/```[\s\S]*?(```|$)/g,' (code block skipped) ').replace(/\n+Sources?:[\s\S]*$/i,'').replace(/!\[[^\]]*\]\([^)]*\)/g,' ').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/https?:\/\/\S+/g,' link ')
+    .replace(/`([^`]+)`/g,'$1').replace(/^\s{0,3}#{1,6}\s*/gm,'').replace(/^\s*>\s?/gm,'').replace(/^\s*[-*•]\s+/gm,'').replace(/(\*\*|__|\*|_)/g,'').replace(/\|/g,' ').replace(/\s+/g,' ').trim();
+}
+function ttsChunks(t){ const out=[]; for(const sen of t.match(/[^.!?\n]+[.!?]*\s*/g)||[t]){ let x=sen.trim(); while(x.length>200){ let k=x.lastIndexOf(' ',200); if(k<60) k=200; out.push(x.slice(0,k)); x=x.slice(k).trim(); } if(x) out.push(x); } return out; }
+function ttsToggle(text,btn){
+  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined') return toast('Read aloud is not supported in this browser. Try Chrome, Edge or Safari.');
+  if(TTS.btn===btn){ ttsStop(); return; }
+  ttsStop(); const t=speakable(text); if(!t) return toast('There is nothing to read aloud in this answer.');
+  const chunks=ttsChunks(t), tok=++TTS.tok; TTS.btn=btn; btn.classList.add('on'); btn.innerHTML=ICO.stop; btn.setAttribute('aria-pressed','true'); btn.setAttribute('aria-label','Stop reading'); btn.title='Stop reading';
+  chunks.forEach((c,i)=>{ const u=new SpeechSynthesisUtterance(c); u.lang=navigator.language||'en-US'; u.rate=1;
+    u.onend=()=>{ if(tok===TTS.tok&&i===chunks.length-1) ttsStop(); }; u.onerror=e=>{ if(tok===TTS.tok&&e&&e.error&&e.error!=='canceled'&&e.error!=='interrupted'){ ttsStop(); toast('Could not read this aloud.'); } };
+    speechSynthesis.speak(u); });
+}
+addEventListener('pagehide',()=>{ try{ window.speechSynthesis&&speechSynthesis.cancel(); }catch{} });
+let INFO=null; function closeInfo(){ if(INFO){ INFO.remove(); INFO=null; document.removeEventListener('keydown',INFO_K); document.removeEventListener('pointerdown',INFO_P,true); } }
+const INFO_K=e=>{ if(e.key==='Escape') closeInfo(); }, INFO_P=e=>{ if(INFO&&!INFO.contains(e.target)&&!e.target.closest('.mab')) closeInfo(); };
+function showInfo(btn,m){
+  closeInfo(); const when=m.ts?new Date(m.ts).toLocaleString([],{dateStyle:'medium',timeStyle:'short'}):'', words=String(m.content||'').trim().split(/\s+/).filter(Boolean).length;
+  const box=el('div',{className:'minfo'}); box.setAttribute('role','dialog'); box.setAttribute('aria-label','About this answer');
+  box.append(el('b',{textContent:'About this answer'}),el('p',{textContent:'Written by Garo'+(m.mdl?' · '+m.mdl:'')+'.'}));
+  if(when) box.append(el('p',{textContent:'Created '+when+'.'})); box.append(el('p',{textContent:words+' word'+(words===1?'':'s')+'.'}),el('p',{textContent:'AI answers can be wrong. Check important facts before you rely on them.'}));
+  document.body.append(box); INFO=box; const r=btn.getBoundingClientRect(), w=box.offsetWidth, h=box.offsetHeight;
+  box.style.left=Math.max(12,Math.min(r.left,innerWidth-w-12))+'px'; box.style.top=(r.top-h-8>12?r.top-h-8:Math.min(r.bottom+8,innerHeight-h-12))+'px';
+  document.addEventListener('keydown',INFO_K); document.addEventListener('pointerdown',INFO_P,true);
+}
+function shareAnswer(text){
+  const t=String(text||'').trim(); if(!t) return;
+  if(navigator.share){ navigator.share({title:'Answer from Garo',text:t.slice(0,4000)}).catch(e=>{ if(e&&e.name!=='AbortError') copyText(t).then(ok=>toast(ok?'Copied to your clipboard.':'Could not share.')); }); }
+  else copyText(t).then(ok=>toast(ok?'Copied. Paste it anywhere to share.':'Could not share. Select the text and copy it by hand.'));
+}
+function rateSheet(m,question){
+  if(!user) return;
+  openSheet('What went wrong?',b=>{
+    const why=el('select',{className:'sin'}); for(const t of ['Not correct','Not helpful','Unsafe or harmful','Out of date','Badly written','Something else']) why.add(new Option(t,t));
+    const body=el('textarea',{className:'sin',rows:3,placeholder:'Tell us more (optional)',maxLength:1500}); body.setAttribute('aria-label','More detail');
+    const note=el('p',{className:'hint',textContent:'Optional. If you press Send, the Administrator receives your question and this answer. If you press Skip, nothing is sent; your thumbs-down is only saved with your chat.'});
+    const go=el('button',{type:'button',className:'btn',textContent:'Send'}), skip=el('button',{type:'button',className:'btn alt',textContent:'Skip'}), msg=el('p',{className:'hint'});
+    skip.onclick=()=>closeSheet();
+    go.onclick=async()=>{ go.disabled=true; try{ await rpc('submit_feedback',{p_kind:'feedback',p_subject:'Bad response: '+why.value,p_body:((body.value.trim()?body.value.trim()+'\n\n':'')+'Question: '+String(question||'').slice(0,800)+'\n\nAnswer: '+String(m.content||'').slice(0,2500)).slice(0,4900)}); closeSheet(); toast('Thank you. The Administrator received your feedback.'); }catch(e){ go.disabled=false; msg.textContent=e.message||'Could not send. Try again.'; } };
+    b.append(why,body,note,el('div',{className:'row',style:'gap:8px;margin-top:8px'},go,skip),msg); },{});
+}
+function aiToolbar(m,o){
+  o=o||{}; const bar=el('div',{className:'mact aibar'}); bar.setAttribute('role','toolbar'); bar.setAttribute('aria-label','Answer actions');
+  const save=v=>{ if(o.store) o.store(v); else { m.fb=v||undefined; if(user&&!o.noSave) save_(); } };
+  bar.append(mbtn('copy','Copy response',b=>copyText(m.content,b)));
+  const sp=mbtn('speaker','Read aloud',b=>ttsToggle(m.content,b)); sp.setAttribute('aria-pressed','false'); bar.append(sp);
+  bar.append(mbtn('info','About this answer',b=>showInfo(b,m)));
+  bar.append(mbtn('share','Share answer',()=>shareAnswer(m.content)));
+  const cur_=()=>o.get?o.get():m.fb;
+  const up=mbtn('up','Good response',()=>{ const on=cur_()!=='up'; save(on?'up':null); paint(); if(on) toast('Thanks for the feedback.'); }), dn=mbtn('down','Bad response',()=>{ const on=cur_()!=='down'; save(on?'down':null); paint(); if(on) rateSheet(m,o.question); });
+  const paint=()=>{ const v=cur_(); up.classList.toggle('on',v==='up'); dn.classList.toggle('on',v==='down'); up.setAttribute('aria-pressed',v==='up'); dn.setAttribute('aria-pressed',v==='down'); };
+  paint(); bar.append(up,dn);
+  if(o.regen) bar.append(mbtn('regen','Regenerate response',o.regen));
+  if(m.ts||o.time){ const d=new Date(m.ts||o.time), same=d.toDateString()===new Date().toDateString(); bar.append(el('span',{className:'mts',textContent:(same?'':d.toLocaleDateString([],{month:'short',day:'numeric'})+', ')+d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})})); }
+  return bar;
+}
+const save_=()=>{ try{ return save(); }catch{} };
+
 function msgActions(m,i){
   const bar=el('div',{className:'mact'});
   if(m.role==='user'){ bar.append(mbtn('copy','Copy message',b=>copyText(m.content,b))); if(user) bar.append(mbtn('edit','Edit message',()=>startEdit(i))); }
   else if(m.error){ if(user) bar.append(mbtn('regen','Retry',()=>regenerate(i),'Retry')); }
-  else if(m.content){ bar.append(mbtn('copy','Copy response',b=>copyText(m.content,b))); if(user&&i===cur.messages.length-1) bar.append(mbtn('regen','Regenerate response',()=>regenerate(i))); }
+  else if(m.content){ let q=''; for(let k=i-1;k>=0;k--) if(cur.messages[k].role==='user'){ q=cur.messages[k].content; break; } return aiToolbar(m,{question:q,regen:(user&&i===cur.messages.length-1)?()=>regenerate(i):null}); }
   return bar;
 }
 function startEdit(i){ if(busy) return toast('Wait for Garo to finish, or press the stop button.'); editIdx=i; render(true); const ta=document.querySelector('.medit textarea'); if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length); } }
@@ -2699,7 +2804,7 @@ async function send(opts){
   }catch(e){ if(e.name!=='AbortError'){ if(user&&isNetErr(e)){ a.waiting=true; a.content=''; } else { a.error=true; a.content+=(a.content?'\n\n':'')+'⚠ '+e.message; } } }
   finally{ setBusy(false); ctl=null;
     if(a.waiting){ a.status='📡 Connection lost. Your message is saved and will be sent again automatically.'; outboxSet(); scheduleResume(8000); }
-    else { a.status=''; delete a.pending; outboxClear(); resumeTries=0; if(!a.content) cur.messages.pop(); }
+    else { a.status=''; delete a.pending; outboxClear(); resumeTries=0; if(!a.content) cur.messages.pop(); else if(!a.error){ a.ts=Date.now(); try{ const so=$('model').selectedOptions[0]; if(so) a.mdl=so.textContent.replace(/\s*[·\/(].*$/,'').trim(); }catch{} } }
     render(); await save(); renderList(); }
 }
 
@@ -2842,7 +2947,7 @@ function msgNode(m){
   if(m.reply_to){ const o=G.msgs.find(x=>x.id===m.reply_to); const q=el('button',{type:'button',className:'gq'},el('b',{textContent:o?(o.kind==='garo'?'Garo':pname(o.user_id)):'Message'}),el('span',{textContent:o?snippet(o):'Original message is no longer available'}));
     if(o) q.onclick=()=>{ const t=document.querySelector('.grow[data-id="'+o.id+'"]'); if(t){ t.scrollIntoView({block:'center'}); t.classList.add('flash'); setTimeout(()=>t.classList.remove('flash'),1200); } }; b.append(q); }
   if(m.kind==='share'&&m.payload){ const c=el('div',{className:'gshare'},el('b',{textContent:'💬 Shared chat'}),el('span',{textContent:m.content}),el('button',{type:'button',className:'sbt',textContent:'View chat'})); c.querySelector('button').onclick=()=>openSharedChat(m); b.append(c); }
-  else if(garo){ const body=el('div',{className:'gbody'}); body.innerHTML=msgHtml({content:m.content,build:!!(m.payload&&m.payload.build)},false); b.append(body); addActs({content:m.content},b,{group:G.cur.name,...(G.cur.kind==='project'&&canPost()?{save:saveToProject}:{})}); }
+  else if(garo){ const body=el('div',{className:'gbody'}); body.innerHTML=msgHtml({content:m.content,build:!!(m.payload&&m.payload.build)},false); b.append(body); addActs({content:m.content},b,{group:G.cur.name,...(G.cur.kind==='project'&&canPost()?{save:saveToProject}:{})}); const fk='dv-gfb-'+m.id; b.append(aiToolbar({content:m.content,ts:m.created_at},{noSave:true,time:null,question:(G.msgs.find(x=>x.id===m.reply_to)||{}).content,get:()=>{ try{ return localStorage.getItem(fk)||undefined; }catch{ return undefined; } },store:v=>{ try{ v?localStorage.setItem(fk,v):localStorage.removeItem(fk); }catch{} }})); }
   else if(m.content){ const t=el('div',{className:'gbody'}); t.innerHTML=esc2(m.content); b.append(t); }
   for(const f of (m.payload&&m.payload.files)||[]){ if(f.once){ b.append(onceNode('group',m,((m.payload.files)||[]).indexOf(f),mine)); continue; } if(/\.(jpe?g|png|webp|gif)$/i.test(f.name||'')){ b.append(window.imageNode('group-files',f,'gimg')); } const a=el('button',{type:'button',className:'gfile'},el('i',{textContent:'📄'}),el('span',{},el('b',{textContent:f.name}),el('small',{textContent:fmtSize(f.size||0)})),el('em',{textContent:'⬇'})); a.onclick=()=>downloadShared(f); b.append(a); if(m.user_id===user.id||G.me==='admin'){ const dl=el('button',{type:'button',className:'gfdel',textContent:'🗑 Delete file',title:'Deletes this file for everyone in the group'}); dl.onclick=()=>deleteGroupFile(m,f); b.append(dl); } }
   b.append(el('div',{className:'gt',textContent:fmtTime(m.created_at)+(m.edited_at?' · edited':'')}));
@@ -3604,10 +3709,10 @@ const ADMIN_EDIT_MIN=20, admName=()=>(window.AP&&AP.display_name)||'Administrato
 const asAdmin=()=>!!(window.SITE_ADMIN&&AT.cur&&user&&AT.cur.user_id!==user.id);
 async function loadAdminProfile(){ try{ const {data}=await sb.from('admin_profile').select('*').eq('id',1).maybeSingle(); if(data) window.AP=data; }catch{} }
 async function loadAdminThreads(){
-  if(!user) return; const {data}=await sb.from('admin_threads').select('*').eq('user_id',user.id).order('updated_at',{ascending:false}); AT.threads=data||[];
+  if(!user) return; const {data}=await sb.from('admin_threads').select('*').eq('user_id',user.id).order('updated_at',{ascending:false}); AT.threads=data||[]; if(window.SITE_ADMIN) AT.threads=[]; /* the Administrator never has a support chat with themselves */
   try{ AT.info={}; const ids=AT.threads.map(x=>x.id); if(ids.length){ const r=await sb.from('admin_messages').select('thread_id,sender,content,created_at,read_at').in('thread_id',ids).order('created_at',{ascending:false}).limit(200);
     for(const m of (r.data||[])){ const i=AT.info[m.thread_id]||(AT.info[m.thread_id]={last:m.content,at:m.created_at,unread:0}); if(m.sender==='admin'&&!m.read_at) i.unread++; } } }catch{}
-  if(window.SITE_ADMIN){ try{ AT.inbox=(await rpc('site_admin_threads'))||[]; }catch{ AT.inbox=[]; } } else AT.inbox=[];
+  if(window.SITE_ADMIN){ try{ AT.inbox=((await rpc('site_admin_threads'))||[]).filter(t=>t.user_id!==user.id); }catch{ AT.inbox=[]; } } else AT.inbox=[];
   $('adm-entry').hidden=!AT.threads.length; paintBadge(); if(window.renderDmList) renderDmList(); if(window.paintDmBadge) paintDmBadge();
   if(AT.cur&&!$('amain').hidden) refreshAdminThread(false);
 }
@@ -3865,7 +3970,7 @@ $('p-notifs').onclick=()=>{ $('profile').hidden=true; openNotifPanel('bell'); };
 /* ---------- lifecycle ---------- */
 async function v4Start(){
   startPresence(); startNotifs(); loadSettings();
-  syncPrivate(); loadNotifs(); try{ v10Start(); }catch{} loadAdminProfile().then(()=>quiet('is_site_admin')).then(v=>{ window.SITE_ADMIN=!!v; try{ setWho(); }catch{} return loadAdminThreads(); }); quiet('garo_schema_version').then(v=>{ if(isAdmin()&&!(Number(v)>=12)) toast('Database update needed: run GARO-SETUP-ALL.sql in Supabase.'); });
+  syncPrivate(); loadNotifs(); try{ v10Start(); }catch{} loadAdminProfile().then(()=>quiet('is_site_admin')).then(v=>{ window.SITE_ADMIN=!!v; try{ setWho(); }catch{} return loadAdminThreads(); }); quiet('garo_schema_version').then(v=>{ if(isAdmin()&&!(Number(v)>=13)) toast('Database update needed: run GARO-SETUP-ALL.sql in Supabase.'); });
   if(!ADMROLE_LOADED){ ADMROLE_LOADED=true; quiet('my_admin_role').then(r=>{ if(r) ADMROLE=r; }); }
 }
 function v4Reset(){
@@ -4015,35 +4120,12 @@ landingStatus(); loadSettings();
   document.addEventListener('keydown',e=>{ if((e.ctrlKey||e.metaKey)&&!e.altKey&&!e.shiftKey&&e.key.toLowerCase()==='k'){ if(!user||$('app').hidden) return; e.preventDefault(); S.open?close():open(); } });
 })();
 
-/* ---------- Administrator: Image AI (Cloudflare) card. Numbers come from the Supabase ledger via the gateway. ---------- */
-Object.assign(PANES,{21:'adm-cf'});
-const OLD_TAB_CF=window.admTab;
-window.admTab=function(n){ OLD_TAB_CF(n); if(n===21) loadCf(); };
-{ const t=$('adm-t21'); if(t) t.onclick=()=>admTab(21); }
-async function loadCf(){
-  const box=mkBox('adm-cf'); box.append(ahead('Image AI (Cloudflare)','The shared daily allowance for Generate Image and Understand Image. It is kept in Supabase, so it survives server restarts and the same numbers show everywhere. It resets at 00:00 UTC.'));
-  const body=el('div'); box.append(body); loading(body);
-  let d; try{ d=await callApi('/v1/admin/neurons'); }catch(e){ body.innerHTML=''; amsg(/did not accept|admin/i.test(e.message)?e.message:'The image budget could not be read. Run 9-gateway-ledger-search.sql in Supabase and restart the gateway. ('+e.message+')'); return; }
-  amsg(''); body.innerHTML='';
-  const pct=Math.min(100,Math.round(100*d.used/Math.max(1,d.hard_stop))), userCap=d.hard_stop-d.admin_reserve;
-  const state=!d.enabled?['Switched off in server settings','var(--bad)']:d.locked?['Paused until 00:00 UTC'+(d.lock_reason?' · '+d.lock_reason:''),'var(--bad)']:!d.configured?['Cloudflare keys not set','var(--bad)']:['Running','var(--ok)'];
-  body.append(el('div',{className:'dgrid'},card('Status',state[0],'',state[1]),card('Used today',d.used+' / '+d.hard_stop,pct+'% of the daily limit'),card('Left for users',String(Math.max(0,userCap-d.used)),'users stop at '+userCap),card('Left for you',String(d.remaining),d.admin_reserve+' kept back for admins')));
-  const bar=el('div',{style:'height:10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);overflow:hidden;margin:4px 0 12px'},el('div',{style:'height:100%;width:'+pct+'%;background:'+(pct>85?'var(--bad)':'var(--sky)')})); bar.setAttribute('role','img'); bar.setAttribute('aria-label',pct+' percent of today\'s image allowance used'); body.append(bar);
-  const mods=[['image_generation','Generate Image (FLUX)',d.images_per_user_per_day+' per person a day'],['image_understanding','Understand Image (Moondream)',d.questions_per_user_per_day+' per person a day']];
-  const mp=pane('Features');
-  for(const [op,name,lim] of mods){ const on=(d.models||{})[op]!==false;
-    mp.append(el('div',{style:'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0'},el('span',{style:'flex:1;min-width:200px'},el('b',{textContent:name+' · '+(on?'on':'OFF'),style:'color:'+(on?'var(--ok)':'var(--bad)')}),el('small',{className:'hint',textContent:' '+lim,style:'display:block'})),
-      abtn(on?'Switch off':'Switch on',async()=>{ if(on&&!confirm('Switch off '+name+' for everyone?')) return; try{ await callApi('/v1/admin/cloudflare/model',{method:'POST',body:{op,enabled:!on}}); toast(name+(on?' switched off':' switched on')); loadCf(); }catch(e){ amsg(e.message); } },{danger:on}))); }
-  body.append(mp);
-  body.append(pane('Kill switch',el('p',{className:'hint',textContent:'Pauses every image feature for everyone right now. It lifts by itself at 00:00 UTC (the next day always starts unlocked).'}),
-    abtn('Pause image features until 00:00 UTC',async()=>{ if(!confirm('Pause all image features until 00:00 UTC?')) return; try{ await callApi('/v1/admin/cloudflare/lock',{method:'POST',body:{reason:'Paused by an administrator'}}); toast('Image features paused'); loadCf(); }catch(e){ amsg(e.message); } },{danger:true})));
-  const ops=(d.operations||[]);
-  body.append(pane('Today\'s operations',...(ops.length?ops.map(o=>el('div',{className:'hint',textContent:(o.op==='image_generation'?'Generate':'Understand')+' · '+o.status+' · '+o.count+' × · '+(o.actual_units??o.reserved_units??0)+' neurons'})):[el('p',{className:'hint',textContent:'Nothing yet today.'})])));
-  if((d.top_users||[]).length) body.append(pane('Biggest users today',...d.top_users.map(u=>el('div',{className:'hint',textContent:String(u.user_id).slice(0,8)+'… · '+(u.op==='image_generation'?'Generate':'Understand')+' · '+u.ops+' × · '+u.units+' neurons'}))));
-  body.append(pane('Health',el('div',{className:'hint',textContent:d.consistent===false?'⚠ The counters do not match the operations. Open the Server activity log and check recent events.':d.consistent===true?'Ledger check passed: counters match every operation.':'No operations recorded yet today.',style:d.consistent===false?'color:var(--bad)':''})));
-  if((d.events||[]).length) body.append(pane('Recent events',...d.events.map(e=>el('div',{className:'hint',textContent:dtm(e.created_at)+' · '+e.kind.replace('_',' ')+(e.detail?' · '+e.detail:'')}))));
-  body.append(abtn('Refresh',loadCf,{main:true}));
-}
+
+/* ---------- the Administrator cannot send a support message to themselves ---------- */
+{ const _os=window.openSupport; window.openSupport=function(t){
+  if(!window.SITE_ADMIN) return _os.apply(this,arguments);
+  openSheet('Support',b=>{ b.append(el('p',{textContent:'You are the Administrator, so you cannot send a support message to yourself. People who need help write to you, and their messages arrive in your Messages inbox and in Admin portal > Inbox.'}));
+    const go=el('button',{type:'button',className:'btn',textContent:'Open my inbox'}); go.onclick=()=>{ closeSheet(); if(window.setTab) setTab('dms'); }; b.append(go); }); }; }
 </script>
 </body>
 </html>
