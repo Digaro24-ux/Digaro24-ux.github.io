@@ -15,9 +15,11 @@
 <link rel="canonical" href="https://digaro24-ux.github.io/">
 <meta property="og:url" content="https://digaro24-ux.github.io/">
 <meta name="keywords" content="GARO AI, Garo AI, garoai, private AI assistant, AI chat, AI research, AI group chat">
-<meta name="google-site-verification" content="FWvfFCBZ4TaqcEFZpiSQW3MRK0wajwLCs8W9l_TqTFM" />
+<!-- Google Search Console: paste your verification tag here, e.g. <meta name="google-site-verification" content="XXXX"> -->
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://digaro24-ux.github.io/#website", "url": "https://digaro24-ux.github.io/", "name": "GARO AI", "alternateName": ["Garo AI", "GaroAI", "garoai"], "inLanguage": "en"}, {"@type": "Organization", "@id": "https://digaro24-ux.github.io/#org", "name": "GARO AI", "url": "https://digaro24-ux.github.io/", "logo": "https://digaro24-ux.github.io/garoai-logo.png"}, {"@type": "SoftwareApplication", "name": "GARO AI", "alternateName": "Garo", "applicationCategory": "CommunicationApplication", "operatingSystem": "Web", "url": "https://digaro24-ux.github.io/", "description": "Garo is a free private AI assistant for chat, document research, project building and group chats.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]}</script>
 <link rel="manifest" href="site.webmanifest">
+<script>(function(){try{var m=function(q){return matchMedia(q).matches};if(m('(display-mode: standalone)')||m('(display-mode: fullscreen)')||m('(display-mode: minimal-ui)')||navigator.standalone===true)document.documentElement.classList.add('pwa')}catch(e){}})();</script>
+
 <meta name="application-name" content="GARO AI"><meta name="apple-mobile-web-app-title" content="GARO AI">
 <!-- Link previews (WhatsApp, Facebook, X, Telegram, Slack). -->
 <meta property="og:type" content="website"><meta property="og:site_name" content="GARO AI">
@@ -372,7 +374,38 @@ html{scroll-behavior:auto}}
 .mab{background:none;border:0;border-radius:8px;padding:6px 8px;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;gap:4px;font-size:.78rem}.mab:hover,.mab:focus-visible{background:var(--panel);color:var(--ink)}.mab.done{color:var(--ok)}
 .mab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .aibar{flex-wrap:wrap;align-items:center}.mts{margin-left:8px;font-size:.78rem;color:var(--muted);white-space:nowrap}
-.grow .mact{opacity:1;margin-top:4px}.mab.on{color:var(--sky)}.mab.on svg.fillable{fill:currentColor}
+.grow .mact{opacity:1;margin-top:4px}
+/* ---------- Betalytica ---------- */
+.bet-entry{background:linear-gradient(135deg,var(--sky),#16a34a)!important;color:#fff!important;border:0!important;margin-top:6px}
+.bet-scroll{flex:1;min-height:0;overflow-y:auto;padding:16px 14px 60px}.bet-col{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.bcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}.bcard h2{margin:0 0 6px;font-size:1.15rem}.bcard h3{margin:0 0 6px;font-size:1rem}
+.btabs{display:flex;gap:6px;flex-wrap:wrap}.btabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:600}.btabs button[aria-selected=true]{background:var(--sky);border-color:var(--sky);color:#fff}
+.bform{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end}.bform .swap{align-self:end;height:44px;width:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:1.1rem}
+.bform .opt{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.blab{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:var(--muted);position:relative}.blab input,.blab select{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:1rem;width:100%;box-sizing:border-box}
+.blab input:focus,.blab select:focus{outline:2px solid var(--sky);outline-offset:1px}
+.bsug{position:absolute;z-index:30;left:0;right:0;top:100%;margin-top:4px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(2,6,23,.3);max-height:280px;overflow-y:auto}
+.bsug button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;color:var(--ink);padding:9px 12px;cursor:pointer;font:inherit}.bsug button:hover,.bsug button[aria-selected=true]{background:var(--panel)}.bsug small{color:var(--muted)}
+.bcrest{width:26px;height:26px;border-radius:6px;object-fit:contain;background:var(--panel);flex:none;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:var(--muted)}
+.bgo{width:100%;margin-top:6px;padding:14px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--sky),#16a34a);color:#fff;font-weight:800;font-size:1.05rem;letter-spacing:.04em;cursor:pointer}.bgo:disabled{opacity:.55;cursor:default}
+.bsteps{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}.bsteps li{display:flex;gap:10px;align-items:flex-start;font-size:.93rem}.bsteps .ic{width:20px;text-align:center;flex:none}.bsteps .d{color:var(--muted);font-size:.82rem}
+.bbar{height:8px;border-radius:99px;background:var(--panel);overflow:hidden;margin:6px 0 4px}.bbar i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),#16a34a);transition:width .4s}
+.bhead{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center}.bhead .tm{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:110px;font-weight:700}.bhead .tm .bcrest{width:54px;height:54px;font-size:1.3rem}.bhead .vs{color:var(--muted);font-weight:700}
+.bbadge{display:inline-block;border-radius:999px;padding:3px 11px;font-size:.78rem;font-weight:700;border:1px solid var(--line);background:var(--panel)}.bbadge.ok{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.5);color:#16a34a}.bbadge.warn{background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.5);color:#b45309}.bbadge.bad{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5);color:var(--bad)}
+.bverdict{border-radius:14px;padding:12px 14px;border:1px solid var(--line);background:var(--panel)}.bverdict.ok{border-color:rgba(34,197,94,.5)}.bverdict.warn{border-color:rgba(245,158,11,.6)}.bverdict.bad{border-color:rgba(239,68,68,.6)}
+.bopt{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}.bopt.first{border-color:var(--sky);box-shadow:0 0 0 2px rgba(2,132,199,.18)}
+.bopt>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:12px 14px}.bopt>summary::-webkit-details-marker{display:none}
+.bopt .rk{width:30px;height:30px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;font-weight:800}.bopt.first .rk{background:var(--sky);color:#fff}
+.bopt .nm b{display:block}.bopt .nm small{color:var(--muted)}.bopt .pr{font-size:1.6rem;font-weight:800}.bopt.first .pr{font-size:2rem;color:var(--sky)}
+.bopt .bd{padding:0 14px 14px;display:grid;gap:10px;font-size:.92rem}.bopt table,.btbl{width:100%;border-collapse:collapse;font-size:.88rem}.bopt th,.bopt td,.btbl th,.btbl td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line)}.bopt th,.btbl th{color:var(--muted);font-weight:600}
+.bnote{color:var(--muted);font-size:.85rem}.bres{display:flex;gap:4px;flex-wrap:wrap}.bres b{width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff}.bres .W{background:#16a34a}.bres .D{background:#a3a3a3}.bres .L{background:#dc2626}
+.bcols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.bhist{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);align-items:center}
+.bchips{display:flex;gap:6px;flex-wrap:wrap}.bchips button,.bchips span{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:5px 12px;font-size:.85rem;cursor:pointer}
+.bfoot{display:flex;gap:8px;flex-wrap:wrap}.bpre{max-height:320px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.78rem;white-space:pre-wrap;word-break:break-word}
+.bnotice li{margin:.35em 0}.bhrow{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card);cursor:pointer;text-align:left;width:100%;color:var(--ink);font:inherit}.bhrow:hover{border-color:var(--sky)}
+.cvmsg{border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin:8px 0;background:var(--card);white-space:pre-wrap;word-break:break-word}.cvmsg.user{background:var(--panel)}.cvmsg small{display:block;color:var(--muted);margin-bottom:3px}
+@media (max-width:640px){.bform{grid-template-columns:1fr}.bform .swap{justify-self:center;transform:rotate(90deg)}.bform .opt{grid-template-columns:1fr}.bcols{grid-template-columns:1fr}.bopt>summary{grid-template-columns:30px 1fr auto}.bopt .pr{font-size:1.35rem}.bopt.first .pr{font-size:1.6rem}}
+.mab.on{color:var(--sky)}.mab.on svg.fillable{fill:currentColor}
 .minfo{position:fixed;z-index:460;max-width:min(320px,calc(100vw - 24px));background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 40px rgba(2,6,23,.35);padding:12px 14px;font-size:.88rem;line-height:1.5}
 .minfo b{display:block;margin-bottom:4px}.minfo p{margin:.25em 0;color:var(--muted)}
 
@@ -585,6 +618,46 @@ body{overscroll-behavior-y:none}
 /* group picture controls */
 .gpic{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
 .gav[role=button],#g-av{cursor:zoom-in}
+
+/* =====================================================================
+   Installed app mode (Chrome "Add to Home screen" / Install app). Every rule here is scoped to html.pwa,
+   which is set only when the site runs as an installed app. In a normal browser tab nothing below applies.
+   ===================================================================== */
+html.pwa{height:100%;overflow:hidden;overscroll-behavior:none;-webkit-text-size-adjust:100%}
+html.pwa body{height:100%;overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html.pwa button,html.pwa .side,html.pwa .top,html.pwa .gtop,html.pwa .seg,html.pwa .list{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html.pwa .msg,html.pwa .grow,html.pwa textarea,html.pwa input{-webkit-user-select:text;user-select:text}
+html.pwa .app{height:var(--vvh,100dvh)}
+html.pwa .msgs,html.pwa .gmsgs,html.pwa .list,html.pwa .bet-scroll,html.pwa .pbody,html.pwa .nlist{overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;scrollbar-width:none}
+html.pwa .msgs::-webkit-scrollbar,html.pwa .gmsgs::-webkit-scrollbar,html.pwa .list::-webkit-scrollbar{display:none}
+html.pwa .main{min-height:0}
+html.pwa #pwa-scrim{display:none}
+@media (max-width:760px){
+ html.pwa{--pwa-ease:cubic-bezier(.22,.8,.26,1)}
+ html.pwa .app{grid-template-columns:1fr}
+ /* the sidebar becomes a drawer over the chat; the chat stays the only thing on screen when it is closed */
+ html.pwa .side{position:fixed;top:0;bottom:0;left:0;right:auto;width:min(84vw,340px);inset-inline-end:auto;z-index:70;transform:translate3d(-104%,0,0);transition:transform .26s var(--pwa-ease);will-change:transform;box-shadow:none;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);overscroll-behavior:contain}
+ html.pwa .side.open{transform:translate3d(0,0,0);box-shadow:8px 0 40px rgba(0,0,0,.35)}
+ html.pwa #pwa-scrim{display:block;position:fixed;inset:0;z-index:65;background:rgba(2,6,23,.55);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .26s var(--pwa-ease),visibility .26s;touch-action:none;-webkit-tap-highlight-color:transparent}
+ html.pwa.pwa-drawer #pwa-scrim{opacity:1;visibility:visible;pointer-events:auto}
+ /* top bars: big, round, easy to hit with a thumb */
+ html.pwa .top,html.pwa .gtop{padding-top:calc(env(safe-area-inset-top) + 8px);padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));gap:8px;border-bottom:0;background:var(--bg);position:relative;z-index:3}
+ html.pwa .top .ttl,html.pwa .top .stxt,html.pwa .top .dot{display:none}
+ html.pwa .top .ctitle{flex:1;min-width:0;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+ html.pwa #menu,html.pwa .top .tb,html.pwa .gtop .tb{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0;border-radius:50%;border:0;background:var(--card);box-shadow:0 1px 6px rgba(0,0,0,.14);font-size:1.15rem}
+ html.pwa .top .tb.hdots{font-size:1.5rem}
+ html.pwa .gtop .gback{display:inline-flex}
+ /* messages: full height, room for the thumb, smooth */
+ html.pwa .msgs{padding:12px 12px 16px;scroll-padding-bottom:16px}
+ html.pwa .gmsgs{padding:12px 8px 14px}
+ html.pwa .comp,html.pwa .gcomp{padding-bottom:calc(env(safe-area-inset-bottom) + 8px);padding-left:max(8px,env(safe-area-inset-left));padding-right:max(8px,env(safe-area-inset-right));background:var(--bg)}
+ html.pwa .box,html.pwa .gbox{border-radius:26px}
+ html.pwa .box .send,html.pwa .gbox .send{min-width:42px;height:42px;border-radius:50%}
+ html.pwa .list button,html.pwa .list a,html.pwa .list .row{min-height:48px}
+ html.pwa .pop,html.pwa #plusmenu{max-height:min(70dvh,calc(var(--vvh,100dvh) - 150px))}
+ html.pwa .toast,html.pwa #toast{bottom:calc(env(safe-area-inset-bottom) + 84px)}
+ @media (prefers-reduced-motion:reduce){html.pwa .side,html.pwa #pwa-scrim{transition:none}}
+}
 </style>
 <style id="gs-css">
 .sicon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:0;border-radius:50%;background:transparent;color:var(--muted);cursor:pointer}
@@ -617,6 +690,72 @@ html.gs-lock{overflow:hidden}
 </style>
 </head>
 <body>
+<!-- Loading skeleton: covers the whole screen with grey shapes while the site starts, signs you in or loads your chats. Pure HTML and CSS, so it shows before any script runs. -->
+<div id="skel" role="status" aria-live="polite" aria-label="Loading">
+<style>
+#skel{position:fixed;inset:0;z-index:2147483000;background:var(--bg,#020617);overflow:hidden;display:flex;flex-direction:column;transition:opacity .3s ease,visibility .3s}
+#skel.out{opacity:0;visibility:hidden;pointer-events:none}
+#skel *{box-sizing:border-box}
+#skel .sk{display:block;border-radius:8px;background:var(--line,#1e293b);position:relative;overflow:hidden;opacity:.75;flex:none;max-width:100%}
+#skel .sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(148,163,184,.25),transparent);animation:skm 1.4s infinite}
+@keyframes skm{to{transform:translateX(100%)}}
+#skel .sk-land,#skel .sk-auth,#skel .sk-app{display:none;flex:1;min-height:0}
+#skel .sk-land{flex-direction:column;overflow:hidden}
+html:not(.skel-app):not(.skel-auth) #skel .sk-land{display:flex}
+html.skel-auth:not(.skel-app) #skel .sk-auth{display:flex}
+html.skel-app #skel .sk-app{display:flex}
+#skel .sk-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#skel .sk-col{display:flex;flex-direction:column;gap:8px}
+#skel .sk-sp{flex:1}
+#skel .sk-nav{display:flex;align-items:center;gap:12px;padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top));max-width:1180px;width:100%;margin:0 auto}
+#skel .sk-logo{width:42px;height:42px;border-radius:12px}
+#skel .sk-links{display:flex;gap:18px;margin-right:12px}
+#skel .sk-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;max-width:1080px;width:100%;margin:0 auto;padding:30px 20px}
+#skel .sk-art{justify-self:center;width:min(340px,100%);aspect-ratio:1;border-radius:32px}
+#skel .sk-sec{max-width:1080px;width:100%;margin:0 auto;padding:28px 20px 0}
+#skel .sk-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+#skel .sk-cards.three{gap:22px}
+#skel .sk-card{height:120px;border-radius:16px;max-width:none}
+#skel .sk-step{display:flex;flex-direction:column;gap:10px}
+#skel .sk-auth{align-items:center;justify-content:center;padding:20px}
+#skel .sk-acard{width:min(420px,100%);padding:28px;border:1px solid var(--line,#1e293b);border-radius:20px;background:var(--card,transparent)}
+#skel .sk-side{width:270px;flex:none;border-right:1px solid var(--line,#1e293b);padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--panel,transparent)}
+#skel .sk-main{flex:1;display:flex;flex-direction:column;min-width:0}
+#skel .sk-top{display:flex;align-items:center;gap:10px;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))}
+#skel .sk-welcome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;max-width:620px;width:100%;margin:0 auto;min-height:0;overflow:hidden}
+#skel .sk-chipcol{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:10px}
+#skel .sk-comp{padding:10px 14px calc(14px + env(safe-area-inset-bottom));max-width:760px;width:100%;margin:0 auto}
+@media (max-width:860px){#skel .sk-hero{grid-template-columns:1fr;gap:22px;padding-top:12px}#skel .sk-art{order:-1;width:min(200px,55%)}#skel .sk-links{display:none}#skel .sk-cards,#skel .sk-cards.three{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){#skel .sk-cards,#skel .sk-cards.three{grid-template-columns:1fr}#skel .sk-card:nth-child(n+4){display:none}}
+@media (max-width:760px){#skel .sk-side{display:none}}
+@media (prefers-reduced-motion:reduce){#skel .sk::after{animation:none}#skel{transition:none}}
+</style>
+<div class="sk-land">
+ <div class="sk-nav"><i class="sk sk-logo"></i><span class="sk-col"><i class="sk" style="width:92px;height:16px"></i><i class="sk" style="width:120px;height:10px"></i></span><span class="sk-sp"></span><span class="sk-links"><i class="sk" style="width:54px;height:12px"></i><i class="sk" style="width:54px;height:12px"></i><i class="sk" style="width:54px;height:12px"></i><i class="sk" style="width:54px;height:12px"></i></span><i class="sk" style="width:74px;height:38px;border-radius:99px"></i><i class="sk" style="width:104px;height:38px;border-radius:99px"></i></div>
+ <div class="sk-hero"><div><i class="sk" style="width:34%;height:12px"></i><div style="height:14px"></div><i class="sk" style="width:96%;height:40px"></i><div style="height:10px"></div><i class="sk" style="width:80%;height:40px"></i><div style="height:10px"></div><i class="sk" style="width:55%;height:40px"></i><div style="height:22px"></div><i class="sk" style="width:90%;height:14px"></i><div style="height:8px"></div><i class="sk" style="width:84%;height:14px"></i><div style="height:8px"></div><i class="sk" style="width:60%;height:14px"></i>
+  <div class="sk-row" style="margin-top:26px"><i class="sk" style="width:180px;height:48px;border-radius:99px"></i><i class="sk" style="width:140px;height:48px;border-radius:99px"></i></div><div class="sk-row" style="margin-top:22px"><i class="sk" style="width:90px;height:28px;border-radius:99px"></i><i class="sk" style="width:110px;height:28px;border-radius:99px"></i><i class="sk" style="width:80px;height:28px;border-radius:99px"></i></div></div>
+  <i class="sk sk-art"></i></div>
+ <div class="sk-sec"><i class="sk" style="width:220px;height:26px"></i><div style="height:8px"></div><i class="sk" style="width:340px;height:14px"></i><div class="sk-cards"><i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i></div></div>
+ <div class="sk-sec"><i class="sk" style="width:200px;height:26px"></i><div class="sk-cards three"><span class="sk-step"><i class="sk" style="width:42px;height:42px;border-radius:50%"></i><i class="sk" style="width:70%;height:16px"></i><i class="sk" style="width:92%;height:12px"></i><i class="sk" style="width:78%;height:12px"></i></span><span class="sk-step"><i class="sk" style="width:42px;height:42px;border-radius:50%"></i><i class="sk" style="width:70%;height:16px"></i><i class="sk" style="width:92%;height:12px"></i><i class="sk" style="width:78%;height:12px"></i></span><span class="sk-step"><i class="sk" style="width:42px;height:42px;border-radius:50%"></i><i class="sk" style="width:70%;height:16px"></i><i class="sk" style="width:92%;height:12px"></i><i class="sk" style="width:78%;height:12px"></i></span></div></div>
+ <div class="sk-sec"><i class="sk" style="width:180px;height:26px"></i><div class="sk-row" style="margin-top:16px"><i class="sk" style="width:150px;height:84px;border-radius:14px"></i><i class="sk" style="width:150px;height:84px;border-radius:14px"></i><i class="sk" style="width:150px;height:84px;border-radius:14px"></i><i class="sk" style="width:150px;height:84px;border-radius:14px"></i></div></div>
+ <div class="sk-sec"><i class="sk" style="width:150px;height:26px"></i><div style="margin-top:14px"><i class="sk" style="width:70%;height:18px"></i></div><div style="margin-top:14px"><i class="sk" style="width:70%;height:18px"></i></div><div style="margin-top:14px"><i class="sk" style="width:70%;height:18px"></i></div><div style="margin-top:14px"><i class="sk" style="width:70%;height:18px"></i></div></div>
+ <div class="sk-sec" style="padding-bottom:40px"><i class="sk" style="width:240px;height:12px"></i></div>
+</div>
+<div class="sk-auth"><div class="sk-acard"><div class="sk-row" style="justify-content:center"><i class="sk" style="width:52px;height:52px;border-radius:14px"></i></div><div style="height:18px"></div><i class="sk" style="width:55%;height:22px;margin:0 auto"></i><div style="height:22px"></div><i class="sk" style="width:30%;height:12px"></i><div style="height:8px"></div><i class="sk" style="width:100%;height:46px;border-radius:12px"></i><div style="height:16px"></div><i class="sk" style="width:30%;height:12px"></i><div style="height:8px"></div><i class="sk" style="width:100%;height:46px;border-radius:12px"></i><div style="height:22px"></div><i class="sk" style="width:100%;height:48px;border-radius:12px"></i><div style="height:18px"></div><i class="sk" style="width:60%;height:12px;margin:0 auto"></i></div></div>
+<div class="sk-app">
+ <div class="sk-side"><div class="sk-row"><i class="sk" style="width:32px;height:32px;border-radius:9px"></i><i class="sk" style="width:90px;height:16px"></i><span class="sk-sp"></span><i class="sk" style="width:28px;height:28px;border-radius:50%"></i></div><i class="sk" style="width:100%;height:38px;border-radius:12px"></i><i class="sk" style="width:100%;height:44px;border-radius:12px"></i><div style="height:6px"></div><i class="sk" style="width:80%;height:16px"></i><i class="sk" style="width:62%;height:16px"></i><i class="sk" style="width:72%;height:16px"></i><i class="sk" style="width:55%;height:16px"></i><i class="sk" style="width:68%;height:16px"></i><i class="sk" style="width:50%;height:16px"></i><i class="sk" style="width:76%;height:16px"></i><span class="sk-sp"></span><div class="sk-row"><i class="sk" style="width:36px;height:36px;border-radius:50%"></i><i class="sk" style="width:110px;height:14px"></i></div></div>
+ <div class="sk-main"><div class="sk-top"><i class="sk" style="width:44px;height:44px;border-radius:50%"></i><span class="sk-sp"></span><i class="sk" style="width:44px;height:44px;border-radius:50%"></i><i class="sk" style="width:44px;height:44px;border-radius:50%"></i></div>
+  <div class="sk-welcome"><i class="sk" style="width:110px;height:110px;border-radius:28px"></i><div style="height:6px"></div><i class="sk" style="width:160px;height:12px"></i><i class="sk" style="width:min(420px,80%);height:30px"></i><i class="sk" style="width:min(340px,70%);height:14px"></i><div class="sk-chipcol"><i class="sk" style="width:100%;height:54px;border-radius:16px"></i><i class="sk" style="width:100%;height:54px;border-radius:16px"></i><i class="sk" style="width:100%;height:54px;border-radius:16px"></i></div></div>
+  <div class="sk-comp"><i class="sk" style="width:100%;height:54px;border-radius:27px"></i><i class="sk" style="width:50%;height:10px;margin:12px auto 0"></i></div></div>
+</div>
+</div>
+<script>(function(){var d=document.documentElement,s=document.getElementById('skel'),t;
+function mode(){var app=false;try{for(var i=0;i<localStorage.length;i++){if(/^sb-.*-auth-token$/.test(localStorage.key(i))){app=true;break}}}catch(e){}
+d.classList.toggle('skel-app',app);d.classList.toggle('skel-auth',!app&&/^#(login|register|forgot|join=)/.test(location.hash))}
+window.skelShow=function(m){if(!s)return;clearTimeout(t);if(m==='app'){d.classList.add('skel-app')}else mode();s.classList.remove('out');t=setTimeout(window.skelDone,12000)};
+window.skelDone=function(){if(s)s.classList.add('out');clearTimeout(t)};
+mode();t=setTimeout(window.skelDone,12000)})();</script>
+
 <noscript><div style="padding:24px;max-width:720px;margin:auto"><h1>GARO AI</h1><p>GARO AI is a free, private AI assistant for chat, research with your own documents, building projects and team group chats. Turn on JavaScript to use it.</p><p><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p></div></noscript>
 <div id="site">
 <div class="glow g1"></div><div class="glow g2"></div>
@@ -819,7 +958,7 @@ html.gs-lock{overflow:hidden}
  <div class="rshead"><h1>Admin portal</h1><button class="rsx" id="adm-close" type="button" aria-label="Close admin portal" title="Close">✕</button></div>
  <div class="rsbody">
   <button class="adm-burger" id="adm-burger" type="button" aria-controls="adm-nav" onclick="document.getElementById('adm-nav').classList.toggle('open')">☰ <span id="adm-cur">Dashboard</span></button>
-  <nav class="adm-nav" id="adm-nav" aria-label="Admin sections"><h4>Main</h4><button id="adm-t8" type="button" aria-selected="true">Dashboard</button><button id="adm-t15" type="button" aria-selected="false">Usage &amp; analytics</button><button id="adm-t14" type="button" aria-selected="false">Storage</button><h4>User management</h4><button id="adm-t5" type="button" aria-selected="false">All users</button><button id="adm-t13" type="button" aria-selected="false">Login activity</button><button id="adm-t4" type="button" aria-selected="false">Help desk inbox</button><button id="adm-t6" type="button" aria-selected="false">Groups</button><h4>Developer & AI</h4><button id="adm-t2" type="button" aria-selected="false">API keys</button><button id="adm-t21" type="button" aria-selected="false">Image AI (Cloudflare)</button><button id="adm-t1" type="button" aria-selected="false">Blocking</button><button id="adm-t9" type="button" aria-selected="false">File management</button><button id="adm-t3" type="button" aria-selected="false">Server activity log</button><h4>System</h4><button id="adm-t19" type="button" aria-selected="false">System health</button><button id="adm-t12" type="button" aria-selected="false">Audit logs</button><button id="adm-t11" type="button" aria-selected="false">Platform settings</button><button id="adm-t20" type="button" aria-selected="false">Administrators</button><h4>Communication</h4><button id="adm-t16" type="button" aria-selected="false">Announcements</button><button id="adm-t10" type="button" aria-selected="false">Birthdays</button><button id="adm-t17" type="button" aria-selected="false">Feedback &amp; reports</button><button id="adm-t18" type="button" aria-selected="false">Knowledge base</button><button id="adm-t7" type="button" aria-selected="false">My profile</button></nav>
+  <nav class="adm-nav" id="adm-nav" aria-label="Admin sections"><h4>Main</h4><button id="adm-t8" type="button" aria-selected="true">Dashboard</button><button id="adm-t15" type="button" aria-selected="false">Usage &amp; analytics</button><button id="adm-t14" type="button" aria-selected="false">Storage</button><h4>User management</h4><button id="adm-t5" type="button" aria-selected="false">All users</button><button id="adm-t13" type="button" aria-selected="false">Login activity</button><button id="adm-t24" type="button" aria-selected="false">AI conversations</button><button id="adm-t4" type="button" aria-selected="false">Help desk inbox</button><button id="adm-t6" type="button" aria-selected="false">Groups</button><h4>Developer & AI</h4><button id="adm-t2" type="button" aria-selected="false">API keys</button><button id="adm-t22" type="button" aria-selected="false">Football models &amp; jobs</button><button id="adm-t23" type="button" aria-selected="false">Football analyses</button><button id="adm-t21" type="button" aria-selected="false">Image AI (Cloudflare)</button><button id="adm-t1" type="button" aria-selected="false">Blocking</button><button id="adm-t9" type="button" aria-selected="false">File management</button><button id="adm-t3" type="button" aria-selected="false">Server activity log</button><h4>System</h4><button id="adm-t19" type="button" aria-selected="false">System health</button><button id="adm-t12" type="button" aria-selected="false">Audit logs</button><button id="adm-t11" type="button" aria-selected="false">Platform settings</button><button id="adm-t20" type="button" aria-selected="false">Administrators</button><h4>Communication</h4><button id="adm-t16" type="button" aria-selected="false">Announcements</button><button id="adm-t10" type="button" aria-selected="false">Birthdays</button><button id="adm-t17" type="button" aria-selected="false">Feedback &amp; reports</button><button id="adm-t18" type="button" aria-selected="false">Knowledge base</button><button id="adm-t7" type="button" aria-selected="false">My profile</button></nav>
   <div id="adm-dash"></div><div id="adm-act" hidden></div><div id="adm-stor" hidden></div><div id="adm-usage" hidden></div><div id="adm-ann" hidden></div><div id="adm-fb" hidden></div><div id="adm-kb" hidden></div><div id="adm-health" hidden></div><div id="adm-admins" hidden></div><div id="adm-files" hidden></div><div id="adm-bday" hidden></div><div id="adm-set" hidden></div><div id="adm-audit" hidden></div><div id="adm-inbox" hidden></div><div id="adm-dir" hidden></div><div id="adm-groups" hidden></div><div id="adm-me" hidden></div>
   <div id="adm-users" hidden>
    <p class="hint" style="margin:0 0 6px">Every account is listed here. Block people for a number of days, give or limit usage for a set time, or delete accounts that break the Terms of Use. Every action is logged.</p>
@@ -833,7 +972,7 @@ html.gs-lock{overflow:hidden}
    <div id="adm-klist"></div>
    <details class="bfile" style="margin-top:12px"><summary style="padding:8px 12px">How to use a key</summary><div style="padding:0 12px 12px"><p class="hint">Base address: <code id="k-base"></code>. Models: garo-chat, garo-think, garo-code. Add "web": true to a chat request to ground the answer in web search. GET /search?q=your+words returns search results only.</p><pre id="k-curl"></pre><pre id="k-py"></pre><pre id="k-js"></pre></div></details>
   </div>
-  <div id="adm-log" hidden></div><div id="adm-cf" hidden></div><p id="adm-msg" class="hint" role="alert" style="color:var(--bad)"></p>
+  <div id="adm-log" hidden></div><div id="adm-cf" hidden></div><div id="adm-fbm" hidden></div><div id="adm-fba" hidden></div><div id="adm-chats" hidden></div><p id="adm-msg" class="hint" role="alert" style="color:var(--bad)"></p>
  </div>
 </div></section>
 <section id="sheet" class="auth" hidden><div class="card wide"><button class="close" id="sheet-close" type="button" aria-label="Close">✕</button><h1 id="sheet-title" style="font-size:1.4rem;margin:0 0 10px"></h1><div id="sheet-body"></div></div></section>
@@ -935,6 +1074,7 @@ html.gs-lock{overflow:hidden}
   <div class="newrow" id="newrow"><button class="new" id="new" type="button">+ New Chat</button></div>
   <button class="new" id="gnew" type="button" hidden>+ New group or project</button>
   <button class="new adm-entry" id="adm-entry" type="button" hidden>🛡 Administrator<i class="bdg" id="adm-n" hidden></i></button>
+  <button class="new bet-entry" id="bet-entry" type="button" hidden>⚽ Betalytica · match analysis</button>
   <nav class="list" id="list" aria-label="Chats"></nav>
   <nav class="list" id="glist" aria-label="Groups" hidden></nav>
   <nav class="list" id="dmlist" aria-label="Private messages" hidden></nav>
@@ -992,6 +1132,10 @@ html.gs-lock{overflow:hidden}
    <div class="glock" id="dm-lock" hidden>You blocked this person. Open the menu (⋯) to unblock.</div>
    <div class="gbox" id="dm-box"><button class="tb" id="dm-att" type="button" aria-label="Send a picture" title="Send a picture">📷</button><textarea id="dm-in" rows="1" placeholder="Private message" aria-label="Private message"></textarea><button class="send" id="dm-send" type="button" aria-label="Send">↑</button></div>
   </div>
+ </main>
+<main class="main" id="betmain" hidden>
+  <div class="gtop"><button class="tb gback" id="bet-back" type="button" aria-label="Back to chats">←</button><div class="gt"><b>⚽ Betalytica</b><small>Real-match analysis with statistical models and an AI review</small></div></div>
+  <div class="bet-scroll" id="bet-scroll"><div class="bet-col" id="bet-col"></div></div>
  </main>
  <main class="main" id="gmain" hidden>
   <div class="gtop" id="g-head"><button class="tb gback" id="g-back" type="button" aria-label="Back to groups">←</button><span class="gav big" id="g-av"></span><div class="gt"><b id="g-name"></b><small id="g-sub"></small></div><button class="tb" id="g-files" type="button" title="Project files" aria-label="Project files" hidden>📁</button><button class="tb bellbtn" id="g-bell" type="button" aria-label="Notifications" title="Notifications" hidden>🔔<i class="bdg" id="g-bell-n" hidden></i></button><button class="tb" id="g-info" type="button" title="Group info" aria-label="Group info">ⓘ</button></div>
@@ -1172,7 +1316,7 @@ sb.auth.onAuthStateChange((ev, session) => {
   setTimeout(() => {
     if (ev==='PASSWORD_RECOVERY') recovering=true;
     if (recovering) { route(); return; }
-    if (session) enterApp(session); else leaveApp();
+    if (session) { const fresh=!user; if(fresh&&window.skelShow) skelShow('app'); Promise.race([enterApp(session),new Promise(r=>setTimeout(r,2500))]).finally(()=>{ if(fresh&&window.skelDone) skelDone(); }); } else leaveApp();
   }, 0);
 });
 
@@ -2596,6 +2740,95 @@ async function loadCf(){
   if((d.events||[]).length) body.append(pane('Recent events',...d.events.map(e=>el('div',{className:'hint',textContent:dtm(e.created_at)+' · '+e.kind.replace('_',' ')+(e.detail?' · '+e.detail:'')}))));
   body.append(abtn('Refresh',loadCf,{main:true}));
 }
+
+/* ---------- Football: models, data, jobs ---------- */
+Object.assign(PANES,{22:'adm-fbm',23:'adm-fba',24:'adm-chats'});
+const kv=o=>Object.entries(o||{}).map(([k,v])=>k.replace(/_/g,' ')+': '+(v&&typeof v==='object'?JSON.stringify(v):String(v))).join(' · ');
+const FBOLD=window.admTab;
+window.admTab=function(n){ FBOLD(n); if(n===22) loadFbm(); if(n===23) loadFba(0); if(n===24) loadCv(); };
+for(const k of [22,23,24]){ const t=$('adm-t'+k); if(t) t.onclick=()=>admTab(k); }
+async function loadFbm(){
+  const b=mkBox('adm-fbm'); amsg(''); const l=loading(b);
+  try{
+    const [ov,ms,ev,st,jb]=await Promise.all([rpc('fb_admin_overview'),sb.from('fb_models').select('*').order('key'),sb.from('fb_model_evals').select('*').order('model'),sb.from('fb_status').select('value,updated_at').eq('key','engine').maybeSingle(),sb.from('fb_jobs').select('*').order('started_at',{ascending:false}).limit(10)]);
+    l.remove(); const o=ov||{}, S=(st.data&&st.data.value)||null;
+    b.append(ahead('Football models and jobs','Betalytica runs on your Oracle server. Everything here is measured by the engine, never estimated by this page.'),
+      el('div',{className:'dgrid'},card('Analyses',o.analyses_total??0,(o.analyses_today??0)+' today'),card('People',o.analysts??0,'have run one'),card('Insufficient',o.insufficient??0,'honest "not enough data"'),card('Failed',o.failed??0,''),card('Models on',o.models_enabled??0,(o.models_ready??0)+' trained'),card('Accepted notice',o.accepted_notice??0,'18+ confirmations')));
+    const mp=pane('Models'); mp.append(el('p',{className:'hint',textContent:'Switching a model off removes it from new analyses straight away. Past results are not changed.'}));
+    for(const m of ms.data||[]){ const row=el('div',{className:'bhist'},el('span',{},el('b',{textContent:m.name}),el('div',{className:'bnote',textContent:m.kind+' · '+m.status+(m.trained_at?' · trained '+dtm(m.trained_at):'')+(m.notes?' · '+m.notes:'')})),
+        abtn(m.enabled?'Switch off':'Switch on',async()=>{ try{ await rpc('fb_set_model',{p_key:m.key,p_enabled:!m.enabled}); loadFbm(); }catch(e){ amsg(need9(e)); } })); mp.append(row); }
+    b.append(mp);
+    const ep=pane('Past performance on unseen matches'); const evs=ev.data||[];
+    if(!evs.length) ep.append(el('p',{className:'hint',textContent:'No evaluation yet. Run import, then training, then backtest below. Until then no model has a measured accuracy and none is shown to users.'}));
+    else{ const t=el('table',{className:'btbl'},el('tr',{},...['Model','Market','Matches','Accuracy','Log loss','Calib. error','Period'].map(h=>el('th',{textContent:h})))); for(const e of evs) t.append(el('tr',{},el('td',{textContent:e.model}),el('td',{textContent:e.market}),el('td',{textContent:e.n}),el('td',{textContent:bpct(e.accuracy)}),el('td',{textContent:e.log_loss!=null?e.log_loss.toFixed(3):'–'}),el('td',{textContent:bpct(e.ece)}),el('td',{className:'bnote',textContent:(e.period_from||'')+' to '+(e.period_to||'')}))); ep.append(el('div',{style:'overflow-x:auto;max-height:340px;overflow-y:auto'},t)); }
+    b.append(ep);
+    const jp=pane('Jobs'); jp.append(el('p',{className:'hint',textContent:'These run on the Oracle server and can take a long time. Training and backtesting are the slow ones.'}));
+    for(const [k,lab] of [['ingest','Import match data'],['fixtures','Refresh fixtures'],['train','Train models'],['backtest','Run backtest'],['all','Do all of it']]) jp.append(abtn(lab,async()=>{ if(!confirm(lab+' now?')) return; try{ await callApi('/v1/football/admin/jobs',{method:'POST',body:{kind:k}}); toast('Started: '+lab); setTimeout(loadFbm,1500); }catch(e){ amsg((e&&e.message)||'Could not start the job. Is the engine running?'); } },{main:k==='all'}));
+    for(const j of jb.data||[]) jp.append(el('div',{className:'hint',textContent:dtm(j.started_at)+' · '+j.kind+' · '+j.status+(j.detail?' · '+j.detail:'')}));
+    b.append(jp);
+    const sp=pane('Engine status'); if(!S) sp.append(el('p',{className:'hint',textContent:'The engine has not reported yet. Start it, or run the "status" command on the server.'}));
+    else{ const s=S.system||{}; sp.append(el('div',{className:'hint',textContent:'Reported '+dtm(st.data.updated_at)}),
+        el('div',{className:'hint',textContent:'Data: '+kv(S.counts)}),el('div',{className:'hint',textContent:'Last import: '+(S.last_ingest?kv(typeof S.last_ingest==='object'?S.last_ingest:{at:S.last_ingest}):'never')}),
+        el('div',{className:'hint',textContent:'Providers: '+(kv(S.providers)||'none checked yet')}),el('div',{className:'hint',textContent:'Libraries installed: '+kv(S.libraries)}),
+        el('div',{className:'hint',textContent:'SearXNG: '+(S.searxng?'set':'not set')+' · YaCy: '+(S.yacy?'set':'not set')+' · Review model: '+(S.qwen_model||'?')}),
+        el('div',{className:'hint',textContent:'Server: load '+(s.load_1m??'?')+' on '+(s.cpus??'?')+' CPUs · RAM '+(s.ram_used_mb??'?')+'/'+(s.ram_total_mb??'?')+' MB · disk '+(s.disk_used_gb??'?')+'/'+(s.disk_total_gb??'?')+' GB'})); }
+    b.append(sp,abtn('Refresh',loadFbm,{main:true}));
+  }catch(e){ l.remove(); amsg(need9(e)); }
+}
+/* ---------- Football: every analysis, with its trace ---------- */
+const FBA={q:''};
+async function loadFba(off){
+  const b=mkBox('adm-fba'); amsg(''); const l=loading(b);
+  try{
+    const rows=await rpc('fb_admin_analyses',{p_q:FBA.q||null,p_limit:30,p_offset:off}); l.remove();
+    const q=el('input',{type:'search',placeholder:'Search team or user',value:FBA.q,maxLength:80,style:'max-width:320px'}); q.onkeydown=e=>{ if(e.key==='Enter'){ FBA.q=q.value.trim(); loadFba(0); } };
+    b.append(ahead('Football analyses','Every analysis users ran. Opening one is recorded in the audit log.'),q);
+    if(!(rows||[]).length) b.append(el('p',{className:'hint',textContent:'Nothing found.'}));
+    for(const a of rows||[]) b.append(el('button',{type:'button',className:'bhrow',style:'margin:6px 0',onclick:()=>fbaOpen(a.id)},el('span',{},el('b',{textContent:a.home+' vs '+a.away}),el('div',{className:'bnote',textContent:(a.user_name||'User')+' · '+(a.user_email||'')+' · '+dtm(a.created_at)+(a.fixture_status?' · '+a.fixture_status:'')})),el('span',{className:'bbadge '+(a.status==='done'?'ok':a.status==='failed'?'bad':'warn'),textContent:a.status+(a.verdict?' · '+a.verdict:'')})));
+    const tot=rows&&rows[0]?+rows[0].total:0; if(off>0) b.append(abtn('Newer',()=>loadFba(Math.max(0,off-30))));
+    if(off+30<tot) b.append(abtn('Older',()=>loadFba(off+30)));
+  }catch(e){ l.remove(); amsg(need9(e)); }
+}
+async function fbaOpen(id){
+  try{ const d=await rpc('fb_admin_analysis',{p_id:id}); const a=d.analysis||{}, r=a.result||{};
+    openSheet(a.home+' vs '+a.away,body=>{
+      body.append(el('p',{className:'hint',textContent:'Status: '+a.status+' · '+dtm(a.created_at)+(a.error?' · '+a.error:'')}));
+      if(r.verdict_text) body.append(el('p',{textContent:r.verdict_text}));
+      for(const o of (r.ranking||[]).slice(0,6)) body.append(el('div',{className:'bhist'},el('span',{textContent:o.label}),el('span',{className:'bnote',textContent:bpct(o.probability)+' · '+o.reliability.label})));
+      body.append(el('b',{textContent:'Trace (steps, timings, sources)'}),el('pre',{className:'bpre',textContent:JSON.stringify(d.trace||{},null,1)}));
+      body.append(el('b',{textContent:'What was sent to the AI reviewer'}),el('pre',{className:'bpre',textContent:JSON.stringify(d.ai_payload||{},null,1)}));
+    });
+  }catch(e){ toast(need9(e)); }
+}
+/* ---------- Users' AI conversations (audited) ---------- */
+const CV={u:null,q:''};
+function cvNotice(){ return el('div',{className:'bverdict warn'},el('b',{textContent:'Private conversations'}),el('p',{style:'margin:4px 0 0',textContent:'Users are told in the Privacy Policy that the Administrator can read AI conversations for safety, abuse prevention and support. Every conversation you open and every search you run is recorded in the audit log with your name and the time. Open only what you need. Sneak Peek chats are not stored, so they do not appear here.'})); }
+async function loadCv(){
+  const b=mkBox('adm-chats'); amsg(''); b.append(ahead('AI conversations','All saved chats people have had with the AI.'),cvNotice());
+  const q=el('input',{type:'search',placeholder:'Search what users said (3+ letters)',maxLength:80,style:'max-width:360px'}); const out=el('div'); b.append(q,out);
+  const users=async(off)=>{ out.innerHTML=''; const l=loading(out); try{ const rows=await rpc('site_admin_chat_users',{p_q:null,p_limit:30,p_offset:off}); l.remove(); if(!(rows||[]).length) out.append(el('p',{className:'hint',textContent:'No saved conversations yet.'}));
+      for(const u of rows||[]) out.append(el('button',{type:'button',className:'bhrow',style:'margin:6px 0',onclick:()=>cvChats(u,out,users)},el('span',{},el('b',{textContent:u.name}),el('div',{className:'bnote',textContent:(u.email||'')+' · last active '+dtm(u.last_active)})),el('span',{className:'bnote',textContent:u.chats+' chats · '+u.messages+' messages'})));
+      const tot=rows&&rows[0]?+rows[0].total:0; if(off>0) out.append(abtn('Newer',()=>users(Math.max(0,off-30)))); if(off+30<tot) out.append(abtn('Older',()=>users(off+30)));
+    }catch(e){ l.remove(); amsg(need9(e)); } };
+  q.onkeydown=async e=>{ if(e.key!=='Enter') return; const v=q.value.trim(); if(!v) return users(0); if(v.length<3){ amsg('Type at least 3 letters.'); return; } out.innerHTML=''; const l=loading(out);
+    try{ const rows=await rpc('site_admin_chat_search',{p_q:v,p_limit:30}); l.remove(); if(!(rows||[]).length) out.append(el('p',{className:'hint',textContent:'No matches.'}));
+      for(const r of rows||[]) out.append(el('button',{type:'button',className:'bhrow',style:'margin:6px 0',onclick:()=>cvRead(r.id)},el('span',{},el('b',{textContent:(r.user_name||'User')+' · '+(r.title||'Chat')}),el('div',{className:'bnote',textContent:r.snippet||''})),el('span',{className:'bnote',textContent:dtm(r.updated_at)})));
+    }catch(er){ l.remove(); amsg(need9(er)); } };
+  users(0);
+}
+async function cvChats(u,out,back){
+  out.innerHTML=''; const l=loading(out);
+  try{ const rows=await rpc('site_admin_chats',{p_user:u.user_id,p_limit:60,p_offset:0}); l.remove(); out.append(abtn('← All users',()=>back(0)),el('h3',{textContent:u.name+' · '+(u.email||'')}));
+    if(!(rows||[]).length) out.append(el('p',{className:'hint',textContent:'No chats.'}));
+    for(const c of rows||[]) out.append(el('button',{type:'button',className:'bhrow',style:'margin:6px 0',onclick:()=>cvRead(c.id)},el('span',{},el('b',{textContent:c.title||'Untitled chat'}),el('div',{className:'bnote',textContent:c.preview||''})),el('span',{className:'bnote',textContent:c.message_count+' msgs · '+dtm(c.updated_at)})));
+  }catch(e){ l.remove(); amsg(need9(e)); }
+}
+async function cvRead(id){
+  try{ const c=await rpc('site_admin_chat_read',{p_chat:id});
+    openSheet((c.title||'Conversation'),body=>{ body.append(el('p',{className:'hint',textContent:(c.user_name||'User')+' · '+(c.user_email||'')+' · updated '+dtm(c.updated_at)+' · this view was logged'}));
+      for(const m of c.messages||[]){ const t=typeof m.content==='string'?m.content:JSON.stringify(m.content); body.append(el('div',{className:'cvmsg '+(m.role==='user'?'u':'a')},el('small',{textContent:m.role==='user'?'User':'AI'}),el('div',{textContent:t,style:'white-space:pre-wrap;overflow-wrap:anywhere'}))); } });
+  }catch(e){ toast(need9(e)); }
+}
 })();
 
 /* ---------- sending ---------- */
@@ -2866,7 +3099,7 @@ function avatar(uid,cls){ const p=G.profiles[uid]||{}, n=p.display_name||p.usern
 function gAvatar(g,cls){ const a=el('span',{className:'gav '+(cls||'')}); paintGroupAv(a,g); return a; }
 
 /* views and tabs */
-function showView(v){ $('garomain').hidden=v!=='garo'; $('gmain').hidden=v!=='group'; $('amain').hidden=v!=='admin'; $('dmmain').hidden=v!=='dm'; if(v!=='group') stopGroup(); if(v!=='admin') stopAdminThread(); if(v!=='dm'&&window.stopDm) stopDm(); }
+function showView(v){ $('betmain').hidden=v!=='bet'; try{ const be=$('bet-entry'); if(be) be.hidden=!(user&&betAdult()); }catch{} if(v!=='bet'&&window.betStop) betStop(); $('garomain').hidden=v!=='garo'; $('gmain').hidden=v!=='group'; $('amain').hidden=v!=='admin'; $('dmmain').hidden=v!=='dm'; if(v!=='group') stopGroup(); if(v!=='admin') stopAdminThread(); if(v!=='dm'&&window.stopDm) stopDm(); }
 function setTab(t){ const g=t==='groups', d=t==='dms';
   $('tab-chats').setAttribute('aria-selected',t==='chats'); $('tab-groups').setAttribute('aria-selected',g); $('tab-dms').setAttribute('aria-selected',d);
   $('list').hidden=g||d; $('newrow').hidden=g||d; $('glist').hidden=!g; $('gnew').hidden=!g; $('dmlist').hidden=!d;
@@ -3968,14 +4201,14 @@ $('p-support').onclick=()=>{ $('profile').hidden=true; openSupport('kb'); };
 $('p-notifs').onclick=()=>{ $('profile').hidden=true; openNotifPanel('bell'); };
 
 /* ---------- lifecycle ---------- */
-async function v4Start(){
+async function v4Start(){ try{ betGate(); }catch{}
   startPresence(); startNotifs(); loadSettings();
-  syncPrivate(); loadNotifs(); try{ v10Start(); }catch{} loadAdminProfile().then(()=>quiet('is_site_admin')).then(v=>{ window.SITE_ADMIN=!!v; try{ setWho(); }catch{} return loadAdminThreads(); }); quiet('garo_schema_version').then(v=>{ if(isAdmin()&&!(Number(v)>=13)) toast('Database update needed: run GARO-SETUP-ALL.sql in Supabase.'); });
+  syncPrivate(); loadNotifs(); try{ v10Start(); }catch{} loadAdminProfile().then(()=>quiet('is_site_admin')).then(v=>{ window.SITE_ADMIN=!!v; try{ setWho(); }catch{} return loadAdminThreads(); }); quiet('garo_schema_version').then(v=>{ if(isAdmin()&&!(Number(v)>=14)) toast('Database update needed: run GARO-SETUP-ALL.sql in Supabase.'); });
   if(!ADMROLE_LOADED){ ADMROLE_LOADED=true; quiet('my_admin_role').then(r=>{ if(r) ADMROLE=r; }); }
 }
 function v4Reset(){
   stopPresence(); stopNotifs(); stopAdminThread(); closeNotif(); N.list=[]; N.ann=[]; N.seen.clear(); AT.threads=[]; AT.inbox=[]; AT.info={}; window.SITE_ADMIN=false; PRIV={}; ADMROLE=null; ADMROLE_LOADED=false;
-  for(const id of ['bell','g-bell','a-bell']) if($(id)) $(id).hidden=true; if($('adm-entry')) $('adm-entry').hidden=true; paintBadge();
+  for(const id of ['bell','g-bell','a-bell']) if($(id)) $(id).hidden=true; if($('adm-entry')) $('adm-entry').hidden=true; if($('bet-entry')) $('bet-entry').hidden=true; try{ betStop(); BET.row=null; BET.ack=null; }catch{} paintBadge();
   if(INV.open){ closeInvite(); }
 }
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&user){ loadNotifs(); } });
@@ -3984,7 +4217,7 @@ document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==
 if(!ccRead()) showCc();
 landingStatus(); loadSettings();
 (async()=>{ const jm=/^#join=([A-Za-z0-9]{20,})/.exec(location.hash); if(jm) setPendingInvite(jm[1]);
-  const {data:{session}}=await sb.auth.getSession(); if(!recovering&&session) enterApp(session); else route(); })();
+  try{ const {data:{session}}=await sb.auth.getSession(); if(!recovering&&session) await Promise.race([enterApp(session),new Promise(r=>setTimeout(r,2500))]); else route(); }catch(e){ try{ route(); }catch{} } finally{ if(window.skelDone) skelDone(); } })();
 
 
 /* ---------- Universal search (Ctrl/Cmd + K, or the magnifier in the sidebar) ----------
@@ -4126,6 +4359,246 @@ landingStatus(); loadSettings();
   if(!window.SITE_ADMIN) return _os.apply(this,arguments);
   openSheet('Support',b=>{ b.append(el('p',{textContent:'You are the Administrator, so you cannot send a support message to yourself. People who need help write to you, and their messages arrive in your Messages inbox and in Admin portal > Inbox.'}));
     const go=el('button',{type:'button',className:'btn',textContent:'Open my inbox'}); go.onclick=()=>{ closeSheet(); if(window.setTab) setTab('dms'); }; b.append(go); }); }; }
+
+/* =====================================================================
+   Betalytica: analyse a real football matchup. The page never computes a prediction itself: it asks your Oracle engine, then shows
+   exactly what came back (statistics, model outputs, consensus, AI review). Nothing here is made up.
+   ===================================================================== */
+const BET={ack:null,tab:'analyse',row:null,ch:null,poll:null,fav:new Map(),sel:{home:null,away:null},busy:false};
+const BET_COMPS=[['','Any competition'],['E0','Premier League (England)'],['E1','Championship (England)'],['E2','League One (England)'],['E3','League Two (England)'],['SC0','Premiership (Scotland)'],['D1','Bundesliga (Germany)'],['D2','2. Bundesliga (Germany)'],['I1','Serie A (Italy)'],['I2','Serie B (Italy)'],['SP1','La Liga (Spain)'],['SP2','La Liga 2 (Spain)'],['F1','Ligue 1 (France)'],['F2','Ligue 2 (France)'],['N1','Eredivisie (Netherlands)'],['B1','Pro League (Belgium)'],['P1','Primeira Liga (Portugal)'],['T1','Super Lig (Turkey)'],['G1','Super League (Greece)']];
+const bpct=p=>p==null?'n/a':(p*100).toFixed(p>=0.995||p<=0.005?1:0)+'%';
+const bday=d=>d?new Date(d+(String(d).length===10?'T12:00:00':'')).toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'}):'';
+function betAdult(){ try{ const d=meta().dob; return !!(d&&ageOf(d)>=18); }catch{ return false; } }
+function betGate(){ const b=$('bet-entry'); if(b) b.hidden=!(user&&betAdult()); if(!betAdult()&&!$('betmain').hidden){ betStop(); setTab('chats'); } }
+function betStop(){ clearInterval(BET.poll); BET.poll=null; if(BET.ch){ try{ sb.removeChannel(BET.ch); }catch{} BET.ch=null; } }
+async function betApi(path,body){
+  const tok=await token(); let r; try{ r=await fetch(CFG.API_URL+path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+tok,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined}); }catch{ throw Object.assign(new Error('The analysis server could not be reached. Try again in a moment.'),{code:0}); }
+  let j={}; try{ j=await r.json(); }catch{} if(!r.ok) throw Object.assign(new Error(j.error||('Request failed ('+r.status+')')),{code:r.status,data:j}); return j;
+}
+const crest=(url,name)=>{ const c=el('span',{className:'bcrest',textContent:(name||'?').trim().charAt(0).toUpperCase()}); if(url&&/^https:\/\//.test(url)){ const i=new Image(); i.alt=''; i.className='bcrest'; i.referrerPolicy='no-referrer'; i.onload=()=>c.replaceWith(i); i.src=url; } return c; };
+
+async function betOpen(){
+  if(!user) return needAccount('Betalytica'); if(!betAdult()){ betGate(); return; } showView('bet'); $('side').classList.remove('open');
+  try{ const {data}=await sb.from('fb_acks').select('user_id').maybeSingle(); BET.ack=!!data; }catch{ BET.ack=null; }
+  try{ const {data}=await sb.from('fb_favourites').select('team,competition').order('created_at'); BET.fav=new Map((data||[]).map(f=>[f.team,f.competition])); }catch{}
+  betRender();
+}
+function betTab(t){ BET.tab=t; betRender(); }
+function betRender(){
+  const col=$('bet-col'); col.innerHTML=''; betStop();
+  if(BET.ack===null){ col.append(el('div',{className:'bcard'},el('h2',{textContent:'Betalytica is not ready yet'}),el('p',{className:'hint',textContent:'The database is not up to date. Ask the Administrator to run GARO-SETUP-ALL.sql in Supabase (part 14), then reload this page.'}))); return; }
+  if(!BET.ack) return betNotice(col);
+  const tabs=el('div',{className:'btabs',role:'tablist'}); for(const [k,l] of [['analyse','Analyse a match'],['history','My analyses'],['fav','Favourite teams']]){ const b=el('button',{type:'button',textContent:l}); b.setAttribute('role','tab'); b.setAttribute('aria-selected',String(BET.tab===k)); b.onclick=()=>betTab(k); tabs.append(b); }
+  col.append(tabs);
+  if(BET.tab==='history') return betHistory(col); if(BET.tab==='fav') return betFav(col);
+  betForm(col); if(BET.row) { const box=el('div',{id:'bet-out'}); col.append(box); betShow(BET.row,box); }
+}
+function betNotice(col){
+  const cb=el('input',{type:'checkbox',id:'bn-ok'}), go=el('button',{type:'button',className:'btn',textContent:'Continue',disabled:true,style:'width:auto'}); cb.onchange=()=>{ go.disabled=!cb.checked; };
+  go.onclick=async()=>{ go.disabled=true; try{ await rpc('fb_accept_notice'); BET.ack=true; betRender(); }catch(e){ go.disabled=false; toast(e.message); } };
+  col.append(el('div',{className:'bcard bnotice'},el('h2',{textContent:'Before you start: please read this'}),
+    el('p',{textContent:'Betalytica compares two real football teams and shows which outcomes are statistically most likely, using models trained on real past results and an AI review of the evidence.'}),
+    el('ul',{},el('li',{textContent:'It is for people aged 18 and over.'}),el('li',{textContent:'Predictions are probabilities, not promises. Nothing here is guaranteed, and the favourite does not always win.'}),
+      el('li',{textContent:'Betting can lose you money and can become a problem. Never bet more than you can afford to lose. If gambling is causing you harm, contact a local support service.'}),
+      el('li',{textContent:'If the evidence is weak, Betalytica says so instead of inventing a confident answer.'}),el('li',{textContent:'Garo does not take bets and is not connected to any betting company.'})),
+    el('label',{style:'display:flex;gap:10px;align-items:flex-start;margin:10px 0'},cb,el('span',{textContent:'I am 18 or older, and I understand that these are estimates and not guaranteed results.'})),go));
+}
+function teamInput(role,label){
+  const inp=el('input',{type:'text',placeholder:role==='home'?'e.g. Man City':'e.g. Arsenal',autocomplete:'off',maxLength:80}); inp.setAttribute('aria-label',label); inp.setAttribute('role','combobox'); inp.setAttribute('aria-expanded','false');
+  const box=el('div',{className:'bsug',hidden:true,role:'listbox'}), wrap=el('label',{className:'blab'},label,inp,box); let tm=null,items=[],idx=-1;
+  const close=()=>{ box.hidden=true; inp.setAttribute('aria-expanded','false'); idx=-1; };
+  const pick=t=>{ inp.value=t.name; BET.sel[role]=t; close(); };
+  const paint=()=>{ box.innerHTML=''; items.forEach((t,i)=>{ const b=el('button',{type:'button'},crest(t.crest,t.name),el('span',{},el('b',{textContent:t.name,style:'display:block'}),el('small',{textContent:t.competition||''}))); b.setAttribute('role','option'); b.setAttribute('aria-selected',String(i===idx)); b.onmousedown=e=>{ e.preventDefault(); pick(t); }; box.append(b); });
+    box.hidden=!items.length; inp.setAttribute('aria-expanded',String(!!items.length)); };
+  inp.oninput=()=>{ BET.sel[role]=null; clearTimeout(tm); const q=inp.value.trim(); if(q.length<2){ items=[]; paint(); return; }
+    tm=setTimeout(async()=>{ try{ const j=await betApi('/v1/football/teams?q='+encodeURIComponent(q)); if(inp.value.trim()!==q) return; items=j.teams||[]; idx=-1; paint(); }catch{ items=[]; paint(); } },220); };
+  inp.onkeydown=e=>{ if(box.hidden) return; if(e.key==='ArrowDown'){ e.preventDefault(); idx=Math.min(idx+1,items.length-1); paint(); } else if(e.key==='ArrowUp'){ e.preventDefault(); idx=Math.max(idx-1,0); paint(); } else if(e.key==='Enter'&&idx>=0){ e.preventDefault(); pick(items[idx]); } else if(e.key==='Escape') close(); };
+  inp.onblur=()=>setTimeout(close,120);
+  return {wrap,inp,set:t=>{ inp.value=t.name; BET.sel[role]=t; }};
+}
+function betForm(col){
+  const H=teamInput('home','Home team'), A=teamInput('away','Away team'), swap=el('button',{type:'button',className:'swap',textContent:'⇄',title:'Swap home and away'}); swap.setAttribute('aria-label','Swap home and away');
+  const date=el('input',{type:'date'}), comp=el('select'); for(const [v,l] of BET_COMPS) comp.add(new Option(l,v));
+  const go=el('button',{type:'button',className:'bgo',textContent:'ANALYSE MATCH'}), msg=el('div',{id:'bet-msg',role:'alert'});
+  swap.onclick=()=>{ const a=H.inp.value,b=A.inp.value,sa=BET.sel.home,sb_=BET.sel.away; H.inp.value=b; A.inp.value=a; BET.sel.home=sb_; BET.sel.away=sa; };
+  const f=el('div',{className:'bform'},H.wrap,swap,A.wrap,el('div',{className:'opt'},el('label',{className:'blab'},'Match date (optional)',date),el('label',{className:'blab'},'Competition (optional)',comp)));
+  col.append(el('div',{className:'bcard'},el('h2',{textContent:'Analyse a real match'}),el('p',{className:'hint',textContent:'Pick the home team and the away team from the suggestions. Betalytica checks that both are real teams in its football data.'}),f,go,msg));
+  if(BET.fav.size){ const ch=el('div',{className:'bchips',style:'margin-top:10px'},el('span',{textContent:'Favourites:',style:'border:0;background:none;color:var(--muted)'})); for(const [t,c] of BET.fav){ const b=el('button',{type:'button',textContent:'★ '+t}); b.onclick=()=>{ const tgt=!H.inp.value?H:A; tgt.set({name:t}); }; ch.append(b); } col.lastChild.append(ch); }
+  go.onclick=async()=>{ msg.innerHTML=''; const hn=H.inp.value.trim(), an=A.inp.value.trim(); if(!hn||!an){ msg.append(el('p',{className:'hint',style:'color:var(--bad)',textContent:'Enter both teams.'})); return; }
+    go.disabled=true; go.textContent='STARTING…';
+    try{ const j=await betApi('/v1/football/analyse',{home:(BET.sel.home&&BET.sel.home.name)||hn,away:(BET.sel.away&&BET.sel.away.name)||an,date:date.value||null,comp:comp.value||null}); betWatch(j.id); }
+    catch(e){ go.disabled=false; go.textContent='ANALYSE MATCH';
+      if(e.code===409&&e.data&&e.data.candidates){ msg.append(el('p',{className:'hint',textContent:'That name matches more than one team. Please choose the '+e.data.role+' team:'})); const ch=el('div',{className:'bchips'}); for(const t of e.data.candidates){ const b=el('button',{type:'button',textContent:t.name+' · '+t.competition}); b.onclick=()=>{ (e.data.role==='home'?H:A).set(t); msg.innerHTML=''; }; ch.append(b); } msg.append(ch); }
+      else { msg.append(el('p',{className:'hint',style:'color:var(--bad)',textContent:e.message})); if(e.code===403&&/notice/i.test(e.message)){ BET.ack=false; } } } };
+}
+/* ---------- watching a running analysis: live updates, with polling as a safety net ---------- */
+function betWatch(id){
+  betStop(); BET.row={id,status:'queued',progress:[],home:'',away:''}; betRender();
+  const upd=r=>{ if(!r||r.id!==id) return; BET.row=Object.assign(BET.row,r); const box=$('bet-out'); if(box) betShow(BET.row,box); if(['done','insufficient','failed'].includes(r.status)){ betStop(); } };
+  try{ BET.ch=sb.channel('fb-'+id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'fb_analyses',filter:'id=eq.'+id},p=>upd(p.new)).subscribe(); }catch{}
+  const tick=async()=>{ const {data}=await sb.from('fb_analyses').select('*').eq('id',id).maybeSingle(); if(data) upd(data); };
+  BET.poll=setInterval(tick,2000); tick();
+}
+function betSteps(row){
+  const st=row.progress||[], done=st.filter(s=>['done','skipped'].includes(s.status)).length, pct=st.length?Math.round(100*done/st.length):0, ic={pending:'○',running:'◐',done:'✓',skipped:'–',failed:'✕'};
+  return el('div',{className:'bcard'},el('h2',{textContent:'Analysing '+(row.home||'')+' vs '+(row.away||'')}),el('div',{className:'bbar'},el('i',{style:'width:'+pct+'%'})),
+    el('ul',{className:'bsteps',role:'list'},...st.map(s=>el('li',{},el('span',{className:'ic',textContent:ic[s.status]||'○'}),el('span',{},el('span',{textContent:s.label,style:s.status==='pending'?'color:var(--muted)':''}),s.detail?el('div',{className:'d',textContent:s.detail}):el('span'))))),
+    el('p',{className:'hint',textContent:'This usually takes under a minute. You can leave this page open; the result will appear here.'}));
+}
+function betShow(row,box){
+  box.innerHTML='';
+  if(row.status==='queued'||row.status==='running') return box.append(betSteps(row));
+  if(row.status==='failed') return box.append(el('div',{className:'bcard'},el('h2',{textContent:'The analysis could not be completed'}),el('p',{textContent:row.error||'Something went wrong.'}),el('div',{className:'bfoot'},(()=>{ const b=el('button',{type:'button',className:'btn',textContent:'Try again',style:'width:auto'}); b.onclick=()=>{ BET.row=null; betRender(); }; return b; })())));
+  betResult(row,box);
+}
+const relPill=r=>el('span',{className:'bbadge '+(r.label==='High'?'ok':r.label==='Medium'?'warn':'bad'),textContent:r.label+' reliability'});
+function betResult(row,box){
+  const r=row.result||{}, m=r.match||{home:row.home,away:row.away};
+  const head=el('div',{className:'bcard'},el('div',{className:'bhead'},el('div',{className:'tm'},crest(m.home_crest,m.home),el('span',{textContent:m.home}),el('small',{className:'bnote',textContent:'Home'})),el('div',{className:'vs',textContent:'vs'}),el('div',{className:'tm'},crest(m.away_crest,m.away),el('span',{textContent:m.away}),el('small',{className:'bnote',textContent:'Away'}))),
+    el('div',{className:'bchips',style:'justify-content:center;margin-top:10px'},m.competition?el('span',{textContent:m.competition}):el('span',{style:'display:none'}),m.date?el('span',{textContent:bday(m.date)+(m.kickoff?' · '+m.kickoff:'')}):el('span',{style:'display:none'}),
+      el('span',{className:'bbadge '+(m.status==='confirmed'?'ok':m.status==='played'?'warn':'warn'),textContent:m.status==='confirmed'?'Confirmed fixture':m.status==='played'?'Already played':m.status==='hypothetical'?'Hypothetical matchup':'Not identified',style:'cursor:default'})),
+    m.note?el('p',{className:'bnote',style:'text-align:center;margin:8px 0 0',textContent:m.note}):el('span'));
+  box.append(head);
+  const vc=r.verdict==='ok'?'ok':r.verdict==='weak'?'warn':'bad'; box.append(el('div',{className:'bverdict '+vc},el('b',{textContent:r.verdict==='insufficient'?'Insufficient evidence':r.verdict==='weak'?'Moderate evidence':'Evidence is sufficient'}),el('p',{style:'margin:4px 0 0',textContent:r.verdict_text||row.error||''})));
+  if(r.verdict==='insufficient'&&!(r.ranking||[]).length){ box.append(betFooter(row,r)); return; }
+  // best options
+  const best=el('div',{className:'bcard'},el('h2',{textContent:'Best prediction options'}),el('p',{className:'hint',textContent:'Ranked by estimated probability, among options the models have been checked on. Tap one to see how it was reached.'}));
+  (r.ranking||[]).forEach((o,i)=>best.append(betOption(o,i===0))); if(!(r.ranking||[]).length) best.append(el('p',{textContent:'No option reached a reliable level of evidence.'}));
+  if((r.weak_options||[]).length){ const d=el('details',{style:'margin-top:10px'},el('summary',{textContent:'Weaker evidence (shown for transparency, not recommended)'})); (r.weak_options||[]).forEach(o=>d.append(betOption(o,false))); best.append(d); }
+  box.append(best);
+  // model agreement
+  const top=(r.ranking||[])[0]; const mag=el('div',{className:'bcard'},el('h2',{textContent:'Individual model agreement'}),el('p',{className:'hint',textContent:'What each model said'+(top?' about “'+top.label+'”':'')+'. A model that could not run says why. These figures come from the running models.'}));
+  const tb=el('table',{className:'btbl'},el('tr',{},el('th',{textContent:'Model'}),el('th',{textContent:'Status'}),el('th',{textContent:top?top.label:'Result'}),el('th',{textContent:'Note'})));
+  for(const md of (r.models||[])){ const tm=top&&top.models&&(top.models[md.name]||top.models[md.key]); const p=tm?tm.probability:null; tb.append(el('tr',{},el('td',{textContent:md.name}),el('td',{},el('span',{className:'bbadge '+(md.status==='ok'?'ok':md.status==='disabled'?'warn':'bad'),textContent:md.status==='ok'?'Ran':md.status==='disabled'?'Switched off':md.status==='skipped'?'Not used here':md.status==='unavailable'?'Unavailable':'Error'})),el('td',{textContent:p!=null?bpct(p):'–'}),el('td',{className:'bnote',textContent:md.note||''}))); }
+  mag.append(el('div',{style:'overflow-x:auto'},tb)); box.append(mag);
+  // AI assessment
+  const ai=r.ai_review, ac=el('div',{className:'bcard'},el('h2',{textContent:'AI final assessment'}));
+  if(ai&&ai.ok){ ac.append(el('p',{className:'bnote',textContent:'Written by '+(ai.model||'Qwen')+' after reading the statistics and research. It cannot change any probability.'}),el('p',{textContent:ai.summary||'No summary.'}));
+    if((ai.uncertainties||[]).length) ac.append(el('b',{textContent:'Remaining uncertainties'}),el('ul',{},...ai.uncertainties.map(x=>el('li',{textContent:x}))));
+    if((ai.data_gaps||[]).length) ac.append(el('b',{textContent:'Missing information'}),el('ul',{},...ai.data_gaps.map(x=>el('li',{textContent:x}))));
+    if((ai.warnings||[]).length) ac.append(el('p',{className:'bnote',textContent:'Note: '+ai.warnings.join(' ')})); }
+  else ac.append(el('p',{textContent:(ai&&ai.reason)||'The AI review was not available for this analysis. The statistical results above are unaffected.'}));
+  box.append(ac);
+  box.append(betFacts(r)); 
+  const oth=r.other_markets||{}; if(oth.correct_score){ const oc=el('details',{className:'bcard'},el('summary',{textContent:'Correct score, Asian and European handicap',style:'cursor:pointer;font-weight:700'}),el('p',{className:'bnote',textContent:oth.note||''}),
+      el('b',{textContent:'Most likely correct scores'}),el('div',{className:'bchips',style:'margin:6px 0 10px'},...oth.correct_score.map(c=>el('span',{textContent:c.score+'  '+bpct(c.p),style:'cursor:default'}))));
+    const ah=el('table',{className:'btbl'},el('tr',{},el('th',{textContent:'Home handicap'}),el('th',{textContent:'Win'}),el('th',{textContent:'Push'}),el('th',{textContent:'Lose'}))); for(const [k,v] of Object.entries(oth.asian_handicap||{})) ah.append(el('tr',{},el('td',{textContent:k}),el('td',{textContent:bpct(v.win)}),el('td',{textContent:v.push?bpct(v.push):'–'}),el('td',{textContent:bpct(v.lose)})));
+    const eh=el('table',{className:'btbl'},el('tr',{},el('th',{textContent:'European handicap (home)'}),el('th',{textContent:'Home'}),el('th',{textContent:'Draw'}),el('th',{textContent:'Away'}))); for(const [k,v] of Object.entries(oth.european_handicap||{})) eh.append(el('tr',{},el('td',{textContent:k}),el('td',{textContent:bpct(v.home)}),el('td',{textContent:bpct(v.draw)}),el('td',{textContent:bpct(v.away)})));
+    oc.append(el('div',{style:'overflow-x:auto'},ah),el('div',{style:'overflow-x:auto;margin-top:8px'},eh)); box.append(oc); }
+  const res=r.research||{}; if((res.items||[]).length){ const rc=el('details',{className:'bcard'},el('summary',{textContent:'Research found on the web ('+res.items.length+')',style:'cursor:pointer;font-weight:700'}),el('p',{className:'bnote',textContent:res.note||'Unverified.'}));
+    for(const it of res.items){ const a=el('a',{href:/^https?:\/\//.test(it.url||'')?it.url:'#',target:'_blank',rel:'noopener noreferrer',textContent:it.title||it.url}); rc.append(el('div',{style:'margin:8px 0'},a,el('div',{className:'bnote',textContent:(it.snippet||'')}),el('div',{className:'bnote',textContent:it.source+' · retrieved '+dtm(it.retrieved_at)}))); } box.append(rc); }
+  if((r.missing||[]).length) box.append(el('div',{className:'bcard'},el('h3',{textContent:'What we could not know'}),el('ul',{},...r.missing.map(x=>el('li',{textContent:x})))));
+  box.append(betFooter(row,r));
+}
+function betOption(o,first){
+  const d=el('details',{className:'bopt'+(first?' first':'')}), ai=o.ai;
+  d.append(el('summary',{},el('span',{className:'rk',textContent:o.rank||'–'}),el('span',{className:'nm'},el('b',{textContent:o.label}),el('small',{textContent:o.group+' · '+(o.agreement?o.agreement.n_models+' model'+(o.agreement.n_models===1?'':'s'):'')+(ai&&ai.verdict&&ai.verdict!=='supported'?' · AI: '+ai.verdict:'')})),el('span',{style:'text-align:right'},el('span',{className:'pr',textContent:bpct(o.probability)}),el('div',{},relPill(o.reliability)))));
+  const bd=el('div',{className:'bd'}); bd.append(el('p',{style:'margin:0',textContent:o.explanation||''}));
+  if(o.usual_rate!=null) bd.append(el('p',{className:'bnote',style:'margin:0',textContent:'Estimated probability for this match: '+bpct(o.probability)+'. Usual rate in past matches: '+bpct(o.usual_rate)+'.'}));
+  if((o.reliability.reasons||[]).length) bd.append(el('p',{className:'bnote',style:'margin:0',textContent:'Cautions: '+o.reliability.reasons.join('; ')+'.'}));
+  const t=el('table',{},el('tr',{},el('th',{textContent:'Model'}),el('th',{textContent:'Its estimate'}),el('th',{textContent:'Weight in consensus'}))); for(const [k,v] of Object.entries(o.models||{})) t.append(el('tr',{},el('td',{textContent:k}),el('td',{textContent:bpct(v.probability)}),el('td',{textContent:bpct(v.weight)}))); bd.append(el('div',{style:'overflow-x:auto'},t));
+  if(Object.keys(o.excluded||{}).length) bd.append(el('p',{className:'bnote',style:'margin:0',textContent:'Left out of this market: '+Object.entries(o.excluded).map(([k,v])=>k+' ('+v.toLowerCase()+')').join('; ')+'.'}));
+  if(o.agreement) bd.append(el('p',{className:'bnote',style:'margin:0',textContent:'Agree: '+(o.agreement.agree.join(', ')||'none')+'. Disagree: '+(o.agreement.disagree.join(', ')||'none')+'. Overlap between similar models was discounted ('+o.agreement.corr_basis+').'}));
+  if((o.history||[]).length){ bd.append(el('b',{textContent:'Historical accuracy (a different thing from the probability above)'}));
+    for(const h of o.history) bd.append(el('div',{className:'bhist'},el('span',{textContent:h.model}),el('span',{className:'bnote',style:'text-align:right',textContent:bpct(h.accuracy)+' right on '+h.n+' past matches'+(h.acc_70!=null?'; '+bpct(h.acc_70)+' right when it said 70%+ ('+h.n_70+')':'')+'. '+bday(h.from)+' to '+bday(h.to)+'. Calibration error '+bpct(h.calibration_error)+'.'}))); }
+  else bd.append(el('p',{className:'bnote',style:'margin:0',textContent:'Not enough checked past predictions are available yet to show a historical accuracy for this market.'}));
+  if(ai){ bd.append(el('b',{textContent:'AI assessment: '+ai.verdict}),el('p',{style:'margin:0',textContent:ai.why||''})); if((ai.factors_for||[]).length) bd.append(el('div',{},el('b',{textContent:'Supports it: '}),el('span',{textContent:ai.factors_for.join('; ')}))); if((ai.factors_against||[]).length) bd.append(el('div',{},el('b',{textContent:'Weakens it: '}),el('span',{textContent:ai.factors_against.join('; ')}))); }
+  d.append(bd); return d;
+}
+function betFacts(r){
+  const f=r.facts||{}; if(!f.home) return el('span');
+  const side=(t,x)=>el('div',{},el('b',{textContent:t}),el('div',{className:'bres',style:'margin:6px 0'},...(x.last5||[]).map(g=>{ const b=el('b',{className:g.result,textContent:g.result}); b.title=(g.home?'vs ':'at ')+g.opp+' '+g.score+' ('+bday(g.date)+')'; return b; })),
+    el('div',{className:'bnote',textContent:'Rating '+x.rating+' · '+x.matches_on_record+' matches on record'}),el('div',{className:'bnote',textContent:'Points per game: '+(x.points_per_game_5??'–')+' (last 5), '+(x.points_per_game_10??'–')+' (last 10)'}),
+    el('div',{className:'bnote',textContent:'Goals for / against (last 10): '+(x.goals_for_10??'–')+' / '+(x.goals_against_10??'–')}),el('div',{className:'bnote',textContent:'Record '+x.venue_label+': '+(x.venue_points_per_game??'–')+' pts, '+(x.venue_goals_for??'–')+' for, '+(x.venue_goals_against??'–')+' against'}),x.shots_per_game?el('div',{className:'bnote',textContent:'Shots per game: '+x.shots_per_game}):el('span'));
+  const c=el('div',{className:'bcard'},el('h2',{textContent:'The evidence behind the numbers'}),el('div',{className:'bcols'},side(r.match.home,f.home),side(r.match.away,f.away)));
+  if(f.strength) c.append(el('p',{className:'bnote',style:'margin-top:10px',textContent:'Attack strength: '+r.match.home+' '+f.strength.home.attack+', '+r.match.away+' '+f.strength.away.attack+'. Defence weakness: '+f.strength.home.defence_weakness+' and '+f.strength.away.defence_weakness+'. '+(f.strength_note||'')}));
+  if(f.cross) c.append(el('p',{className:'bnote',textContent:'Cross-competition ratings ('+f.cross.source+'): '+f.cross.home_rating+' vs '+f.cross.away_rating+'. '+f.cross.note}));
+  if((r.head_to_head||[]).length) c.append(el('div',{style:'margin-top:8px'},el('b',{textContent:'Previous meetings: '}),el('span',{className:'bnote',textContent:r.head_to_head.map(h=>h.home+' '+h.score).join(' · ')})));
+  const dq=r.data_quality||{}; c.append(el('p',{className:'bnote',textContent:'Data completeness score: '+Math.round((dq.score||0)*100)+'/100 ('+(dq.home_matches||0)+' and '+(dq.away_matches||0)+' matches on record).'})); return c;
+}
+function betFooter(row,r){
+  const f=el('div',{className:'bcard'},el('p',{className:'bnote',style:'margin:0 0 10px',textContent:r.disclaimer||''})), bar=el('div',{className:'bfoot'}); const m=r.match||{};
+  const nb=el('button',{type:'button',className:'btn',textContent:'New analysis',style:'width:auto'}); nb.onclick=()=>{ BET.row=null; BET.tab='analyse'; betRender(); window.scrollTo(0,0); $('bet-scroll').scrollTop=0; };
+  const sv=el('button',{type:'button',className:'btn alt',textContent:row.saved?'Saved ✓':'Save this analysis',style:'width:auto'}); sv.onclick=async()=>{ try{ await rpc('fb_save_analysis',{p_id:row.id,p_saved:!row.saved}); row.saved=!row.saved; sv.textContent=row.saved?'Saved ✓':'Save this analysis'; }catch(e){ toast(e.message); } };
+  bar.append(nb,sv);
+  for(const t of [m.home,m.away]) if(t){ const b=el('button',{type:'button',className:'btn alt',textContent:(BET.fav.has(t)?'★ ':'☆ ')+t,style:'width:auto'}); b.onclick=async()=>{ try{ const on=await rpc('fb_toggle_favourite',{p_team:t,p_comp:null}); on?BET.fav.set(t,null):BET.fav.delete(t); b.textContent=(on?'★ ':'☆ ')+t; }catch(e){ toast(e.message); } }; bar.append(b); }
+  f.append(bar); return f;
+}
+async function betHistory(col){
+  const c=el('div',{className:'bcard'},el('h2',{textContent:'My analyses'}),el('p',{className:'hint ldg',textContent:'Loading'})); col.append(c);
+  const {data,error}=await sb.from('fb_analyses').select('id,home,away,status,created_at,saved,fixture_status,verdict:result->>verdict').order('created_at',{ascending:false}).limit(60);
+  c.querySelector('.ldg').remove(); if(error) return c.append(el('p',{textContent:'Could not load: '+error.message})); if(!data.length) return c.append(el('p',{className:'hint',textContent:'You have not analysed a match yet.'}));
+  for(const a of data){ const row=el('button',{type:'button',className:'bhrow',style:'margin:6px 0'},el('span',{},el('b',{textContent:a.home+' vs '+a.away}),el('div',{className:'bnote',textContent:dtm(a.created_at)+(a.fixture_status==='hypothetical'?' · hypothetical':'')})),el('span',{},a.saved?el('span',{textContent:'★ '}):el('span'),el('span',{className:'bbadge '+(a.status==='done'&&a.verdict!=='weak'?'ok':a.status==='failed'?'bad':'warn'),textContent:a.status==='insufficient'?'Insufficient':a.status==='done'?(a.verdict==='weak'?'Moderate':'Done'):a.status})));
+    row.onclick=async()=>{ const {data:full}=await sb.from('fb_analyses').select('*').eq('id',a.id).maybeSingle(); if(!full) return; BET.row=full; BET.tab='analyse'; if(['queued','running'].includes(full.status)) return betWatch(full.id); betRender(); $('bet-scroll').scrollTop=0; }; c.append(row); }
+  const del=el('p',{className:'hint',textContent:'Open an analysis to save it or add its teams to your favourites.'}); c.append(del);
+}
+async function betFav(col){
+  const c=el('div',{className:'bcard'},el('h2',{textContent:'Favourite teams'})); col.append(c);
+  if(!BET.fav.size) return c.append(el('p',{className:'hint',textContent:'You have no favourite teams yet. Open an analysis and press the ☆ next to a team.'}));
+  for(const [t] of BET.fav){ const b=el('button',{type:'button',className:'btn alt',textContent:'★ '+t+'  (remove)',style:'margin:4px 8px 4px 0;width:auto'}); b.onclick=async()=>{ try{ await rpc('fb_toggle_favourite',{p_team:t}); BET.fav.delete(t); betRender(); }catch(e){ toast(e.message); } }; c.append(b); }
+}
+{ const b=$('bet-entry'); if(b) b.onclick=betOpen; const bb=$('bet-back'); if(bb) bb.onclick=()=>{ betStop(); setTab('chats'); $('side').classList.add('open'); }; }
+
+/* =====================================================================
+   Installed app behaviour (only when launched from the home screen). Nothing here runs in a normal browser tab.
+   - the sidebar is a drawer: tap the dark area on the right, swipe it away, press Back, or open a chat to close it
+   - tapping the three dots, bell or any top button while it is open closes it and shows only your chat
+   - the page itself never scrolls; chats scroll on their own, and the message box rises with the keyboard
+   ===================================================================== */
+(function(){
+  const root=document.documentElement; if(!root.classList.contains('pwa')) return;
+  const side=$('side'), mq=matchMedia('(max-width:760px)'); if(!side) return;
+  const scrim=document.createElement('div'); scrim.id='pwa-scrim'; scrim.setAttribute('aria-hidden','true'); document.body.append(scrim);
+  let pushed=false;
+  const isOpen=()=>side.classList.contains('open')&&mq.matches;
+  const close=()=>side.classList.remove('open');
+  function sync(){
+    const open=isOpen(); root.classList.toggle('pwa-drawer',open);
+    if(open&&!pushed){ try{ history.pushState({garoDrawer:1},'',location.href); pushed=true; }catch{} }
+    else if(!open&&pushed){ pushed=false; try{ if(history.state&&history.state.garoDrawer) history.back(); }catch{} }
+    side.setAttribute('aria-hidden',String(mq.matches&&!open)); if('inert' in side) side.inert=mq.matches&&!open;
+  }
+  new MutationObserver(sync).observe(side,{attributes:true,attributeFilter:['class']}); mq.addEventListener&&mq.addEventListener('change',sync); sync();
+  addEventListener('popstate',()=>{ if(pushed){ pushed=false; close(); } });
+  /* tap on the right-hand side: close the drawer, and if the tap was on a header button (three dots, bell...) press it too */
+  scrim.addEventListener('click',e=>{
+    e.stopPropagation(); const x=e.clientX,y=e.clientY; close(); scrim.style.pointerEvents='none';
+    const t=document.elementFromPoint(x,y); setTimeout(()=>{ scrim.style.pointerEvents=''; },0);
+    const b=t&&t.closest&&t.closest('.top button,.gtop button,.top select'); if(b&&!b.disabled) b.click();
+  });
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&isOpen()) close(); });
+  /* swipe: from the left edge to open, anywhere to the left to close, following the finger */
+  const EDGE=48; let sx=0,sy=0,dx=0,mode=null,wasOpen=false,w=300;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  document.addEventListener('touchstart',e=>{
+    if(!mq.matches||e.touches.length!==1){ mode=null; return; } const t=e.touches[0]; sx=t.clientX; sy=t.clientY; dx=0; wasOpen=isOpen();
+    const tag=(e.target.closest&&e.target.closest('textarea,input,select,pre,code,table,.sbx,[data-noswipe]'))?1:0;
+    mode=!tag&&((!wasOpen&&sx<=EDGE)||wasOpen)?'maybe':null; w=side.offsetWidth||300;
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(!mode) return; const t=e.touches[0]; dx=t.clientX-sx; const dy=t.clientY-sy;
+    if(mode==='maybe'){ if(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)*1.4) mode='drag'; else if(Math.abs(dy)>10){ mode=null; return; } }
+    if(mode==='drag'){ const pos=wasOpen?clamp(dx,-w,0):clamp(dx-w,-w,0); side.style.transition='none'; side.style.transform='translate3d('+pos+'px,0,0)'; scrim.style.transition='none'; scrim.style.visibility='visible'; scrim.style.opacity=String(1+pos/w); }
+  },{passive:true});
+  const endDrag=()=>{
+    if(mode==='drag'){ side.style.transition=''; side.style.transform=''; scrim.style.transition=''; scrim.style.opacity=''; scrim.style.visibility='';
+      const open=wasOpen?dx>-w*0.28:dx>w*0.28; side.classList.toggle('open',open); sync(); }
+    mode=null;
+  };
+  document.addEventListener('touchend',endDrag,{passive:true}); document.addEventListener('touchcancel',endDrag,{passive:true});
+  /* the page never scrolls by itself; the message area does */
+  const scroller=()=>{ for(const id of ['msgs','gmsgs','dmmsgs','a-msgs']){ const n=$(id); if(n&&n.offsetParent!==null) return n; } return null; };
+  const near=(n,slack)=>n.scrollHeight-n.scrollTop-n.clientHeight<=slack;
+  const vv=window.visualViewport; let lastH=vv?vv.height:innerHeight;
+  const fit=()=>{ const h=vv?vv.height:innerHeight; root.style.setProperty('--vvh',Math.round(h)+'px'); const n=scroller(), grew=lastH-h; if(n&&grew>60&&near(n,grew+140)) requestAnimationFrame(()=>{ n.scrollTop=n.scrollHeight; }); lastH=h; if(document.scrollingElement) document.scrollingElement.scrollTop=0; };
+  if(vv){ vv.addEventListener('resize',fit); vv.addEventListener('scroll',()=>{ if(document.scrollingElement) document.scrollingElement.scrollTop=0; }); } addEventListener('resize',fit); fit();
+  document.addEventListener('focusin',e=>{ if(!e.target.matches||!e.target.matches('textarea,input')) return; if(isOpen()) close(); setTimeout(()=>{ const n=scroller(); if(n&&near(n,260)) n.scrollTop=n.scrollHeight; },320); });
+  addEventListener('offline',()=>{ try{ toast('You are offline. Messages will not send until you reconnect.'); }catch{} });
+  addEventListener('online',()=>{ try{ toast('Back online'); }catch{} });
+})();
+
+/* installable app: a tiny service worker (no account data is ever cached) */
+try{ if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }catch{}
 </script>
 </body>
 </html>
