@@ -1,5 +1,11 @@
-# GARO AI
+# Digaro24-ux.github.io
 
-Landing page and live status check for my private, self-hosted AI server.
+## Overview
 
-© 2026 GARO AI. All rights reserved. Unlicensed use or duplication is strictly prohibited.
+This repository serves as the root GitHub Pages namespace for [`Digaro24-ux`](https://github.com/Digaro24-ux) (`https://digaro24-ux.github.io/`). It is retained to preserve the default user Pages repository structure on GitHub.
+
+## Repository Structure
+
+```text
+.
+└── README.md
