@@ -1,0 +1,120 @@
+# =========================================================
+# GARO AI .gitignore
+# Static site (GitHub Pages) + Supabase / Oracle / Cloudflare
+# =========================================================
+
+# ---------- SECRETS (never commit these) ----------
+.env
+.env.*
+!.env.example
+*.env
+secrets/
+secret*.json
+*secret*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.ppk
+# Supabase service_role key, Cloudflare API tokens, Oracle keys
+service-account*.json
+credentials*.json
+config.local.*
+.dev.vars
+.wrangler/
+oci_api_key*
+*.oci
+
+# ---------- Backend / server files kept off the public repo ----------
+# (your Oracle server code, SearXNG / YaCy configs, docker data)
+server/
+backend/
+searxng/
+yacy/
+docker-compose.override.yml
+*.sqlite
+*.sqlite3
+*.db
+*.sql.bak
+supabase/.temp/
+supabase/.branches/
+
+# ---------- Node / build tools ----------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.bak
+.npm/
+.cache/
+.parcel-cache/
+.vercel/
+.netlify/
+dist/
+build/
+.next/
+coverage/
+
+# ---------- Python (if you use scripts for the server) ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# ---------- Logs and temp files ----------
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.orig
+*.rej
+*~
+
+# ---------- Old copies / downloads of your pages ----------
+# (e.g. index_1.html, index__5_.html from re-downloads)
+index_[0-9]*.html
+index__*_.html
+index (*).html
+*_old.html
+*-old.html
+*_backup.html
+*.zip
+*.rar
+*.7z
+
+# ---------- Editors and IDEs ----------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+.project
+.settings/
+
+# ---------- Operating system files ----------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ---------- Keep these (needed by GitHub Pages) ----------
+# Do NOT ignore: index.html, terms.html, privacy.html, site.webmanifest,
+# favicon.ico, favicon-*.png, apple-touch-icon.png, garoai-*.png,
+# CNAME, robots.txt, sitemap.xml, google*.html
